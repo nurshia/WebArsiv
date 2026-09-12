@@ -21,7 +21,12 @@ GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
     ├── pricing.html
     ├── contact.html
     ├── status.html
+    ├── style.css
+    ├── script.js
+    ├── navbar.js
+    ├── protect.js
     └── legal/
+        ├── legal.css
         ├── privacy.html
         ├── terms.html
         ├── kvkk.html
@@ -47,8 +52,9 @@ Sonra tarayıcıdan `http://localhost:4321` adresini aç.
 
 ## Notlar
 
-- `swenzy.com.tr/script.js` içindeki devtools/sağ tık koruması `github.io`, `localhost`
-  ve iframe ortamlarında otomatik olarak devre dışı kalır. Gerçek domainde çalışmaya
-  devam eder.
-- `legal/` altındaki dökümanlarda sarı ile işaretli `[köşeli parantez]` alanlar
-  doldurulmayı bekliyor (şirket ünvanı, adres, e-posta, yetkili şehir).
+- Sayfaların tamamı canlı siteden (`swenzy.com.tr`) alındı; içerik birebir aynı.
+- `swenzy.com.tr/protect.js` içindeki **domain kilidi**, **Cloudflare Turnstile**
+  doğrulaması ve devtools/sağ tık korumaları `github.io`, `localhost` ve iframe
+  ortamlarında otomatik devre dışı kalır. Gerçek domainde hepsi eskisi gibi çalışır.
+- `contact.html` formu Formspree'ye (`formspree.io/f/moeqwpyk`) gidiyor — demo
+  üzerinden gönderilen mesajlar da gerçek gelen kutusuna düşer.

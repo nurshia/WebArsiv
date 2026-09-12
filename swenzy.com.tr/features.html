@@ -1,268 +1,479 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- © SwenzyBots 2026 — swenzy.com.tr — Original design. Unauthorized copying is prohibited. -->
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Özellikler — SwenzyBots</title>
-  <meta name="description" content="SwenzyBots bot özelliklerinin tam listesi: ticket, guard, moderasyon, mülakat ve web panel." />
+  <meta name="description" content="SwenzyBots özelliklerini keşfedin: mülakat, moderasyon, guard, ticket ve log botları." />
 
+  <!-- Favicon -->
   <link rel="icon" type="image/webp" href="swenzy_logo.webp" />
   <link rel="apple-touch-icon" href="swenzy_logo.png" />
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Özellikler | SwenzyBots" />
-  <meta property="og:description" content="SwenzyBots bot özelliklerinin tam listesi: ticket, guard, moderasyon, mülakat ve web panel." />
+  <meta property="og:url" content="https://swenzy.com.tr/features.html" />
+  <meta property="og:title" content="Özellikler — SwenzyBots" />
+  <meta property="og:description" content="Mülakat, moderasyon, koruma ve ticket sistemlerini tek pakette keşfedin." />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image" content="https://swenzy.com.tr/swenzy_logo.png" />
-  <meta property="og:locale" content="tr_TR" />
   <meta property="og:site_name" content="SwenzyBots" />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Özellikler | SwenzyBots" />
-  <meta name="twitter:description" content="SwenzyBots bot özelliklerinin tam listesi: ticket, guard, moderasyon, mülakat ve web panel." />
   <meta name="twitter:image" content="https://swenzy.com.tr/swenzy_logo.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script>
   (function(){try{var t=localStorage.getItem('swenzy_theme')||'system';var d='dark';if(t==='light')d='light';else if(t==='dark')d='dark';else{try{if(window.matchMedia('(prefers-color-scheme: light)').matches)d='light'}catch(e){}}document.documentElement.setAttribute('data-theme',d);}catch(e){}})();
   </script>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <style>
+    :root {
+      --bg:#000;--card:#080808;--nav-bg:rgba(10,10,10,.85);--fg:#fff;
+      --fg-dim:rgba(255,255,255,.55);--fg-muted:#555;--fg-muted2:#444;--fg-muted3:#333;--fg-muted4:#2a2a2a;
+      --fg-soft:rgba(255,255,255,.7);--fg-soft2:rgba(255,255,255,.6);
+      --border:rgba(255,255,255,.08);--border-soft:rgba(255,255,255,.06);--border-divider:rgba(255,255,255,.05);
+      --border-btn:rgba(255,255,255,.12);--border-btn-strong:rgba(255,255,255,.25);
+      --nav-hover:rgba(255,255,255,.07);--row-bg:rgba(255,255,255,.03);
+      --btn-bg:#fff;--btn-fg:#000;--btn-bg-hover:#e2e2e2;
+      --btn-2-bg:rgba(255,255,255,.06);--btn-2-bdr:rgba(255,255,255,.1);
+    }
+    [data-theme="light"] {
+      --bg:#f7f7f8;--card:#ffffff;--nav-bg:rgba(255,255,255,.92);--fg:#0a0a0a;
+      --fg-dim:rgba(10,10,10,.6);--fg-muted:#6b7280;--fg-muted2:#6b7280;--fg-muted3:#6b7280;--fg-muted4:#6b7280;
+      --fg-soft:rgba(10,10,10,.78);--fg-soft2:rgba(10,10,10,.6);
+      --border:rgba(10,10,10,.1);--border-soft:rgba(10,10,10,.08);--border-divider:rgba(10,10,10,.08);
+      --border-btn:rgba(10,10,10,.14);--border-btn-strong:rgba(10,10,10,.25);
+      --nav-hover:rgba(10,10,10,.06);--row-bg:rgba(10,10,10,.04);
+      --btn-bg:#0a0a0a;--btn-fg:#fff;--btn-bg-hover:#2a2a2a;
+      --btn-2-bg:rgba(10,10,10,.06);--btn-2-bdr:rgba(10,10,10,.12);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body {
+      background: var(--bg); color: var(--fg);
+      font-family: 'Inter', -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      transition: background .3s ease, color .3s ease;
+    }
+    html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+    body { opacity:0; transform:translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+    body.loaded { opacity:1; transform:translateY(0); }
+
+    /* NAV */
+    .nav {
+      position: fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; justify-content:center; padding:14px 20px;
+    }
+    .nav-inner {
+      width:100%; max-width:1100px; display:flex; align-items:center;
+      justify-content:space-between; padding:12px 28px;
+      background:var(--nav-bg); border-radius:100px;
+      border:1px solid var(--border); backdrop-filter:blur(20px);
+      transition: background .3s ease, border-color .3s ease;
+    }
+    .nav-logo { display:flex; align-items:center; gap:9px; text-decoration:none; font-size:15px; font-weight:700; color:var(--fg); }
+    .nav-logo img { border-radius:8px; }
+    .nav-links { display:flex; align-items:center; gap:2px; flex:1; justify-content:center; }
+    .nav-links a { color:var(--fg-dim); text-decoration:none; font-size:14px; font-weight:500; padding:6px 13px; border-radius:6px; transition:color .2s, background .2s; }
+    .nav-links a:hover { color:var(--fg); background:var(--nav-hover); }
+    .nav-btn { background:var(--btn-bg); color:var(--btn-fg); text-decoration:none; font-size:13px; font-weight:700; padding:9px 18px; border-radius:50px; transition:background .2s; }
+    .nav-btn:hover { background:var(--btn-bg-hover); }
+
+    /* HERO */
+    .hero { padding: 140px 24px 80px; text-align:center; }
+    .hero-badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#5865F2; background:rgba(88,101,242,.1); border:1px solid rgba(88,101,242,.2); padding:4px 14px; border-radius:50px; margin-bottom:20px; }
+    .hero h1 { font-size:clamp(32px,6vw,64px); font-weight:800; letter-spacing:-2px; line-height:1.05; max-width:800px; margin:0 auto 20px; }
+    .hero p { font-size:16px; color:var(--fg-muted); max-width:520px; margin:0 auto 36px; line-height:1.7; }
+    .hero-btns { display:flex; gap:12px; justify-content:center; }
+    .btn-primary { background:var(--btn-bg); color:var(--btn-fg); text-decoration:none; font-size:14px; font-weight:700; padding:13px 26px; border-radius:50px; transition:background .2s, transform .15s; }
+    .btn-primary:hover { background:var(--btn-bg-hover); transform:translateY(-1px); }
+    .btn-ghost { background:transparent; color:var(--fg-soft); text-decoration:none; font-size:14px; font-weight:500; padding:13px 26px; border-radius:50px; border:1px solid var(--border-btn); transition:border-color .2s, color .2s; }
+    .btn-ghost:hover { border-color:var(--border-btn-strong); color:var(--fg); }
+
+    /* SECTIONS */
+    .section { padding:80px 0; }
+    .container { max-width:1100px; margin:0 auto; padding:0 24px; }
+    .section-title { font-size:clamp(24px,4vw,42px); font-weight:800; letter-spacing:-1px; text-align:center; margin-bottom:12px; }
+    .section-sub { font-size:15px; color:var(--fg-muted); text-align:center; max-width:500px; margin:0 auto 60px; line-height:1.7; }
+
+    /* FEATURE ROWS */
+    .feature-row {
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+      margin-bottom:80px; padding-bottom:80px;
+      border-bottom:1px solid var(--border-divider);
+    }
+    .feature-row:last-child { border-bottom:none; margin-bottom:0; }
+    .feature-row.reverse { direction:rtl; }
+    .feature-row.reverse > * { direction:ltr; }
+    .feature-tag { font-size:10px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#5865F2; margin-bottom:10px; }
+    .feature-num { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--fg-muted3); margin-right:8px; }
+    .feature-row h3 { font-size:clamp(20px,3vw,30px); font-weight:700; letter-spacing:-.5px; margin-bottom:14px; line-height:1.2; }
+    .feature-row p { font-size:14px; color:var(--fg-muted); line-height:1.75; margin-bottom:24px; }
+    .feature-btns { display:flex; gap:10px; flex-wrap:wrap; }
+    .feature-btns a { font-size:13px; font-weight:600; text-decoration:none; padding:9px 18px; border-radius:50px; transition:background .2s, transform .15s; }
+    .fb-primary { background:var(--btn-bg); color:var(--btn-fg); }
+    .fb-primary:hover { background:var(--btn-bg-hover); transform:translateY(-1px); }
+    .fb-ghost { background:transparent; color:var(--fg-soft2); border:1px solid var(--border-btn); }
+    .fb-ghost:hover { color:var(--fg); border-color:var(--border-btn-strong); }
+
+    /* MOCKUP CARDS */
+    .mockup {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; overflow:hidden;
+      transition: background .3s ease, border-color .3s ease;
+    }
+    .mockup-header {
+      padding:12px 16px; border-bottom:1px solid var(--border-soft);
+      display:flex; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    }
+    .mockup-dot { width:8px; height:8px; border-radius:50%; }
+    .mockup-body { padding:16px; }
+    .mockup-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 12px; border-radius:8px; background:var(--row-bg);
+      margin-bottom:6px; font-size:13px;
+    }
+    .mockup-row:last-child { margin-bottom:0; }
+    .tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; }
+    .tag-green { background:rgba(74,222,128,.15); color:#4ade80; }
+    .tag-blue { background:rgba(88,101,242,.15); color:#818cf8; }
+    .tag-orange { background:rgba(249,115,22,.15); color:#fb923c; }
+    .tag-purple { background:rgba(168,85,247,.15); color:#c084fc; }
+    .toggle {
+      width:36px; height:20px; border-radius:10px; position:relative;
+      background:#22c55e; display:inline-block; flex-shrink:0;
+    }
+    .toggle::after { content:''; position:absolute; width:16px; height:16px; border-radius:50%; background:var(--btn-bg); top:2px; right:2px; }
+    .toggle.off { background:var(--fg-muted4); }
+    .toggle.off::after { right:auto; left:2px; }
+
+    /* SECTION DIVIDERS */
+    .sec-header { text-align:center; padding:60px 0 20px; }
+    .sec-header h2 { font-size:clamp(24px,4vw,40px); font-weight:800; letter-spacing:-1px; max-width:600px; margin:0 auto 12px; }
+    .sec-header p { font-size:15px; color:var(--fg-muted); max-width:480px; margin:0 auto; line-height:1.7; }
+
+    /* FOOTER */
+    .footer { border-top:1px solid var(--border-soft); background:var(--bg); padding:48px 0 24px; margin-top:80px; transition: background .3s ease, border-color .3s ease; }
+    .footer-inner { max-width:1100px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--fg-muted3); }
+    .footer-inner a { color:var(--fg-muted2); text-decoration:none; transition:color .2s; }
+    .footer-inner a:hover { color:var(--fg); }
+    .footer-links { display:flex; gap:20px; }
+
+    @media (max-width:768px) {
+      .feature-row { grid-template-columns:1fr; gap:32px; }
+      .feature-row.reverse { direction:ltr; }
+      .nav-links { display:none; }
+      .hero { padding:120px 20px 60px; }
+      .hero-btns { flex-direction:column; align-items:center; }
+    }
+  </style>
 </head>
 <body>
 
-  <header id="navbar-wrapper">
-    <div id="nav-bar">
+  <nav class="nav">
+    <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <img src="swenzy.webp" alt="SwenzyBots" width="32" height="32" style="border-radius:8px;">
-        <span class="logo-text">SwenzyBots</span>
+        <img src="swenzy.webp" alt="" width="28" height="28">
+        SwenzyBots
       </a>
-      <nav class="nav-links">
+      <div class="nav-links">
         <a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
-        <a href="features.html" aria-current="page" data-tr="Özellikler" data-en="Features">Özellikler</a>
+        <a href="features.html" style="color:var(--fg)" data-tr="Özellikler" data-en="Features">Özellikler</a>
         <a href="pricing.html" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
         <a href="contact.html" data-tr="İletişim" data-en="Contact">İletişim</a>
-      </nav>
-      <div class="nav-right">
-        <div class="nav-lang-dropdown" id="navLangDropdown">
-          <button class="lang-btn" onclick="toggleNavLang()">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-            <span id="langText">TR</span>
-            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="nav-lang-menu" id="navLangMenu">
-            <button onclick="setLang('tr')">🇹🇷 Türkçe</button>
-            <button onclick="setLang('en')">🇬🇧 English</button>
-          </div>
-        </div>
-        <a href="https://discord.gg/development" target="_blank" class="discord-btn">
-          <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="#5865F2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
-          </svg>
-          Sunucumuz
-        </a>
-        <button class="hamburger" id="hamburgerBtn" aria-label="Menüyü aç">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="3" y1="6" x2="21" y2="6"/>
-            <line x1="3" y1="12" x2="21" y2="12"/>
-            <line x1="3" y1="18" x2="21" y2="18"/>
-          </svg>
-        </button>
       </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-right:10px;">
+        <button id="langToggle" style="background:var(--btn-2-bg);color:var(--fg);border:1px solid var(--btn-2-bdr);padding:6px 12px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">TR</button>
+      </div>
+      <a href="https://discord.gg/development" target="_blank" class="nav-btn" style="display:flex;align-items:center;gap:7px;">
+        <svg width="16" height="16" viewBox="0 0 127.14 96.36" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+        Sunucumuz
+      </a>
     </div>
-  </header>
+  </nav>
 
-  <div class="mobile-menu" id="mobileMenu">
-    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Kapat">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-    <a href="index.html" onclick="closeMobileMenu()" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
-    <a href="features.html" aria-current="page" onclick="closeMobileMenu()" data-tr="Özellikler" data-en="Features">Özellikler</a>
-    <a href="pricing.html" onclick="closeMobileMenu()" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
-    <a href="contact.html" onclick="closeMobileMenu()" data-tr="İletişim" data-en="Contact">İletişim</a>
-    <a href="https://discord.gg/development" target="_blank" onclick="closeMobileMenu()" class="mobile-discord" data-tr="Discord Sunucumuz" data-en="Our Discord Server">Discord Sunucumuz</a>
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-badge" data-tr="Full Bot Paketi" data-en="Full Bot Package">Full Bot Paketi</span>
+    <h1 data-tr="Sunucunu uçtan uca yöneten botlar, tek panel" data-en="Bots that manage your server end-to-end, in one panel">Sunucunu uçtan uca yöneten botlar, tek panel</h1>
+    <p data-tr="Mülakat, moderasyon, koruma ve destek — hepsi birbirine bağlı çalışır, hepsini Discord'dan kurarsın." data-en="Interview, moderation, protection and support — all work connected, set it all up from Discord.">Mülakat, moderasyon, koruma ve destek — hepsi birbirine bağlı çalışır, hepsini Discord'dan kurarsın.</p>
+    <div class="hero-btns">
+      <a href="pricing.html" class="btn-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+      <a href="https://discord.gg/development" target="_blank" class="btn-ghost" data-tr="Discord'a Katıl" data-en="Join Discord">Discord'a Katıl</a>
+    </div>
   </div>
 
-
-  <section class="page-head">
+  <!-- MÜLAKAT -->
+  <div class="sec-header">
     <div class="container">
-      <h1 class="page-title reveal" data-tr="Özellikler" data-en="Features">Özellikler</h1>
-      <p class="page-sub reveal reveal-delay-1" data-tr="SwenzyBots ile sunucunda neler yapabileceğinin tam listesi." data-en="The full list of what you can do on your server with SwenzyBots.">SwenzyBots ile sunucunda neler yapabileceğinin tam listesi.</p>
+      <h2 data-tr="Oyuncu kabulünden moderasyona, sunucunun kalbi" data-en="From player acceptance to moderation, the heart of your server">Oyuncu kabulünden moderasyona, sunucunun kalbi</h2>
+      <p data-tr="Yeni oyuncuların kabulü, ceza ve moderasyon, kayıt tutma ve canlı sunucu durumu — günlük operasyonun tamamı tek bottan yürür." data-en="New player acceptance, punishments and moderation, record-keeping and live server status — complete daily operations from a single bot.">Yeni oyuncuların kabulü, ceza ve moderasyon, kayıt tutma ve canlı sunucu durumu — günlük operasyonun tamamı tek bottan yürür.</p>
     </div>
-  </section>
+  </div>
+
   <section class="section">
     <div class="container">
-      <div class="bento-grid">
-        <div class="bento-card bento-wide reveal reveal-delay-1">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-          <h3 data-tr="Gelişmiş ticket sistemi" data-en="Advanced ticket system">Gelişmiş ticket sistemi</h3>
-          <p data-tr="Kategorili ticket açma, yetkili atama, otomatik kapatma ve tam transkript kaydı. Tüm destek trafiği tek panelden yönetilir." data-en="Categorized tickets, staff assignment, auto-close and full transcript logging. All support traffic from one panel.">Kategorili ticket açma, yetkili atama, otomatik kapatma ve tam transkript kaydı. Tüm destek trafiği tek panelden yönetilir.</p>
+
+      <div class="feature-row">
+        <div>
+          <p class="feature-tag"><span class="feature-num">01</span> <span data-tr="Mülakat / Whitelist" data-en="Interview / Whitelist">Mülakat / Whitelist</span></p>
+          <h3 data-tr="Yeni oyuncuları sesli mülakatla kabul et" data-en="Accept new players with voice interview">Yeni oyuncuları sesli mülakatla kabul et</h3>
+          <p data-tr="Başvuran oyuncular otomatik açılan sesli mülakat odasına alınır; verdikleri cevaplara göre 'kabul edildi' rolü ve kanalları bot tarafından atanır." data-en="Applicants are taken to an auto-created voice interview room; based on answers, the 'accepted' role and channels are assigned by the bot.">Başvuran oyuncular otomatik açılan sesli mülakat odasına alınır; verdikleri cevaplara göre 'kabul edildi' rolü ve kanalları bot tarafından atanır.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
         </div>
-        <div class="bento-card reveal reveal-delay-2">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <h3 data-tr="Guard & koruma katmanı" data-en="Guard & protection layer">Guard & koruma katmanı</h3>
-          <p data-tr="Ani rol/kanal silme, toplu ban ve webhook saldırılarına karşı anlık müdahale." data-en="Instant response against mass role/channel deletion, mass bans and webhook attacks.">Ani rol/kanal silme, toplu ban ve webhook saldırılarına karşı anlık müdahale.</p>
-        </div>
-        <div class="bento-card reveal reveal-delay-3">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
-          <h3 data-tr="Mülakat ve başvuru akışı" data-en="Interview & application flow">Mülakat ve başvuru akışı</h3>
-          <p data-tr="Form tabanlı başvuru, otomatik rol verme ve değerlendirme kuyruğu." data-en="Form-based applications, automatic role assignment and a review queue.">Form tabanlı başvuru, otomatik rol verme ve değerlendirme kuyruğu.</p>
-        </div>
-        <div class="bento-card reveal reveal-delay-4">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-          <h3 data-tr="Otomatik moderasyon" data-en="Automatic moderation">Otomatik moderasyon</h3>
-          <p data-tr="Spam, reklam, küfür ve link filtreleri; kademeli ceza sistemi ve uyarı geçmişi." data-en="Spam, ad, profanity and link filters; escalating punishments and warning history.">Spam, reklam, küfür ve link filtreleri; kademeli ceza sistemi ve uyarı geçmişi.</p>
-        </div>
-        <div class="bento-card reveal reveal-delay-1">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-          <h3 data-tr="Transkript ve denetim kaydı" data-en="Transcript & audit log">Transkript ve denetim kaydı</h3>
-          <p data-tr="Her ticket ve yetkili işlemi kayıt altına alınır, sonradan aranabilir." data-en="Every ticket and staff action is logged and searchable afterwards.">Her ticket ve yetkili işlemi kayıt altına alınır, sonradan aranabilir.</p>
-        </div>
-        <div class="bento-card bento-wide reveal reveal-delay-2">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <h3 data-tr="Web panel kontrolü" data-en="Web panel control">Web panel kontrolü</h3>
-          <p data-tr="Botun tüm ayarlarını tarayıcıdan yönet — komut ezberlemeye gerek yok. Değişiklikler anında uygulanır." data-en="Manage every bot setting from your browser — no commands to memorize. Changes apply instantly.">Botun tüm ayarlarını tarayıcıdan yönet — komut ezberlemeye gerek yok. Değişiklikler anında uygulanır.</p>
-        </div>
-        <div class="bento-card reveal reveal-delay-3">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-          <h3 data-tr="Bildirim entegrasyonları" data-en="Notification integrations">Bildirim entegrasyonları</h3>
-          <p data-tr="YouTube, Twitch ve RSS kaynaklarından otomatik duyuru." data-en="Automatic announcements from YouTube, Twitch and RSS sources.">YouTube, Twitch ve RSS kaynaklarından otomatik duyuru.</p>
-        </div>
-        <div class="bento-card reveal reveal-delay-4">
-          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-          <h3 data-tr="Türkçe & İngilizce" data-en="Turkish & English">Türkçe & İngilizce</h3>
-          <p data-tr="Bot arayüzü ve tüm mesajlar iki dilde; sunucuna göre seçilir." data-en="Bot interface and all messages in two languages; picked per server.">Bot arayüzü ve tüm mesajlar iki dilde; sunucuna göre seçilir.</p>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#5865F2"></span>
+            <span data-tr="Başvuru Sistemi" data-en="Application System">Başvuru Sistemi</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span data-tr="Ahmet K. — Başvuru" data-en="Ahmet K. — Application">Ahmet K. — Başvuru</span><span class="tag tag-green" data-tr="Kabul Edildi" data-en="Accepted">Kabul Edildi</span></div>
+            <div class="mockup-row"><span data-tr="Mehmet Y. — Mülakat" data-en="Mehmet Y. — Interview">Mehmet Y. — Mülakat</span><span class="tag tag-blue" data-tr="Beklemede" data-en="Pending">Beklemede</span></div>
+            <div class="mockup-row"><span data-tr="Ayşe S. — Başvuru" data-en="Ayşe S. — Application">Ayşe S. — Başvuru</span><span class="tag tag-orange" data-tr="İnceleniyor" data-en="Under Review">İnceleniyor</span></div>
+            <div class="mockup-row"><span data-tr="Can D. — Mülakat" data-en="Can D. — Interview">Can D. — Mülakat</span><span class="tag tag-green" data-tr="Kabul Edildi" data-en="Accepted">Kabul Edildi</span></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="cta-box reveal">
-        <h2 data-tr="Sunucunu bir üst seviyeye taşı" data-en="Take your server to the next level">Sunucunu bir üst seviyeye taşı</h2>
-        <p data-tr="Discord sunucumuzdan ticket aç, dakikalar içinde kuralım." data-en="Open a ticket on our Discord and we will set it up in minutes.">Discord sunucumuzdan ticket aç, dakikalar içinde kuralım.</p>
-        <a href="https://discord.gg/development" target="_blank" rel="noopener" class="cta-btn-large" data-tr="Discord'a Katıl" data-en="Join Discord">Discord'a Katıl</a>
+
+      <div class="feature-row reverse">
+        <div>
+          <p class="feature-tag"><span class="feature-num">02</span> <span data-tr="Moderasyon" data-en="Moderation">Moderasyon</span></p>
+          <h3 data-tr="Sunucunu düzenli tutan moderasyon komutları" data-en="Moderation commands that keep your server organized">Sunucunu düzenli tutan moderasyon komutları</h3>
+          <p data-tr="Uyarıdan kara listeye, ban/kick takibinden ceza kayıtlarına; tek panelden yönetilen kademeli moderasyon." data-en="From warnings to blacklists, ban/kick tracking to punishment records; tiered moderation managed from one panel.">Uyarıdan kara listeye, ban/kick takibinden ceza kayıtlarına; tek panelden yönetilen kademeli moderasyon.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#ef4444"></span>
+            <span data-tr="Moderasyon Komutları" data-en="Moderation Commands">Moderasyon Komutları</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span data-tr="/warn @kullanici" data-en="/warn @user">/warn @kullanici</span><span class="tag tag-orange" data-tr="Uyarı" data-en="Warning">Uyarı</span></div>
+            <div class="mockup-row"><span data-tr="/mute @kullanici 1h" data-en="/mute @user 1h">/mute @kullanici 1h</span><span class="tag tag-blue" data-tr="Mute" data-en="Mute">Mute</span></div>
+            <div class="mockup-row"><span data-tr="/ban @kullanici" data-en="/ban @user">/ban @kullanici</span><span class="tag tag-orange" data-tr="Ban" data-en="Ban">Ban</span></div>
+            <div class="mockup-row"><span data-tr="/history @kullanici" data-en="/history @user">/history @kullanici</span><span class="tag tag-green" data-tr="Geçmiş" data-en="History">Geçmiş</span></div>
+          </div>
+        </div>
       </div>
+
+      <div class="feature-row">
+        <div>
+          <p class="feature-tag"><span class="feature-num">03</span> <span data-tr="Loglama" data-en="Logging">Loglama</span></p>
+          <h3 data-tr="Her hareketi şık log kartlarına yaz" data-en="Log every action in sleek log cards">Her hareketi şık log kartlarına yaz</h3>
+          <p data-tr="Üye giriş/çıkışları, rol ve isim değişiklikleri, düzenlenen mesajlar ve ses kanalı hareketleri otomatik olarak ayrı kanallara düşer." data-en="Member joins/leaves, role and name changes, edited messages and voice channel activity automatically go to separate channels.">Üye giriş/çıkışları, rol ve isim değişiklikleri, düzenlenen mesajlar ve ses kanalı hareketleri otomatik olarak ayrı kanallara düşer.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#22c55e"></span>
+            <span data-tr="Sunucu Günlüğü" data-en="Server Log">Sunucu Günlüğü</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span data-tr="👤 Üye katıldı" data-en="👤 Member joined">👤 Üye katıldı</span><span style="font-size:11px;color:var(--fg-muted2)" data-tr="2dk" data-en="2min">2dk</span></div>
+            <div class="mockup-row"><span data-tr="🎭 Rol verildi" data-en="🎭 Role added">🎭 Rol verildi</span><span style="font-size:11px;color:var(--fg-muted2)" data-tr="5dk" data-en="5min">5dk</span></div>
+            <div class="mockup-row"><span data-tr="✏️ İsim değişti" data-en="✏️ Nickname changed">✏️ İsim değişti</span><span style="font-size:11px;color:var(--fg-muted2)" data-tr="8dk" data-en="8min">8dk</span></div>
+            <div class="mockup-row"><span data-tr="📝 Mesaj düzenlendi" data-en="📝 Message edited">📝 Mesaj düzenlendi</span><span style="font-size:11px;color:var(--fg-muted2)" data-tr="12dk" data-en="12min">12dk</span></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- GUARD -->
+  <div class="sec-header" style="background:linear-gradient(to bottom,rgba(88,101,242,.04),transparent);">
+    <div class="container">
+      <h2 data-tr="Sunucunu 7/24 izleyen güvenlik katmanı" data-en="Security layer monitoring your server 24/7">Sunucunu 7/24 izleyen güvenlik katmanı</h2>
+      <p data-tr="İzinsiz değişiklikleri, raid ve nuke girişimlerini anında durdurur. Sen uğraşmadan güvende kalır." data-en="Stops unauthorized changes, raids and nuke attempts instantly. Stay secure without effort.">İzinsiz değişiklikleri, raid ve nuke girişimlerini anında durdurur. Sen uğraşmadan güvende kalır.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="feature-row">
+        <div>
+          <p class="feature-tag"><span class="feature-num">05</span> <span data-tr="Koruma Modülleri" data-en="Protection Modules">Koruma Modülleri</span></p>
+          <h3 data-tr="Kanal, rol, emoji ve webhook'u tek tıkla koru" data-en="Protect channels, roles, emojis and webhooks with one click">Kanal, rol, emoji ve webhook'u tek tıkla koru</h3>
+          <p data-tr="İzinsiz oluşturma, silme ve değiştirme işlemlerini belirlediğin limitlerle durdurur; sorumluya ceza uygular ve kaydeder." data-en="Stops unauthorized create/delete/edit operations with your custom limits; punishes the responsible and records it.">İzinsiz oluşturma, silme ve değiştirme işlemlerini belirlediğin limitlerle durdurur; sorumluya ceza uygular ve kaydeder.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#5865F2"></span>
+            <span data-tr="Guard · Koruma" data-en="Guard · Protection">Guard · Koruma</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span data-tr="Kanal Koruma" data-en="Channel Protection">Kanal Koruma</span><span class="toggle"></span></div>
+            <div class="mockup-row"><span data-tr="Rol Koruma" data-en="Role Protection">Rol Koruma</span><span class="toggle"></span></div>
+            <div class="mockup-row"><span data-tr="Emoji Koruma" data-en="Emoji Protection">Emoji Koruma</span><span class="toggle"></span></div>
+            <div class="mockup-row"><span data-tr="Üye Koruma" data-en="Member Protection">Üye Koruma</span><span class="toggle"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div>
+          <p class="feature-tag"><span class="feature-num">07</span> <span data-tr="Yedekleme" data-en="Backup">Yedekleme</span></p>
+          <h3 data-tr="Sunucu düzenini otomatik yedekle" data-en="Automatically back up your server structure">Sunucu düzenini otomatik yedekle</h3>
+          <p data-tr="Rol, kanal ve emoji düzenin düzenli yedeklenir; kötü bir olay yaşanırsa tek hamleyle geri dönersin. Panik modu acil durumda sunucuyu kilitler." data-en="Roles, channels and emoji structure are regularly backed up; restore with one click if something bad happens. Panic mode locks the server in emergency.">Rol, kanal ve emoji düzenin düzenli yedeklenir; kötü bir olay yaşanırsa tek hamleyle geri dönersin. Panik modu acil durumda sunucuyu kilitler.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#22c55e"></span>
+            <span data-tr="Otomatik Yedekleme" data-en="Automatic Backup">Otomatik Yedekleme</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span data-tr="Son yedek" data-en="Last backup">Son yedek</span><span style="font-size:11px;color:#4ade80" data-tr="12 dk önce" data-en="12 min ago">12 dk önce</span></div>
+            <div class="mockup-row"><span data-tr="Toplam yedek" data-en="Total backups">Toplam yedek</span><span class="tag tag-green">42</span></div>
+            <div class="mockup-row"><span data-tr="Rol sayısı" data-en="Role count">Rol sayısı</span><span style="font-size:12px;color:var(--fg-muted)">68</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TICKET -->
+  <div class="sec-header">
+    <div class="container">
+      <h2 data-tr="Destek sürecini senin yerine yürüten sistem" data-en="A system that runs the support process for you">Destek sürecini senin yerine yürüten sistem</h2>
+      <p data-tr="Çok konulu destek talepleri, otomatik transkript — tek tıkla açılır, düzenli kanallarda yönetilir." data-en="Multi-topic support requests, automatic transcripts — opens with one click, managed in organized channels.">Çok konulu destek talepleri, otomatik transkript — tek tıkla açılır, düzenli kanallarda yönetilir.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+
+      <div class="feature-row">
+        <div>
+          <p class="feature-tag"><span class="feature-num">08</span> <span data-tr="Çok Konulu Destek" data-en="Multi-Topic Support">Çok Konulu Destek</span></p>
+          <h3 data-tr="Tek tıkla açılan, konu bazlı destek talepleri" data-en="One-click, topic-based support requests">Tek tıkla açılan, konu bazlı destek talepleri</h3>
+          <p data-tr="Her konunun kendi butonu, yetkili personeli ve kayıt kanalı vardır. Kullanıcı tek tıkla talep açar; ekibin düzenli kanallarda yönetir." data-en="Each topic has its own button, assigned staff and record channel. User opens request with one click; team manages it in organized channels.">Her konunun kendi butonu, yetkili personeli ve kayıt kanalı vardır. Kullanıcı tek tıkla talep açar; ekibin düzenli kanallarda yönetir.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#5865F2"></span>
+            <span data-tr="Destek Talebi Aç" data-en="Open Support Request">Destek Talebi Aç</span>
+          </div>
+          <div class="mockup-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:#5865F2;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;" data-tr="Genel Destek" data-en="General Support">Genel Destek</div>
+              <div style="background:#22c55e;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;color:#000;" data-tr="Satın Alma" data-en="Purchase">Satın Alma</div>
+              <div style="background:#ef4444;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;" data-tr="Şikayet" data-en="Complaint">Şikayet</div>
+              <div style="background:#a855f7;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;" data-tr="Başvuru" data-en="Application">Başvuru</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-row reverse">
+        <div>
+          <p class="feature-tag"><span class="feature-num">09</span> <span data-tr="Transkript &amp; Puanlama" data-en="Transcript &amp; Rating">Transkript &amp; Puanlama</span></p>
+          <h3 data-tr="Konuşmaları arşivle, personeli puanla" data-en="Archive conversations, rate staff performance">Konuşmaları arşivle, personeli puanla</h3>
+          <p data-tr="Talep kapanınca tüm konuşma transkript olarak saklanır; kullanıcıdan memnuniyet puanı toplanır, personel performans istatistikleri tutulur." data-en="When the request is closed, the entire conversation is saved as a transcript; user satisfaction score is collected and staff performance statistics are tracked.">Talep kapanınca tüm konuşma transkript olarak saklanır; kullanıcıdan memnuniyet puanı toplanır, personel performans istatistikleri tutulur.</p>
+          <div class="feature-btns">
+            <a href="pricing.html" class="fb-primary" data-tr="Fiyatları Gör →" data-en="View Pricing →">Fiyatları Gör →</a>
+            <a href="https://discord.gg/development" target="_blank" class="fb-ghost" data-tr="Discord'a Sor" data-en="Ask on Discord">Discord'a Sor</a>
+          </div>
+        </div>
+        <div class="mockup">
+          <div class="mockup-header">
+            <span class="mockup-dot" style="background:#22c55e"></span>
+            <span data-tr="Transkript" data-en="Transcript">Transkript</span>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-row"><span>ticket-0042</span><span style="font-size:11px;color:#4ade80" data-tr="Kaydedildi" data-en="Saved">Kaydedildi</span></div>
+            <div class="mockup-row"><span data-tr="42 mesaj" data-en="42 messages">42 mesaj</span><span class="tag tag-blue" data-tr="Arşiv" data-en="Archive">Arşiv</span></div>
+            <div class="mockup-row">
+              <span data-tr="Memnuniyet" data-en="Satisfaction">Memnuniyet</span>
+              <span style="color:#fbbf24;font-size:16px;">★★★★★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand ft-reveal ft-d-0">
-          <div class="footer-logo">
-            <img src="swenzy.webp" alt="SwenzyBots" width="28" height="28" style="border-radius:8px;">
-            <span>SwenzyBots</span>
-          </div>
-          <p data-tr="Discord ile alakalı her şey, bir arada." data-en="Everything Discord, all in one place.">Discord ile alakalı her şey, bir arada.</p>
-          <p class="footer-desc" data-tr="SwenzyBots, Discord sunucuları için profesyonel bot çözümleri sunar. Güçlü altyapımızla sunucunuzu bir üst seviyeye taşıyın." data-en="SwenzyBots provides professional bot solutions for Discord servers. Take your server to the next level with our powerful infrastructure.">SwenzyBots, Discord sunucuları için profesyonel bot çözümleri sunar. Güçlü altyapımızla sunucunuzu bir üst seviyeye taşıyın.</p>
-          <div class="footer-status">
-            <span class="status-dot"></span>
-            <span data-tr="Tüm hizmetler aktif" data-en="All systems operational">Tüm hizmetler aktif</span>
-          </div>
-        </div>
-        <div class="footer-col ft-reveal ft-d-1">
-          <p class="footer-col-title" data-tr="Sayfalar" data-en="Pages">Sayfalar</p>
-          <ul>
-            <li><a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
-            <li><a href="features.html" aria-current="page" data-tr="Özellikler" data-en="Features">Özellikler</a></li>
-            <li><a href="index.html#hizmetler" data-tr="Hizmetler" data-en="Services">Hizmetler</a></li>
-            <li><a href="pricing.html" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a></li>
-            <li><a href="index.html#sss" data-tr="SSS" data-en="FAQ">SSS</a></li>
-            <li><a href="contact.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
-            <li><a href="status.html" data-tr="Sistem Durumu" data-en="System Status">Sistem Durumu</a></li>
-          </ul>
-        </div>
-        <div class="footer-col ft-reveal ft-d-2">
-          <p class="footer-col-title" data-tr="Hizmetler" data-en="Services">Hizmetler</p>
-          <ul>
-            <li><a href="index.html#hizmetler" data-tr="Full Bot Paketi" data-en="Full Bot Package">Full Bot Paketi</a></li>
-            <li><a href="index.html#hizmetler" data-tr="Guard Bot" data-en="Guard Bot">Guard Bot</a></li>
-            <li><a href="index.html#hizmetler" data-tr="Ticket Bot" data-en="Ticket Bot">Ticket Bot</a></li>
-            <li><a href="index.html#hizmetler" data-tr="Moderasyon Bot" data-en="Moderation Bot">Moderasyon Bot</a></li>
-          </ul>
-        </div>
-        <div class="footer-col ft-reveal ft-d-3">
-          <p class="footer-col-title" data-tr="Yasal Dökümanlar" data-en="Legal Documents">Yasal Dökümanlar</p>
-          <ul>
-            <li><a href="legal/privacy.html" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a></li>
-            <li><a href="legal/terms.html" data-tr="Kullanım Koşulları" data-en="Terms of Use">Kullanım Koşulları</a></li>
-            <li><a href="legal/kvkk.html" data-tr="KVKK Aydınlatma Metni" data-en="KVKK Notice">KVKK Aydınlatma Metni</a></li>
-            <li><a href="legal/distance.html" data-tr="Mesafeli Satış Sözleşmesi" data-en="Distance Sales Agreement">Mesafeli Satış Sözleşmesi</a></li>
-          </ul>
-        </div>
-        <div class="footer-col ft-reveal ft-d-4">
-          <p class="footer-col-title" data-tr="Sosyal Medya" data-en="Social Media">Sosyal Medya</p>
-          <ul>
-            <li>
-              <a href="https://youtube.com/@swenzyim" target="_blank" class="footer-social-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                YouTube
-              </a>
-            </li>
-            <li>
-              <a href="https://discord.gg/development" target="_blank" class="footer-social-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/Swenzyim" target="_blank" class="footer-social-link">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                GitHub
-              </a>
-            </li>
-          </ul>
-        </div>
+    <div class="footer-inner">
+      <div style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;">
+        <img src="swenzy.webp" alt="" width="24" height="24" style="border-radius:6px;">
+        SwenzyBots
       </div>
-      <div class="footer-bottom ft-reveal ft-d-5">
-        <p data-tr="© 2026 SwenzyBots. Tüm hakları saklıdır." data-en="© 2026 SwenzyBots. All rights reserved.">© 2026 SwenzyBots. Tüm hakları saklıdır.</p>
-        <p class="footer-credit" data-tr="<span>SwenzyBots</span> 💙 ile <span>Nuran</span> tarafından geliştirilmiştir." data-en="Built with 💙 for <span>SwenzyBots</span> by <span>Nuran</span>."><span>SwenzyBots</span> 💙 ile <span>Nuran</span> tarafından geliştirilmiştir.</p>
-        <div class="footer-controls ft-reveal ft-d-6">
-          <div class="footer-dropdown" id="themeDropdown">
-            <button class="footer-dropdown-btn" onclick="toggleDropdown('themeDropdown')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-              <span id="themeLabel">Sistem</span>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="footer-dropdown-menu" id="themeMenu">
-              <button onclick="setTheme('system')">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                <span class="t-menu-text">Sistem</span>
-              </button>
-              <button onclick="setTheme('dark')">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                <span class="t-menu-text">Karanlık</span>
-              </button>
-              <button onclick="setTheme('light')">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                <span class="t-menu-text">Aydınlık</span>
-              </button>
-            </div>
-          </div>
-          <div class="footer-dropdown" id="langDropdown">
-            <button class="footer-dropdown-btn" onclick="toggleDropdown('langDropdown')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              <span id="langLabel">Türkçe</span>
-              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="footer-dropdown-menu" id="langMenu">
-              <button onclick="setLang('tr')">🇹🇷 Türkçe</button>
-              <button onclick="setLang('en')">🇬🇧 English</button>
-            </div>
-          </div>
-        </div>
+      <div class="footer-links">
+        <a href="index.html" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+        <a href="features.html" data-tr="Özellikler" data-en="Features">Özellikler</a>
+        <a href="pricing.html" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
+        <a href="contact.html" data-tr="İletişim" data-en="Contact">İletişim</a>
+        <a href="status.html" data-tr="Sistem Durumu" data-en="System Status">Sistem Durumu</a>
+        <a href="legal/privacy.html" data-tr="Gizlilik" data-en="Privacy">Gizlilik</a>
       </div>
+      <span style="color:#333;font-size:12px;" data-tr="© 2026 SwenzyBots" data-en="© 2026 SwenzyBots">© 2026 SwenzyBots</span>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() { document.body.classList.add('loaded'); }, 50);
+      const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    });
+  </script>
+  <script>
+    function applyLangPage() {
+      var lang = localStorage.getItem('swenzy_lang') || 'tr';
+      document.documentElement.lang = lang;
+      document.getElementById('langToggle').textContent = lang === 'tr' ? 'TR' : 'EN';
+      document.querySelectorAll('[data-tr]').forEach(function(el) {
+        var text = el.getAttribute('data-' + lang) || el.getAttribute('data-tr');
+        if (text) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = text;
+          else if (el.tagName === 'A' || el.tagName === 'BUTTON') {
+            var had = false;
+            el.childNodes.forEach(function(n) { if (n.nodeType === 3 && n.textContent.trim()) { n.textContent = text + ' '; had = true; } });
+            if (!had && !el.querySelector('svg') && !el.querySelector('img')) el.textContent = text;
+          } else {
+            var hasInner = el.querySelector('a, span, strong, b');
+            if (hasInner && text.includes('<')) el.innerHTML = text;
+            else if (!hasInner) el.textContent = text;
+          }
+        }
+      });
+    }
+    document.getElementById('langToggle').addEventListener('click', function() {
+      var cur = localStorage.getItem('swenzy_lang') || 'tr';
+      localStorage.setItem('swenzy_lang', cur === 'tr' ? 'en' : 'tr');
+      applyLangPage();
+    });
+    document.addEventListener('DOMContentLoaded', applyLangPage);
+  </script>
+  <script src="protect.js"></script>
 </body>
 </html>
