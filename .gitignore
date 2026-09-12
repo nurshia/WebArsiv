@@ -1,0 +1,18 @@
+# Arşivler (klasörün birebir kopyası — repoyu şişirir)
+*.zip
+*.tar.gz
+*.rar
+
+# Editör / OS
+.vscode/
+.idea/
+.claude/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Bağımlılıklar / build
+node_modules/
+dist/
+.cache/

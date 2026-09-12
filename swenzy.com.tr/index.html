@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwenzyBots — Discord Bot Çözümleri</title>
+  <meta name="description" content="Discord sunucunuz için özel bot çözümleri. Mülakat, moderasyon, ticket ve daha fazlası." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="swenzy_logo.webp" />
+  <link rel="apple-touch-icon" href="swenzy_logo.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://swenzy.com.tr/" />
+  <meta property="og:title" content="SwenzyBots | Discord Bot Çözümleri" />
+  <meta property="og:description" content="Sunucunuz için özel mülakat, moderasyon, koruma ve ticket botları. Dakikalar içinde kurun." />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image" content="https://swenzy.com.tr/swenzy_logo.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="SwenzyBots" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="SwenzyBots | Discord Bot Çözümleri" />
+  <meta name="twitter:description" content="Sunucunuz için özel mülakat, moderasyon, koruma ve ticket botları." />
+  <meta name="twitter:image" content="https://swenzy.com.tr/swenzy_logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+  (function(){try{var t=localStorage.getItem('swenzy_theme')||'system';var d='dark';if(t==='light')d='light';else if(t==='dark')d='dark';else{try{if(window.matchMedia('(prefers-color-scheme: light)').matches)d='light'}catch(e){}}document.documentElement.setAttribute('data-theme',d);}catch(e){}})();
+  </script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="navbar-wrapper">
+    <div id="nav-bar">
+      <a href="#" class="nav-logo">
+        <img src="swenzy.webp" alt="SwenzyBots" width="32" height="32" style="border-radius:8px;">
+        <span class="logo-text">SwenzyBots</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+        <a href="features.html" data-tr="Özellikler" data-en="Features">Özellikler</a>
+        <a href="pricing.html" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
+        <a href="contact.html" data-tr="İletişim" data-en="Contact">İletişim</a>
+      </nav>
+      <div class="nav-right">
+        <div class="nav-lang-dropdown" id="navLangDropdown">
+          <button class="lang-btn" onclick="toggleNavLang()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span id="langText">TR</span>
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav-lang-menu" id="navLangMenu">
+            <button onclick="setLang('tr')">🇹🇷 Türkçe</button>
+            <button onclick="setLang('en')">🇬🇧 English</button>
+          </div>
+        </div>
+        <a href="https://discord.gg/development" target="_blank" class="discord-btn">
+          <svg width="18" height="18" viewBox="0 0 127.14 96.36" fill="#5865F2" xmlns="http://www.w3.org/2000/svg">
+            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/>
+          </svg>
+          Sunucumuz
+        </a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menüyü aç">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobil Menü -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Kapat">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="#" onclick="closeMobileMenu()" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a>
+    <a href="features.html" onclick="closeMobileMenu()" data-tr="Özellikler" data-en="Features">Özellikler</a>
+    <a href="pricing.html" onclick="closeMobileMenu()" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a>
+    <a href="contact.html" onclick="closeMobileMenu()" data-tr="İletişim" data-en="Contact">İletişim</a>
+    <a href="https://discord.gg/development" target="_blank" onclick="closeMobileMenu()" class="mobile-discord" data-tr="Discord Sunucumuz" data-en="Our Discord Server">Discord Sunucumuz</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow-center"></div>
+    <div class="hero-glow-side"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line-1" data-tr="Onlar birer bot" data-en="They are bots">Onlar birer bot</span>
+        <span class="line-2" data-tr="Ama sıradan değiller" data-en="But not ordinary">Ama sıradan değiller</span>
+      </h1>
+      <p class="hero-sub" data-tr="Hazır bir komut listesi değil, sunucunda gerçekten işleyen bir sistem kurarsın. Özelleştirilmiş, güçlü ve akıllı botlarla sunucunu bir üst seviyeye taşı." data-en="Not a ready command list — you set up a system that truly works in your server. Take your server to the next level with customized, powerful bots.">
+        Hazır bir komut listesi değil, sunucunda gerçekten işleyen bir sistem kurarsın.<br>
+        Özelleştirilmiş, güçlü ve akıllı botlarla sunucunu bir üst seviyeye taşı.
+      </p>
+      <a href="#hizmetler" class="cta-btn" data-tr="Hemen Başla" data-en="Get Started">
+        Hemen Başla
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUSTED -->
+  <section class="trusted">
+    <p class="trusted-label">BİZE GÜVENEN TOPLULUKLAR</p>
+    <div class="ticker-wrap">
+      <div class="ticker" id="ticker">
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480962308078571540/92a6a233891dc33158d163ea30f872e3.png?size=64" alt="">Hisar Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1432820494154858508/c03b12e469c6044a4c77d7dce194dcde.png?size=64" alt="">Vira Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1039603602563539026/a_dee190f5a2ff74ce3e9452bd0a2176a7.gif?size=64" alt="">LRX RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1489982657596096603/1b1faa2f62910a63d0e4e57536d7013a.png?size=64" alt="">Rebna Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480527233973227593/a_1a64a11feba039f4fd216cda484956ac.gif?size=64" alt="">Teşkilat Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1477461363994394676/a_4129464113f0bbe1cf0a30a2b352a8b6.gif?size=64" alt="">DeniaV Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1503876861774794853/b45b77644f125601aa04ef4f883705d7.png?size=64" alt="">Flux PVP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1516453681824792656/56d4d82ca1f4f06760528a286765e438.png?size=64" alt="">MAMBA RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1382700694682861719/a_ad61143136960520c669b0fa5ad9af20.gif?size=64" alt="">Beverly Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1493372475894005780/140e0dbbe78fb9a0a40af78cee48dcd8.png?size=64" alt="">ElZein Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480962308078571540/92a6a233891dc33158d163ea30f872e3.png?size=64" alt="">Hisar Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1432820494154858508/c03b12e469c6044a4c77d7dce194dcde.png?size=64" alt="">Vira Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1039603602563539026/a_dee190f5a2ff74ce3e9452bd0a2176a7.gif?size=64" alt="">LRX RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1489982657596096603/1b1faa2f62910a63d0e4e57536d7013a.png?size=64" alt="">Rebna Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480527233973227593/a_1a64a11feba039f4fd216cda484956ac.gif?size=64" alt="">Teşkilat Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1477461363994394676/a_4129464113f0bbe1cf0a30a2b352a8b6.gif?size=64" alt="">DeniaV Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1503876861774794853/b45b77644f125601aa04ef4f883705d7.png?size=64" alt="">Flux PVP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1516453681824792656/56d4d82ca1f4f06760528a286765e438.png?size=64" alt="">MAMBA RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1382700694682861719/a_ad61143136960520c669b0fa5ad9af20.gif?size=64" alt="">Beverly Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1493372475894005780/140e0dbbe78fb9a0a40af78cee48dcd8.png?size=64" alt="">ElZein Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480962308078571540/92a6a233891dc33158d163ea30f872e3.png?size=64" alt="">Hisar Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1432820494154858508/c03b12e469c6044a4c77d7dce194dcde.png?size=64" alt="">Vira Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1039603602563539026/a_dee190f5a2ff74ce3e9452bd0a2176a7.gif?size=64" alt="">LRX RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1489982657596096603/1b1faa2f62910a63d0e4e57536d7013a.png?size=64" alt="">Rebna Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480527233973227593/a_1a64a11feba039f4fd216cda484956ac.gif?size=64" alt="">Teşkilat Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1477461363994394676/a_4129464113f0bbe1cf0a30a2b352a8b6.gif?size=64" alt="">DeniaV Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1503876861774794853/b45b77644f125601aa04ef4f883705d7.png?size=64" alt="">Flux PVP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1516453681824792656/56d4d82ca1f4f06760528a286765e438.png?size=64" alt="">MAMBA RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1382700694682861719/a_ad61143136960520c669b0fa5ad9af20.gif?size=64" alt="">Beverly Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1493372475894005780/140e0dbbe78fb9a0a40af78cee48dcd8.png?size=64" alt="">ElZein Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480962308078571540/92a6a233891dc33158d163ea30f872e3.png?size=64" alt="">Hisar Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1432820494154858508/c03b12e469c6044a4c77d7dce194dcde.png?size=64" alt="">Vira Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1039603602563539026/a_dee190f5a2ff74ce3e9452bd0a2176a7.gif?size=64" alt="">LRX RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1489982657596096603/1b1faa2f62910a63d0e4e57536d7013a.png?size=64" alt="">Rebna Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1480527233973227593/a_1a64a11feba039f4fd216cda484956ac.gif?size=64" alt="">Teşkilat Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1477461363994394676/a_4129464113f0bbe1cf0a30a2b352a8b6.gif?size=64" alt="">DeniaV Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1503876861774794853/b45b77644f125601aa04ef4f883705d7.png?size=64" alt="">Flux PVP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1516453681824792656/56d4d82ca1f4f06760528a286765e438.png?size=64" alt="">MAMBA RP</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1382700694682861719/a_ad61143136960520c669b0fa5ad9af20.gif?size=64" alt="">Beverly Roleplay</span>
+        <span class="ticker-item"><img src="https://cdn.discordapp.com/icons/1493372475894005780/140e0dbbe78fb9a0a40af78cee48dcd8.png?size=64" alt="">ElZein Roleplay</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENTO -->
+  <section class="section" id="ozellikler">
+    <div class="container">
+      <h2 class="section-title reveal" data-tr="Sunucunda gerçekten ne değişiyor?" data-en="What actually changes on your server?">Sunucunda gerçekten ne değişiyor?</h2>
+      <div class="bento-grid">
+        <div class="bento-card bento-wide reveal reveal-delay-1">
+          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h3 data-tr="Ticket akışın tek merkezde toplanır" data-en="Ticket flow centralized in one place">Ticket akışın tek merkezde toplanır</h3>
+          <p data-tr="Tüm destek talepleri, şikayetler ve istekler tek bir panel üzerinden yönetilir. Hiçbir talep gözden kaçmaz." data-en="All support requests, complaints and requests are managed from a single panel. No request goes unnoticed.">Tüm destek talepleri, şikayetler ve istekler tek bir panel üzerinden yönetilir. Hiçbir talep gözden kaçmaz.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-2">
+          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <h3 data-tr="Altyapı güven duygusu verir" data-en="Infrastructure you can trust">Altyapı güven duygusu verir</h3>
+          <p data-tr="Kararlı ve güvenilir sistem." data-en="Stable and reliable system.">Kararlı ve güvenilir sistem.</p>
+        </div>
+        <div class="bento-card reveal reveal-delay-3">
+          <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <h3 data-tr="Transkript ve kayıt düzeni" data-en="Transcript and record keeping">Transkript ve kayıt düzeni</h3>
+          <p data-tr="Her işlem kayıt altında." data-en="Every action is recorded.">Her işlem kayıt altında.</p>
+        </div>
+        <div class="bento-card bento-wide reveal reveal-delay-4">
+          <div class="bento-card-row">
+            <div>
+              <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+              <h3 data-tr="Panel üstünden anlık operasyon" data-en="Real-time operations via panel">Panel üstünden anlık operasyon</h3>
+              <p data-tr="Her şeyi kontrol altında tut." data-en="Keep everything under control.">Her şeyi kontrol altında tut.</p>
+            </div>
+            <div class="bento-stats">
+              <div class="stat-box"><span class="stat-num">99.9%</span><span class="stat-label" data-tr="Uptime" data-en="Uptime">Uptime</span></div>
+              <div class="stat-box"><span class="stat-num">500+</span><span class="stat-label" data-tr="Sunucu" data-en="Servers">Sunucu</span></div>
+              <div class="stat-box"><span class="stat-num">7/24</span><span class="stat-label" data-tr="Destek" data-en="Support">Destek</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HİZMETLER -->
+  <section class="section" id="hizmetler">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title reveal" data-tr="Hizmetlerimiz" data-en="Our Services">Hizmetlerimiz</h2>
+        <p class="section-sub reveal reveal-delay-1" data-tr="Sunucun için ihtiyacın olan güçlü çözümler — kur, yönet, büyü." data-en="Powerful solutions you need for your server — set up, manage, grow.">Sunucun için ihtiyacın olan güçlü çözümler — kur, yönet, büyü.</p>
+      </div>
+      <div class="cards-grid">
+
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon violet">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>
+          </div>
+          <h3 data-tr="Full Bot Paketi" data-en="Full Bot Package">Full Bot Paketi</h3>
+          <p data-tr="Mülakat, rol yönetimi, log ve ticket sistemini tek pakette toplayan hepsi-bir-arada Discord botu." data-en="All-in-one Discord bot combining interview, role management, logging and ticket systems in one package.">Mülakat, rol yönetimi, log ve ticket sistemini tek pakette toplayan hepsi-bir-arada Discord botu.</p>
+          <ul class="service-features">
+            <li data-tr="Mülakat &amp; başvuru sistemi" data-en="Interview &amp; application system">Mülakat &amp; başvuru sistemi</li>
+            <li data-tr="Otomatik rol yönetimi" data-en="Automatic role management">Otomatik rol yönetimi</li>
+            <li data-tr="Detaylı log kanalları" data-en="Detailed log channels">Detaylı log kanalları</li>
+            <li data-tr="Moderasyon komutları" data-en="Moderation commands">Moderasyon komutları</li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-price" data-tr="Detaylar için Discord" data-en="Discord for details">Detaylar için Discord</span>
+            <a href="https://discord.gg/development" target="_blank" class="service-link" data-tr="Başla →" data-en="Get Started →">Başla →</a>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon emerald">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h3 data-tr="Guard Bot" data-en="Guard Bot">Guard Bot</h3>
+          <p data-tr="Sunucunu raid, spam ve yetki istismarına karşı 7/24 koruyan akıllı güvenlik botu." data-en="Smart security bot that protects your server 24/7 against raids, spam and permission abuse.">Sunucunu raid, spam ve yetki istismarına karşı 7/24 koruyan akıllı güvenlik botu.</p>
+          <ul class="service-features">
+            <li data-tr="Anti-raid &amp; anti-spam" data-en="Anti-raid &amp; anti-spam">Anti-raid &amp; anti-spam</li>
+            <li data-tr="Yetki &amp; rol koruması" data-en="Permission &amp; role protection">Yetki &amp; rol koruması</li>
+            <li data-tr="Şüpheli hareket bildirimi" data-en="Suspicious activity alerts">Şüpheli hareket bildirimi</li>
+            <li data-tr="Otomatik yedekleme" data-en="Automatic backup">Otomatik yedekleme</li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-price" data-tr="Detaylar için Discord" data-en="Discord for details">Detaylar için Discord</span>
+            <a href="https://discord.gg/development" target="_blank" class="service-link" data-tr="Başla →" data-en="Get Started →">Başla →</a>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon sky">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 data-tr="Ticket Bot" data-en="Ticket Bot">Ticket Bot</h3>
+          <p data-tr="Destek taleplerini düzenli kanallarda toplayan, transkript çıkaran profesyonel ticket sistemi." data-en="Professional ticket system that organizes support requests in channels and generates transcripts.">Destek taleplerini düzenli kanallarda toplayan, transkript çıkaran profesyonel ticket sistemi.</p>
+          <ul class="service-features">
+            <li data-tr="Tek tıkla ticket açma" data-en="One-click ticket creation">Tek tıkla ticket açma</li>
+            <li data-tr="Otomatik transkript" data-en="Automatic transcripts">Otomatik transkript</li>
+            <li data-tr="Yetkili atama &amp; etiket" data-en="Staff assignment &amp; tags">Yetkili atama &amp; etiket</li>
+            <li data-tr="Çok kategorili destek" data-en="Multi-category support">Çok kategorili destek</li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-price" data-tr="Detaylar için Discord" data-en="Discord for details">Detaylar için Discord</span>
+            <a href="https://discord.gg/development" target="_blank" class="service-link" data-tr="Başla →" data-en="Get Started →">Başla →</a>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon orange">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3 data-tr="Moderasyon Bot" data-en="Moderation Bot">Moderasyon Bot</h3>
+          <p data-tr="Topluluğunu küfür, spam ve istenmeyen içeriklerden arındıran gelişmiş moderasyon sistemi." data-en="Advanced moderation system that cleans your community from profanity, spam and unwanted content.">Topluluğunu küfür, spam ve istenmeyen içeriklerden arındıran gelişmiş moderasyon sistemi.</p>
+          <ul class="service-features">
+            <li data-tr="Otomatik içerik filtresi" data-en="Automatic content filter">Otomatik içerik filtresi</li>
+            <li data-tr="Uyarı kademeleri" data-en="Warning tiers">Uyarı kademeleri</li>
+            <li data-tr="Mute / ban yönetimi" data-en="Mute / ban management">Mute / ban yönetimi</li>
+            <li data-tr="Moderasyon logları" data-en="Moderation logs">Moderasyon logları</li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-price" data-tr="Detaylar için Discord" data-en="Discord for details">Detaylar için Discord</span>
+            <a href="https://discord.gg/development" target="_blank" class="service-link" data-tr="Başla →" data-en="Get Started →">Başla →</a>
+          </div>
+        </div>
+
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon rose">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3 data-tr="Log Bot" data-en="Log Bot">Log Bot</h3>
+          <p data-tr="Sunucundaki tüm hareketleri — üye girişleri, mesaj değişiklikleri, rol güncellemeleri — otomatik olarak loglar." data-en="Automatically logs all activity on your server — member joins, message edits, role updates.">Sunucundaki tüm hareketleri — üye girişleri, mesaj değişiklikleri, rol güncellemeleri — otomatik olarak loglar.</p>
+          <ul class="service-features">
+            <li data-tr="Üye giriş / çıkış logları" data-en="Member join / leave logs">Üye giriş / çıkış logları</li>
+            <li data-tr="Mesaj düzenleme / silme kaydı" data-en="Message edit / delete records">Mesaj düzenleme / silme kaydı</li>
+            <li data-tr="Rol &amp; kanal değişiklikleri" data-en="Role &amp; channel changes">Rol &amp; kanal değişiklikleri</li>
+            <li data-tr="Ses kanalı hareketleri" data-en="Voice channel activity">Ses kanalı hareketleri</li>
+          </ul>
+          <div class="service-footer">
+            <span class="service-price" data-tr="Detaylar için Discord" data-en="Discord for details">Detaylar için Discord</span>
+            <a href="https://discord.gg/development" target="_blank" class="service-link" data-tr="Başla →" data-en="Get Started →">Başla →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ADIMLAR -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title reveal" data-tr="Satın alıp kaderine bırakılan <span class=&quot;muted-text&quot;>bir sistem değil.</span>" data-en="Not a system you buy and forget. <span class=&quot;muted-text&quot;>Not at all.</span>">Satın alıp kaderine bırakılan <span class="muted-text">bir sistem değil.</span></h2>
+      <div class="steps-grid">
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-head">
+            <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+            <span class="step-num">01</span>
+          </div>
+          <h3 data-tr="İhtiyacına uygun paketi seçersin" data-en="Choose the right package for you">İhtiyacına uygun paketi seçersin</h3>
+          <p data-tr="Discord sunucumuzdan ihtiyacına uygun paketi seçerek ticket açarsın. Hızlıca kurulum planlanır." data-en="Open a ticket on our Discord server and select the right package. Setup is scheduled quickly.">Discord sunucumuzdan ihtiyacına uygun paketi seçerek ticket açarsın. Hızlıca kurulum planlanır.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-head">
+            <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+            <span class="step-num">02</span>
+          </div>
+          <h3 data-tr="Kurulumu biz tamamlarız" data-en="We handle the setup">Kurulumu biz tamamlarız</h3>
+          <p data-tr="Teknik bilgi gerektirmez. Ekibimiz botu sunucuna kurar, tüm ayarları yapar." data-en="No technical knowledge needed. Our team installs the bot on your server and configures everything.">Teknik bilgi gerektirmez. Ekibimiz botu sunucuna kurar, tüm ayarları yapar.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-head">
+            <div class="step-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+            <span class="step-num">03</span>
+          </div>
+          <h3 data-tr="Takıldığında destek alırsın" data-en="Get support whenever you need it">Takıldığında destek alırsın</h3>
+          <p data-tr="7/24 aktif destek ekibi her zaman yanında. Satın alıp kaderine bırakılan bir sistem değil." data-en="Our 24/7 active support team is always there for you. Not a system you buy and forget.">7/24 aktif destek ekibi her zaman yanında. Satın alıp kaderine bırakılan bir sistem değil.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FİYATLANDIRMA -->
+  <section class="section" id="fiyatlandirma">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title reveal" data-tr="Sana uygun planı seç" data-en="Choose the right plan for you">Sana uygun planı seç</h2>
+        <p class="section-sub reveal reveal-delay-1" data-tr="Fiyatlandırma detayları için Discord sunucumuzdan ticket açabilirsiniz." data-en="You can open a ticket on our Discord server for pricing details.">Fiyatlandırma detayları için Discord sunucumuzdan ticket açabilirsiniz.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card reveal reveal-delay-1">
+          <p class="pricing-duration" data-tr="1 Aylık" data-en="1 Month">1 Aylık</p>
+          <p class="pricing-price">₺500<span data-tr="/ay" data-en="/mo">/ay</span></p>
+          <p class="pricing-note" data-tr="Kısa vadeli esneklik" data-en="Short-term flexibility">Kısa vadeli esneklik</p>
+          <ul class="pricing-features">
+            <li data-tr="Tüm bot modülleri dahil" data-en="All bot modules included">Tüm bot modülleri dahil</li>
+            <li data-tr="7/24 öncelikli destek" data-en="24/7 priority support">7/24 öncelikli destek</li>
+            <li data-tr="Sınırsız ticket &amp; transkript" data-en="Unlimited tickets &amp; transcripts">Sınırsız ticket &amp; transkript</li>
+            <li data-tr="Anlık panel kontrolü" data-en="Instant panel control">Anlık panel kontrolü</li>
+            <li data-tr="Otomatik güncellemeler" data-en="Automatic updates">Otomatik güncellemeler</li>
+          </ul>
+          <a href="https://discord.gg/development" target="_blank" class="pricing-btn" data-tr="Discord'dan Başla" data-en="Get Started via Discord">Discord'dan Başla</a>
+        </div>
+        <div class="pricing-card pricing-card-popular reveal reveal-delay-2">
+          <span class="popular-badge" data-tr="En Popüler" data-en="Most Popular">En Popüler</span>
+          <p class="pricing-duration" data-tr="3 Aylık" data-en="3 Months">3 Aylık</p>
+          <p class="pricing-price">₺1350<span data-tr="/3 ay" data-en="/3mo">/3 ay</span></p>
+          <p class="pricing-note" data-tr="%10 indirimli" data-en="10% off">%10 indirimli</p>
+          <ul class="pricing-features">
+            <li data-tr="Tüm bot modülleri dahil" data-en="All bot modules included">Tüm bot modülleri dahil</li>
+            <li data-tr="7/24 öncelikli destek" data-en="24/7 priority support">7/24 öncelikli destek</li>
+            <li data-tr="Sınırsız ticket &amp; transkript" data-en="Unlimited tickets &amp; transcripts">Sınırsız ticket &amp; transkript</li>
+            <li data-tr="Anlık panel kontrolü" data-en="Instant panel control">Anlık panel kontrolü</li>
+            <li data-tr="Otomatik güncellemeler" data-en="Automatic updates">Otomatik güncellemeler</li>
+          </ul>
+          <a href="https://discord.gg/development" target="_blank" class="pricing-btn pricing-btn-primary" data-tr="Discord'dan Başla" data-en="Get Started via Discord">Discord'dan Başla</a>
+        </div>
+        <div class="pricing-card reveal reveal-delay-3">
+          <p class="pricing-duration" data-tr="6 Aylık" data-en="6 Months">6 Aylık</p>
+          <p class="pricing-price">₺2400<span data-tr="/6 ay" data-en="/6mo">/6 ay</span></p>
+          <p class="pricing-note" data-tr="%20 indirimli" data-en="20% off">%20 indirimli</p>
+          <ul class="pricing-features">
+            <li data-tr="Tüm bot modülleri dahil" data-en="All bot modules included">Tüm bot modülleri dahil</li>
+            <li data-tr="7/24 öncelikli destek" data-en="24/7 priority support">7/24 öncelikli destek</li>
+            <li data-tr="Sınırsız ticket &amp; transkript" data-en="Unlimited tickets &amp; transcripts">Sınırsız ticket &amp; transkript</li>
+            <li data-tr="Anlık panel kontrolü" data-en="Instant panel control">Anlık panel kontrolü</li>
+            <li data-tr="Otomatik güncellemeler" data-en="Automatic updates">Otomatik güncellemeler</li>
+          </ul>
+          <a href="https://discord.gg/development" target="_blank" class="pricing-btn" data-tr="Discord'dan Başla" data-en="Get Started via Discord">Discord'dan Başla</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SSS -->
+  <section class="section" id="sss">
+    <div class="container">
+      <div class="faq-layout">
+        <div class="faq-left">
+          <h2 class="faq-title-el" id="faq-title"></h2>
+          <p class="faq-sub-el" id="faq-sub"></p>
+          <p class="faq-contact" id="faq-contact">Aradığınız yanıtı bulamazsanız <a href="https://discord.gg/development" target="_blank">Discord'dan ulaşın</a>.</p>
+        </div>
+        <div class="faq-right">
+
+          <div class="faq-category">
+            <p class="faq-category-label" data-tr="Hizmetler ve Destek" data-en="Services &amp; Support">Hizmetler ve Destek</p>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Bot kurulumu ne kadar sürer?" data-en="How long does bot setup take?">Bot kurulumu ne kadar sürer? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Standart botlarımız ortalama 1-5 dakika içinde aktif olur. Kurulum sürecinde destek ekibimiz her zaman yanınızda." data-en-inner="Our standard bots are typically active within 1-5 minutes. Our support team is always with you during setup."><div class="faq-a-inner"><p>Standart botlarımız ortalama 1-5 dakika içinde aktif olur. Kurulum sürecinde destek ekibimiz her zaman yanınızda.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Teknik bilgi gerekiyor mu?" data-en="Is technical knowledge required?">Teknik bilgi gerekiyor mu? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Hayır. Ekibimiz botu kurar ve tüm ayarları yapar. Sizden sadece sunucu yetkilisi olmanız yeterli." data-en-inner="No. Our team installs the bot and configures everything. You just need to be a server administrator."><div class="faq-a-inner"><p>Hayır. Ekibimiz botu kurar ve tüm ayarları yapar. Sizden sadece sunucu yetkilisi olmanız yeterli.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Destek ekibi ne zaman aktif?" data-en="When is the support team active?">Destek ekibi ne zaman aktif? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Destek ekibimiz 7/24 aktiftir. Discord sunucumuz üzerinden canlı destek alabilirsiniz." data-en-inner="Our support team is active 24/7. You can get live support via our Discord server."><div class="faq-a-inner"><p>Destek ekibimiz 7/24 aktiftir. Discord sunucumuz üzerinden canlı destek alabilirsiniz.</p></div></div>
+            </div>
+          </div>
+
+          <div class="faq-category">
+            <p class="faq-category-label" data-tr="Fiyatlandırma ve Planlar" data-en="Pricing &amp; Plans">Fiyatlandırma ve Planlar</p>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Nasıl satın alabilirim?" data-en="How can I purchase?">Nasıl satın alabilirim? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Discord sunucumuza katılıp ticket açmanız yeterli. Ekibimiz size özel teklif sunar ve kurulumu gerçekleştirir." data-en-inner="Just join our Discord server and open a ticket. Our team will offer you a custom quote and handle setup."><div class="faq-a-inner"><p>Discord sunucumuza katılıp ticket açmanız yeterli. Ekibimiz size özel teklif sunar ve kurulumu gerçekleştirir.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Aboneliği iptal edebilir miyim?" data-en="Can I cancel my subscription?">Aboneliği iptal edebilir miyim? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Evet, istediğiniz zaman iptal edebilirsiniz. İptal, içinde bulunulan dönemin sonunda geçerli olur." data-en-inner="Yes, you can cancel anytime. Cancellation takes effect at the end of the current billing period."><div class="faq-a-inner"><p>Evet, istediğiniz zaman iptal edebilirsiniz. İptal, içinde bulunulan dönemin sonunda geçerli olur.</p></div></div>
+            </div>
+          </div>
+
+          <div class="faq-category">
+            <p class="faq-category-label" data-tr="Teknik Detaylar" data-en="Technical Details">Teknik Detaylar</p>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Botlar güvenli mi?" data-en="Are the bots secure?">Botlar güvenli mi? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Evet. Tüm botlarımız Discord'un resmi API'si üzerinden çalışır, güvenli altyapıda barındırılır." data-en-inner="Yes. All our bots run through Discord's official API and are hosted on secure infrastructure."><div class="faq-a-inner"><p>Evet. Tüm botlarımız Discord'un resmi API'si üzerinden çalışır, güvenli altyapıda barındırılır.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-q" data-tr="Birden fazla bot alabilir miyim?" data-en="Can I purchase multiple bots?">Birden fazla bot alabilir miyim? <span class="faq-icon">↓</span></button>
+              <div class="faq-a" data-tr-inner="Evet. Her hizmet için ayrı bot kurulumu yapılabilir. Discord'dan detaylı bilgi alabilirsiniz." data-en-inner="Yes. Separate bots can be set up for each service. Get detailed info on Discord."><div class="faq-a-inner"><p>Evet. Her hizmet için ayrı bot kurulumu yapılabilir. Discord'dan detaylı bilgi alabilirsiniz.</p></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand ft-reveal ft-d-0">
+          <div class="footer-logo">
+            <img src="swenzy.webp" alt="SwenzyBots" width="28" height="28" style="border-radius:8px;">
+            <span>SwenzyBots</span>
+          </div>
+          <p data-tr="Discord ile alakalı her şey, bir arada." data-en="Everything Discord, all in one place.">Discord ile alakalı her şey, bir arada.</p>
+          <p class="footer-desc" data-tr="SwenzyBots, Discord sunucuları için profesyonel bot çözümleri sunar. Güçlü altyapımızla sunucunuzu bir üst seviyeye taşıyın." data-en="SwenzyBots provides professional bot solutions for Discord servers. Take your server to the next level with our powerful infrastructure.">SwenzyBots, Discord sunucuları için profesyonel bot çözümleri sunar. Güçlü altyapımızla sunucunuzu bir üst seviyeye taşıyın.</p>
+          <div class="footer-status">
+            <span class="status-dot"></span>
+            <span data-tr="Tüm hizmetler aktif" data-en="All systems operational">Tüm hizmetler aktif</span>
+          </div>
+        </div>
+        <div class="footer-col ft-reveal ft-d-1">
+          <p class="footer-col-title" data-tr="Sayfalar" data-en="Pages">Sayfalar</p>
+          <ul>
+            <li><a href="#" data-tr="Ana Sayfa" data-en="Home">Ana Sayfa</a></li>
+            <li><a href="features.html" data-tr="Özellikler" data-en="Features">Özellikler</a></li>
+            <li><a href="#hizmetler" data-tr="Hizmetler" data-en="Services">Hizmetler</a></li>
+            <li><a href="pricing.html" data-tr="Fiyatlandırma" data-en="Pricing">Fiyatlandırma</a></li>
+            <li><a href="#sss" data-tr="SSS" data-en="FAQ">SSS</a></li>
+            <li><a href="contact.html" data-tr="İletişim" data-en="Contact">İletişim</a></li>
+            <li><a href="status.html" data-tr="Sistem Durumu" data-en="System Status">Sistem Durumu</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ft-reveal ft-d-2">
+          <p class="footer-col-title" data-tr="Hizmetler" data-en="Services">Hizmetler</p>
+          <ul>
+            <li><a href="#hizmetler" data-tr="Full Bot Paketi" data-en="Full Bot Package">Full Bot Paketi</a></li>
+            <li><a href="#hizmetler" data-tr="Guard Bot" data-en="Guard Bot">Guard Bot</a></li>
+            <li><a href="#hizmetler" data-tr="Ticket Bot" data-en="Ticket Bot">Ticket Bot</a></li>
+            <li><a href="#hizmetler" data-tr="Moderasyon Bot" data-en="Moderation Bot">Moderasyon Bot</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ft-reveal ft-d-3">
+          <p class="footer-col-title" data-tr="Yasal Dökümanlar" data-en="Legal Documents">Yasal Dökümanlar</p>
+          <ul>
+            <li><a href="legal/privacy.html" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a></li>
+            <li><a href="legal/terms.html" data-tr="Kullanım Koşulları" data-en="Terms of Use">Kullanım Koşulları</a></li>
+            <li><a href="legal/kvkk.html" data-tr="KVKK Aydınlatma Metni" data-en="KVKK Notice">KVKK Aydınlatma Metni</a></li>
+            <li><a href="legal/distance.html" data-tr="Mesafeli Satış Sözleşmesi" data-en="Distance Sales Agreement">Mesafeli Satış Sözleşmesi</a></li>
+          </ul>
+        </div>
+        <div class="footer-col ft-reveal ft-d-4">
+          <p class="footer-col-title" data-tr="Sosyal Medya" data-en="Social Media">Sosyal Medya</p>
+          <ul>
+            <li>
+              <a href="https://youtube.com/@swenzyim" target="_blank" class="footer-social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+              </a>
+            </li>
+            <li>
+              <a href="https://discord.gg/development" target="_blank" class="footer-social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+                Discord
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Swenzyim" target="_blank" class="footer-social-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom ft-reveal ft-d-5">
+        <p data-tr="© 2026 SwenzyBots. Tüm hakları saklıdır." data-en="© 2026 SwenzyBots. All rights reserved.">© 2026 SwenzyBots. Tüm hakları saklıdır.</p>
+        <p class="footer-credit" data-tr="<span>SwenzyBots</span> 💙 ile <span>Nuran</span> tarafından geliştirilmiştir." data-en="Built with 💙 for <span>SwenzyBots</span> by <span>Nuran</span>."><span>SwenzyBots</span> 💙 ile <span>Nuran</span> tarafından geliştirilmiştir.</p>
+        <div class="footer-controls ft-reveal ft-d-6">
+          <div class="footer-dropdown" id="themeDropdown">
+            <button class="footer-dropdown-btn" onclick="toggleDropdown('themeDropdown')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              <span id="themeLabel">Sistem</span>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="footer-dropdown-menu" id="themeMenu">
+              <button onclick="setTheme('system')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span class="t-menu-text">Sistem</span>
+              </button>
+              <button onclick="setTheme('dark')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <span class="t-menu-text">Karanlık</span>
+              </button>
+              <button onclick="setTheme('light')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                <span class="t-menu-text">Aydınlık</span>
+              </button>
+            </div>
+          </div>
+          <div class="footer-dropdown" id="langDropdown">
+            <button class="footer-dropdown-btn" onclick="toggleDropdown('langDropdown')">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <span id="langLabel">Türkçe</span>
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="footer-dropdown-menu" id="langMenu">
+              <button onclick="setLang('tr')">🇹🇷 Türkçe</button>
+              <button onclick="setLang('en')">🇬🇧 English</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
