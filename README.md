@@ -1,10 +1,10 @@
 # Web Siteleri
 
-**Canlı:** https://nurshia.github.io/
+**Canlı:** https://nurshia.github.io/WebArsiv/
 
 | Site | Demo |
 |---|---|
-| SwenzyBots | https://nurshia.github.io/swenzy.com.tr/ |
+| SwenzyBots | https://nurshia.github.io/WebArsiv/swenzy.com.tr/ |
 
 Yaptığım web sitelerinin tek repoda toplanmış hâli. Her site kendi klasöründe duruyor ve
 GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
