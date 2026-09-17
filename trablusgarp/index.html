@@ -16,12 +16,12 @@
 /* ============ jetonlar ============ */
 :root{
   --paper:#f3efe6; --plate:#e7e1d1; --plate-2:#ded7c4;
-  --sea:#bed1d5; --sea-ink:#8fadb4; --grat:#aec5ca;
+  --sea:#aecdd9; --sea-ink:#7aa2b1; --grat:#99bfcd;
   --ink:#22292e; --ink-2:#4e5a64; --ink-3:#7d8892; --rule:#d2cab6;
   --panel:#fbf9f3; --panel-2:#f1ece0; --sunken:#e9e3d5;
-  --osm:#b0483a; --osm-w:#cf9d84; --ita:#2f5f8f; --ita-w:#7ea3c3;
-  --gbr:#c09244; --fra:#7f7099; --aut:#8b7a68; --bal:#7d9470;
-  --rus:#6d7c8c; --alb:#a8813f; --oth:#b9b1a0; --esp:#a89a86;
+  --osm:#c0503f; --osm-w:#e2a68b; --ita:#2d6d9f; --ita-w:#8ab4d2;
+  --gbr:#d9a441; --fra:#8b7bb0; --aut:#9c8467; --bal:#7fa46a;
+  --rus:#7c8a99; --alb:#c08a3e; --oth:#c6bda8; --esp:#bba98d;
   --accent:#c2551f; --accent-soft:#e8ddcc;
   --sel:#1d2226;
   --shadow:0 1px 2px rgba(45,38,25,.07), 0 8px 24px -12px rgba(45,38,25,.22);
@@ -31,12 +31,12 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --paper:#12161a; --plate:#1e242a; --plate-2:#252c33;
-    --sea:#15323d; --sea-ink:#2b5666; --grat:#224552;
+    --sea:#12313e; --sea-ink:#33697e; --grat:#255060;
     --ink:#eae5d8; --ink-2:#a9b2b8; --ink-3:#78838b; --rule:#2d353c;
     --panel:#171c21; --panel-2:#1f262c; --sunken:#11161a;
-    --osm:#c45c4a; --osm-w:#8c4839; --ita:#4b84b8; --ita-w:#2c5478;
-    --gbr:#d1a85e; --fra:#9a8ab4; --aut:#a18e7a; --bal:#8fa981;
-    --rus:#7f90a1; --alb:#c2994f; --oth:#525b62; --esp:#6a635a;
+    --osm:#cd6350; --osm-w:#96503c; --ita:#4d8ac2; --ita-w:#2d5a82;
+    --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
+    --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
     --accent:#e9773f; --accent-soft:#2a2019;
     --sel:#f2ede0;
     --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
@@ -46,12 +46,12 @@
 }
 :root[data-theme="dark"]{
   --paper:#12161a; --plate:#1e242a; --plate-2:#252c33;
-  --sea:#15323d; --sea-ink:#2b5666; --grat:#224552;
+  --sea:#12313e; --sea-ink:#33697e; --grat:#255060;
   --ink:#eae5d8; --ink-2:#a9b2b8; --ink-3:#78838b; --rule:#2d353c;
   --panel:#171c21; --panel-2:#1f262c; --sunken:#11161a;
-  --osm:#c45c4a; --osm-w:#8c4839; --ita:#4b84b8; --ita-w:#2c5478;
-  --gbr:#d1a85e; --fra:#9a8ab4; --aut:#a18e7a; --bal:#8fa981;
-  --rus:#7f90a1; --alb:#c2994f; --oth:#525b62; --esp:#6a635a;
+  --osm:#cd6350; --osm-w:#96503c; --ita:#4d8ac2; --ita-w:#2d5a82;
+  --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
+  --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
   --accent:#e9773f; --accent-soft:#2a2019;
   --sel:#f2ede0;
   --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
@@ -108,14 +108,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .stage{grid-column:1;grid-row:2;position:relative;overflow:hidden;background:var(--sea)}
 #map{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 #map.drag{cursor:grabbing}
+#land{filter:drop-shadow(0 2.6px 2.2px rgba(52,38,20,.32))}
 .terr{fill:var(--oth);stroke:rgba(0,0,0,.28);stroke-width:.6;vector-effect:non-scaling-stroke;
-  transition:fill .45s ease, opacity .3s ease}
+  transition:fill .45s ease, transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s ease}
 #map.boot .terr{transition:none}
 :root[data-theme="dark"] .terr,:root:not([data-theme="light"]) .terr{stroke:rgba(0,0,0,.45)}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .terr{stroke:rgba(0,0,0,.28)}}
 .terr.hit{cursor:pointer}
-.terr.hit:hover{filter:brightness(1.1)}
-.terr.on{stroke:var(--sel);stroke-width:2}
+/* 3B kaldırma: --lf ekran pikseli sabit kalsın diye zoom ile ters ölçeklenir */
+.terr.hit:hover{
+  transform:translateY(calc(var(--lf,4) * -1px));
+  filter:brightness(1.07) drop-shadow(0 calc(var(--lf,4) * 1.1px)
+         calc(var(--lf,4) * 1.1px) rgba(40,28,14,.5));
+}
+.terr.on{
+  stroke:var(--sel);stroke-width:2;
+  transform:translateY(calc(var(--lf,4) * -2.4px));
+  filter:brightness(1.05) drop-shadow(0 calc(var(--lf,4) * 2.6px)
+         calc(var(--lf,4) * 2px) rgba(40,28,14,.55));
+}
+.terr.on:hover{transform:translateY(calc(var(--lf,4) * -2.9px))}
 .e-osm{fill:var(--osm)} .e-osmn{fill:var(--osm-w)} .e-ita{fill:var(--ita)}
 .e-itan{fill:var(--ita-w)} .e-gbr{fill:var(--gbr)} .e-fra{fill:var(--fra)}
 .e-aut{fill:var(--aut)} .e-bal{fill:var(--bal)} .e-rus{fill:var(--rus)}
@@ -143,10 +155,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #labels text,#modern text{font-family:Vollkorn,"Iowan Old Style",Palatino,Georgia,serif;
   paint-order:stroke fill; stroke:var(--plate); stroke-width:3.2px; stroke-linejoin:round;
   pointer-events:none; user-select:none}
-.lb-terr{font-size:15px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;fill:var(--ink)}
-.lb-terr.sm{font-size:11px;letter-spacing:.1em}
-.lb-reg{font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;fill:#fff;
-  stroke:rgba(0,0,0,.42);stroke-width:2.6px}
+.lb-terr{font-size:16px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  fill:var(--ink)}
+.lb-terr.sm{font-size:11.5px;letter-spacing:.11em;fill:var(--ink-2)}
+.lb-terr.md{font-size:12.5px;letter-spacing:.13em}
+.lb-emp{font-size:21px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  fill:var(--ink);opacity:.72}
+.lb-reg{font-size:13.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  fill:#fff;stroke:rgba(0,0,0,.5);stroke-width:2.8px}
 .lb-sea{font-size:13px;font-style:italic;font-weight:500;letter-spacing:.24em;
   fill:var(--sea-ink);stroke:var(--sea);text-transform:uppercase}
 .lb-mod{font-family:Archivo,sans-serif !important;font-size:10.5px;font-weight:600;
@@ -515,11 +531,11 @@ const U = {
   aeg:{n:"Kuzey Ege Adaları", sub:"Osmanlı — Midilli, Sakız, Limni, Sisam", at:[26.3,38.9], sm:1,
     tx:`1911’de Osmanlı’ya aitti. Balkan Savaşı sırasında Yunanistan tarafından alındı;
         1913’te Yunanistan’a bırakıldı.`},
-  dod:{n:"Oniki Ada", sub:"Rodos, İstanköy, Kerpe…", lab:"ONİKİ ADA", at:[28.4,37.4], sm:1,
+  dod:{n:"Oniki Ada", sub:"Rodos, İstanköy, Kerpe…", lab:"ONİKİ ADA", at:[29.3,36.0], md:1,
     tx:`Osmanlı toprağıyken Mayıs 1912’de İtalya tarafından işgal edildi. Uşi Antlaşması
         adaların <b>geri verilmesini</b> öngörüyordu; İtalya hiç vermedi. 1947’ye kadar
         İtalyan kaldı, sonra Yunanistan’a geçti.`},
-  crt:{n:"Girit", sub:"Özerk — fiilen Yunanistan’a bağlı", lab:"GİRİT", at:[24.9,35.0], sm:1,
+  crt:{n:"Girit", sub:"Özerk — fiilen Yunanistan’a bağlı", lab:"GİRİT", at:[24.9,35.25], md:1,
     tx:`1898’den beri özerk, 1908’de Yunanistan’a katılma kararı almıştı. Hukuken hâlâ
         padişaha bağlıydı; 1913’te resmen Yunanistan’ın oldu.`},
   egy:{n:"Mısır", sub:"Hukuken Osmanlı — fiilen İngiliz işgali", lab:"MISIR", at:[30.2,26.6],
@@ -527,21 +543,22 @@ const U = {
         İngiltere’nin denetimindeydi. İngiltere tarafsızlığını ilan edip <b>Süveyş’i ve
         Mısır sınırını Osmanlı askerine kapattı</b>. Bu yüzden subaylar ülkeye tüccar ve
         gazeteci kılığında, sahte pasaportla girdi.`},
-  cyp:{n:"Kıbrıs", sub:"Hukuken Osmanlı — İngiliz idaresi", lab:"KIBRIS", at:[33.4,34.9], sm:1,
+  cyp:{n:"Kıbrıs", sub:"Hukuken Osmanlı — İngiliz idaresi", lab:"KIBRIS", at:[33.2,35.05], md:1,
     tx:`1878’den beri İngiltere yönetiyordu, vergisi hâlâ padişah adına toplanıyordu.
         İngiltere adayı 1914’te tek taraflı ilhak etti.`},
   hjz:{n:"Hicaz ve Asir", sub:"Osmanlı Devleti", lab:"HİCAZ", at:[39.3,23.5],
     tx:`Mekke ve Medine’yi içeren bölge. Padişahın halifelik sıfatı, Uşi görüşmelerinde
         Libya halkı üzerindeki dinî bağın korunması pazarlığında kullanıldı.`},
-  ncd:{n:"Necid", sub:"Osmanlı’ya gevşek bağlı", at:[45.5,24.0], sm:1,
+  ncd:{n:"Necid", sub:"Osmanlı’ya gevşek bağlı", lab:"NECİD", at:[46.5,24.5], sm:1,
     tx:`İç Arabistan fiilen Suud ailesinin denetimindeydi. Merkezî otorite adından ibaretti.`},
-  yem:{n:"Yemen Vilayeti", sub:"Osmanlı Devleti", lab:"YEMEN", at:[44.4,15.6], sm:1,
+  yem:{n:"Yemen Vilayeti", sub:"Osmanlı Devleti", lab:"YEMEN", at:[44.2,15.8], md:1,
     tx:`Osmanlı’nın en uzak vilayeti; burada da yıllardır süren bir isyan bastırılmaya
         çalışılıyordu. İtalyan donanması 1912’de Kızıldeniz kıyılarını da vurdu.`},
-  syr:{n:"Suriye ve Lübnan", sub:"Osmanlı Devleti", at:[38.0,34.5], sm:1,
+  syr:{n:"Suriye ve Lübnan", sub:"Osmanlı Devleti", lab:"SURİYE", at:[38.4,34.2], sm:1,
     tx:`Beyrut, İtalyan donanmasının Şubat 1912’de bastığı limandır. Saldırı, savaşın
         Libya dışına taşındığının ilk açık işaretiydi.`},
-  irq:{n:"Irak — Bağdat, Basra, Musul", sub:"Osmanlı Devleti", at:[43.4,32.5], sm:1,
+  irq:{n:"Irak — Bağdat, Basra, Musul", sub:"Osmanlı Devleti", lab:"IRAK",
+    at:[43.8,32.2], sm:1,
     tx:`Osmanlı’nın doğu vilayetleri. Trablusgarp’taki çatışmadan uzak kaldı.`},
   ita:{n:"İtalya Krallığı", sub:"Savaşı başlatan taraf", lab:"İTALYA", at:[12.7,43.3],
     tx:`1861’de birleşmiş genç bir devlet. Sömürge yarışına geç kalmıştı: 1881’de Fransa
@@ -558,13 +575,13 @@ const U = {
     tx:`İtalya 1900 ve 1902’de Fransa ile gizlice anlaştı: <b>Fransa Fas’ta serbest
         olacak, İtalya Trablusgarp’ta.</b> 1911 yazında Fransa Fas’a girince İtalya
         “sıra bende” dedi.`},
-  mlt:{n:"Malta", sub:"İngiliz üssü", lab:"MALTA", at:[14.5,35.5], sm:1,
+  mlt:{n:"Malta", sub:"İngiliz üssü", lab:"MALTA", at:[14.5,35.3], sm:1,
     tx:`Akdeniz’in ortasındaki İngiliz deniz üssü. Trablus’a en yakın büyük liman
         olmasına rağmen tarafsızlık gereği Osmanlı’ya kapalıydı.`},
   sdn:{n:"Sudan", sub:"İngiliz-Mısır ortak yönetimi", lab:"SUDAN", at:[29.5,15.5],
     tx:`Kâğıt üstünde Mısır’la ortak, fiilen İngiliz yönetimindeydi. Libya çölünün
         güney kapısını kapatıyordu.`},
-  adn:{n:"Aden Himayesi", sub:"Britanya", at:[46.5,14.0], sm:1,
+  adn:{n:"Aden Himayesi", sub:"Britanya", lab:"ADEN", at:[47.5,14.3], sm:1,
     tx:`Kızıldeniz’in çıkışını tutan İngiliz himayesi.`},
   grc:{n:"Yunanistan Krallığı", sub:"Bağımsız", lab:"YUNANİSTAN", at:[22.3,38.4],
     tx:`1911’de sınırı Teselya’nın kuzeyindeydi. Balkan Birliği’ne katılıp Ekim 1912’de
@@ -574,19 +591,21 @@ const U = {
         kadar ilerledi.`},
   srb:{n:"Sırbistan", sub:"Bağımsız", lab:"SIRBİSTAN", at:[20.6,44.2],
     tx:`Balkan Birliği üyesi. 1912-13’te Kosova ve Makedonya’nın kuzeyini aldı.`},
-  mne:{n:"Karadağ", sub:"Bağımsız", at:[19.3,42.8], sm:1,
+  mne:{n:"Karadağ", sub:"Bağımsız", lab:"KARADAĞ", at:[19.1,42.9], sm:1,
     tx:`Balkan Savaşı’nı fiilen başlatan devlet: <b>8 Ekim 1912’de</b> Osmanlı’ya ilk
         savaş ilanını o yaptı. On gün sonra Uşi Antlaşması imzalandı.`},
   rou:{n:"Romanya", sub:"Bağımsız", lab:"ROMANYA", at:[25.0,45.7],
     tx:`Balkan Birliği’ne katılmadı; 1913’te İkinci Balkan Savaşı’nda Bulgaristan’a
         karşı savaşa girdi.`},
-  alb:{n:"Arnavutluk", sub:"1911’de Osmanlı — 1912’de bağımsız", at:[20.1,40.9], sm:1,
+  alb:{n:"Arnavutluk", sub:"1911’de Osmanlı — 1912’de bağımsız", lab:"ARNAVUTLUK",
+    at:[19.9,40.6], sm:1,
     tx:`1910-12 arasında büyük isyanlar yaşandı; <b>28 Kasım 1912’de</b> bağımsızlık
         ilan edildi. Osmanlı’nın Adriyatik kıyısındaki son toprağıydı.`},
-  mkd:{n:"Makedonya", sub:"Osmanlı — Manastır ve Üsküp", at:[21.7,41.6], sm:1,
+  mkd:{n:"Makedonya", sub:"Osmanlı — Manastır ve Üsküp", lab:"MAKEDONYA",
+    at:[21.8,41.5], sm:1,
     tx:`Osmanlı subaylarının çoğunun görev yaptığı, İttihat ve Terakki’nin doğduğu bölge.
         1913’te Sırbistan ve Yunanistan arasında paylaşıldı.`},
-  kos:{n:"Kosova", sub:"Osmanlı", at:[20.9,42.6], sm:1,
+  kos:{n:"Kosova", sub:"Osmanlı", lab:"KOSOVA", at:[20.9,42.7], sm:1,
     tx:`1911’de Osmanlı vilayetiydi; Balkan Savaşı’nda Sırbistan’a geçti.`},
   aut:{n:"Avusturya-Macaristan", sub:"Üçlü İttifak ortağı", lab:"AVUSTURYA-MACARİSTAN",
     at:[17.2,46.6],
@@ -596,15 +615,15 @@ const U = {
     tx:`Boğazların Nisan 1912’de kapatılması Rusya’yı çok zorladı: tahıl ihracatının
         büyük bölümü Çanakkale’den geçiyordu. Rusya 1909 Racconigi anlaşmasıyla İtalya’ya
         Trablusgarp için zaten yeşil ışık yakmıştı.`},
-  fra:{n:"Fransa", sub:"", at:[2.5,46.5], sm:1,
+  fra:{n:"Fransa", sub:"Büyük güç", lab:"FRANSA", at:[2.2,46.6], sm:1,
     tx:`İtalya’ya Trablusgarp için 1902’de gizlice söz vermişti.`},
-  esp:{n:"İspanya", sub:"Bağımsız", lab:"İSPANYA", at:[-3.8,40.2], sm:1,
+  esp:{n:"İspanya", sub:"Bağımsız", lab:"İSPANYA", at:[-3.8,40.2],
     tx:`1911’de Fas’ın kuzeyinde İspanya da himaye kurmuştu. Akdeniz’in batısı
         tamamen paylaşılmıştı.`},
-  irn:{n:"İran", sub:"Bağımsız", lab:"İRAN", at:[53.0,32.5], sm:1,
+  irn:{n:"İran", sub:"Bağımsız", lab:"İRAN", at:[53.5,31.5],
     tx:`Bağımsız ama Rus ve İngiliz nüfuz bölgelerine ayrılmış bir ülke. 1911’de
         Osmanlı’nın doğu komşusuydu.`},
-  eri:{n:"Eritre", sub:"İtalyan sömürgesi (1890)", at:[38.8,15.6], sm:1,
+  eri:{n:"Eritre", sub:"İtalyan sömürgesi (1890)", lab:"ERİTRE", at:[38.6,15.4], sm:1,
     tx:`İtalya’nın Kızıldeniz’deki sömürgesi. 1896’da Adova’da Etiyopya’ya yenilmesi,
         İtalya için ağır bir yenilgi hatırasıydı; Trablusgarp bunun telafisi sayıldı.`}
 };
@@ -895,10 +914,12 @@ const ROUTES = [
 ];
 
 /* ---------------- etiketler ---------------- */
+/* birime bağlı olmayan üst etiketler: [metin, boylam, enlem] */
+const REGIONS = [["OSMANLI DEVLETİ",41.5,30.2]];
 const SEAS = [
   ["AKDENİZ",17.6,34.6,0],["EGE DENİZİ",25.2,38.1,-62],["ADRİYATİK DENİZİ",17.2,42.2,-42],
   ["KARADENİZ",34.5,43.4,0],["KIZILDENİZ",37.6,21.4,-52],["ATLAS OKYANUSU",-12.2,33.0,0],
-  ["SİRTE KÖRFEZİ",18.3,31.8,0],["BASRA KÖRFEZİ",51.0,27.2,-40]
+  ["SİRTE KÖRFEZİ",18.5,32.2,0],["BASRA KÖRFEZİ",51.0,27.2,-40]
 ];
 /* yalnızca 1911’den bu yana adı/sahibi değişmiş yerler */
 const MODERN = [
@@ -970,7 +991,7 @@ const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
 /* ================= durum ================= */
 const state={k:1,tx:0,ty:0,stage:0,sel:null,layers:{},manual:{},anim:null};
-const DEF_LAY={zones:1,resist:0,officers:0,navy:0,events:1,cities:0,modern:0,grat:1};
+const DEF_LAY={zones:1,resist:0,officers:0,navy:0,events:1,cities:1,modern:0,grat:1};
 Object.assign(state.layers,DEF_LAY);
 
 const svg=$("#map"), stageEl=$("#stage");
@@ -990,6 +1011,9 @@ defs.innerHTML=
     <rect width="2.1" height="9" fill="var(--ink)" opacity=".5"/></pattern>
   <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
     <feGaussianBlur stdDeviation="4"/></filter>
+  <radialGradient id="vig" cx="50%" cy="46%" r="74%">
+    <stop offset="52%" stop-color="#1a1206" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#1a1206" stop-opacity=".26"/></radialGradient>
   <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5"
           markerHeight="5.5" orient="auto-start-reverse">
     <path d="M0 1.2 L9 5 L0 8.8 z" fill="var(--ita)"/></marker>
@@ -1053,8 +1077,9 @@ function label(cls,txt,lon,lat,rot,lod){
   t.classList.add("cs"); return t;
 }
 SEAS.forEach(s=>label("lb-sea",s[0],s[1],s[2],s[3]));
+REGIONS.forEach(r=>label("lb-emp",r[0],r[1],r[2],0));
 for(const id in U){const m=U[id];
-  if(m.lab) label("lb-terr"+(m.sm?" sm":""),m.lab,m.at[0],m.at[1],0,m.sm?1:0);}
+  if(m.lab) label("lb-terr"+(m.sm?" sm":m.md?" md":""),m.lab,m.at[0],m.at[1],0,m.sm?1:0);}
 const gModern=el("g",{id:"modern"},Z);
 MODERN.forEach(m=>{
   const t=el("text",{class:"lb-mod cs","text-anchor":"middle",
@@ -1093,6 +1118,8 @@ for(const id in EV){
   g.style.display="none"; EVG[id]=g;
 }
 
+/* vinyet — haritaya derinlik verir, sabit durur */
+el("rect",{x:0,y:0,width:W,height:H,fill:"url(#vig)","pointer-events":"none"},svg);
 /* plaka çerçevesi */
 el("rect",{x:.5,y:.5,width:W-1,height:H-1,fill:"none",stroke:"var(--sea-ink)",
   "stroke-width":1.5,opacity:.5,"pointer-events":"none"},svg);
@@ -1122,7 +1149,8 @@ function apply(){
       n.setAttribute("transform",`translate(${n.dataset.x},${n.dataset.y}) scale(${inv})`+
         (r&&r!=="0"?` rotate(${r})`:""));
     });
-    svg.classList.toggle("z1",state.k>=1.35);
+    svg.style.setProperty("--lf",(4/state.k).toFixed(3));
+    svg.classList.toggle("z1",state.k>=1.22);
     svg.classList.toggle("z2",state.k>=2.0);
     scaleBar();
   }
@@ -1221,6 +1249,11 @@ function showTip(html,e){
   tip.style.left=(e.clientX-r.left)+"px"; tip.style.top=(e.clientY-r.top)+"px";
 }
 const hideTip=()=>tip.classList.remove("on");
+/* kaldırılan ülke komşularının altında kalmasın: boyama sırasında en öne al */
+function raise(p){ if(p && p!==gLand.lastElementChild) gLand.appendChild(p); }
+gLand.addEventListener("pointerover",e=>{
+  const p=e.target.closest(".terr.hit"); if(p) raise(p);
+});
 svg.addEventListener("mousemove",e=>{
   const u=e.target.closest("[data-u]"), ev=e.target.closest("[data-e]"),
         rt=e.target.closest("[data-r]");
@@ -1401,7 +1434,9 @@ function markSel(){
   gLand.querySelectorAll(".terr.on").forEach(n=>n.classList.remove("on"));
   gEv.querySelectorAll(".ev.on").forEach(n=>n.classList.remove("on"));
   if(!state.sel) return;
-  if(state.sel.t==="u"&&PATHS[state.sel.id]) PATHS[state.sel.id].classList.add("on");
+  if(state.sel.t==="u"&&PATHS[state.sel.id]){
+    PATHS[state.sel.id].classList.add("on"); raise(PATHS[state.sel.id]);
+  }
   if(state.sel.t==="e"&&EVG[state.sel.id]) EVG[state.sel.id].classList.add("on");
 }
 panel.addEventListener("click",e=>{

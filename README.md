@@ -62,7 +62,11 @@ Sonra tarayıcıdan `http://localhost:4321` adresini aç.
 - 1911 Akdeniz'i: Osmanlı Devleti, Trablusgarp'ın üç sancağı (Trablus · Bingazi · Fizan)
   ve çevredeki devletler
 - Altı aşamalı kronoloji rayı: savaş öncesinden 1915 sonrasına kadar harita değişiyor
-- Tıklanabilir ülkeler, olay işaretleri, subayların gizli geçiş yolu, donanma harekâtı
+- Tıklanabilir ülkeler: üstüne gelince ve seçince bölge gölgesiyle birlikte
+  haritadan kalkıyor (3B kaldırma efekti)
+- Olay işaretleri, subayların gizli geçiş yolu, donanma harekâtı
+- Ülke, bölge, ada, deniz ve şehir adları haritanın üstünde yazılı;
+  yakınlaştırdıkça ikinci kademe adlar (vilayetler, küçük ülkeler, şehirler) açılıyor
 - Katmanlar: İtalyan denetimi, direniş bölgeleri, bugünkü ülke adları, koordinat ağı
 - Sunum modu (paneli gizler), aydınlık/karanlık tema, klavye kısayolları
 - Kişiler ve ders notu (nedenler, sonuçlar, kavramlar, tartışma soruları) örtü sayfaları
