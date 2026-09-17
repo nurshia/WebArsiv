@@ -23,6 +23,7 @@
   --gbr:#d9a441; --fra:#8b7bb0; --aut:#9c8467; --bal:#7fa46a;
   --rus:#7c8a99; --alb:#c08a3e; --oth:#c6bda8; --esp:#bba98d;
   --accent:#c2551f; --accent-soft:#e8ddcc;
+  --wall:#6f5e46; --hi:#fffaf0;
   --sel:#1d2226;
   --shadow:0 1px 2px rgba(45,38,25,.07), 0 8px 24px -12px rgba(45,38,25,.22);
   --shadow-lift:0 2px 4px rgba(45,38,25,.09), 0 18px 40px -16px rgba(45,38,25,.3);
@@ -38,6 +39,7 @@
     --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
     --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
     --accent:#e9773f; --accent-soft:#2a2019;
+    --wall:#05080a; --hi:#5e727d;
     --sel:#f2ede0;
     --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
     --shadow-lift:0 2px 4px rgba(0,0,0,.55), 0 18px 40px -16px rgba(0,0,0,.85);
@@ -53,6 +55,7 @@
   --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
   --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
   --accent:#e9773f; --accent-soft:#2a2019;
+  --wall:#05080a; --hi:#5e727d;
   --sel:#f2ede0;
   --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
   --shadow-lift:0 2px 4px rgba(0,0,0,.55), 0 18px 40px -16px rgba(0,0,0,.85);
@@ -108,7 +111,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .stage{grid-column:1;grid-row:2;position:relative;overflow:hidden;background:var(--sea)}
 #map{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 #map.drag{cursor:grabbing}
-#land{filter:drop-shadow(0 2.6px 2.2px rgba(52,38,20,.32))}
+/* kabartma: yan duvar (aşağı kaydırılmış koyu siluet) ve üst kenar ışığı */
+#wall path{fill:var(--wall);stroke:none}
+#wall{opacity:.92;pointer-events:none}
+#hi path{fill:var(--hi);stroke:none}
+#hi{opacity:.34;pointer-events:none}
+#land{filter:drop-shadow(0 1.6px 1.4px rgba(40,28,14,.26))}
 .terr{fill:var(--oth);stroke:rgba(0,0,0,.28);stroke-width:.6;vector-effect:non-scaling-stroke;
   transition:fill .45s ease, transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s ease}
 #map.boot .terr{transition:none}
@@ -117,17 +125,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .terr.hit{cursor:pointer}
 /* 3B kaldırma: --lf ekran pikseli sabit kalsın diye zoom ile ters ölçeklenir */
 .terr.hit:hover{
-  transform:translateY(calc(var(--lf,4) * -1px));
-  filter:brightness(1.07) drop-shadow(0 calc(var(--lf,4) * 1.1px)
-         calc(var(--lf,4) * 1.1px) rgba(40,28,14,.5));
+  transform:translate(calc(var(--lf,4) * -.35px),calc(var(--lf,4) * -1.6px));
+  filter:brightness(1.08) drop-shadow(calc(var(--lf,4) * .5px)
+         calc(var(--lf,4) * 1.7px) calc(var(--lf,4) * 1.3px) rgba(40,28,14,.55));
 }
 .terr.on{
   stroke:var(--sel);stroke-width:2;
-  transform:translateY(calc(var(--lf,4) * -2.4px));
-  filter:brightness(1.05) drop-shadow(0 calc(var(--lf,4) * 2.6px)
-         calc(var(--lf,4) * 2px) rgba(40,28,14,.55));
+  transform:translate(calc(var(--lf,4) * -.8px),calc(var(--lf,4) * -3.6px));
+  filter:brightness(1.06) drop-shadow(calc(var(--lf,4) * 1.1px)
+         calc(var(--lf,4) * 3.8px) calc(var(--lf,4) * 2.4px) rgba(40,28,14,.6));
 }
-.terr.on:hover{transform:translateY(calc(var(--lf,4) * -2.9px))}
+.terr.on:hover{
+  transform:translate(calc(var(--lf,4) * -.95px),calc(var(--lf,4) * -4.2px));
+}
 .e-osm{fill:var(--osm)} .e-osmn{fill:var(--osm-w)} .e-ita{fill:var(--ita)}
 .e-itan{fill:var(--ita-w)} .e-gbr{fill:var(--gbr)} .e-fra{fill:var(--fra)}
 .e-aut{fill:var(--aut)} .e-bal{fill:var(--bal)} .e-rus{fill:var(--rus)}
@@ -428,6 +438,7 @@ body.present .topbar .tools .hide-p{display:none}
       <button class="zbtn" id="zIn" aria-label="Yakınlaştır">+</button>
       <button class="zbtn" id="zOut" aria-label="Uzaklaştır">−</button>
       <button class="zbtn wide" id="zReset">Tümü</button>
+      <button class="zbtn wide" id="zItalya">İtalya</button>
       <button class="zbtn wide" id="zLibya">Libya</button>
       <button class="zbtn wide" id="zEge">Ege</button>
     </div>
@@ -990,7 +1001,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 
 /* ================= durum ================= */
-const state={k:1,tx:0,ty:0,stage:0,sel:null,layers:{},manual:{},anim:null};
+const state={k:1,tx:0,ty:0,stage:0,sel:null,layers:{},manual:{},anim:null,fitted:true};
 const DEF_LAY={zones:1,resist:0,officers:0,navy:0,events:1,cities:1,modern:0,grat:1};
 Object.assign(state.layers,DEF_LAY);
 
@@ -1013,7 +1024,7 @@ defs.innerHTML=
     <feGaussianBlur stdDeviation="4"/></filter>
   <radialGradient id="vig" cx="50%" cy="46%" r="74%">
     <stop offset="52%" stop-color="#1a1206" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#1a1206" stop-opacity=".26"/></radialGradient>
+    <stop offset="100%" stop-color="#1a1206" stop-opacity=".2"/></radialGradient>
   <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5"
           markerHeight="5.5" orient="auto-start-reverse">
     <path d="M0 1.2 L9 5 L0 8.8 z" fill="var(--ita)"/></marker>
@@ -1033,6 +1044,9 @@ for(let lat=5;lat<=55;lat+=5){const y=PY(lat);
   el("line",{x1:-400,y1:y,x2:W+400,y2:y,class:lat%10?"":"maj"},gGrat);}
 
 /* ================= kara ================= */
+/* kabartma için üç katman: yan duvar (altta) · üst kenar ışığı · karalar */
+const gWall=el("g",{id:"wall"},Z);
+const gHi=el("g",{id:"hi"},Z);
 const gLand=el("g",{id:"land"},Z), PATHS={};
 for(const id in GEO.units){
   const meta=U[id];
@@ -1040,6 +1054,8 @@ for(const id in GEO.units){
     "data-u":id,tabindex:meta?"0":null,role:meta?"button":null,
     "aria-label":meta?meta.n:null},gLand);
   PATHS[id]=p;
+  el("path",{d:GEO.units[id].d},gWall);
+  el("path",{d:GEO.units[id].d},gHi);
 }
 const gClaim=el("g",{id:"claim"},Z);
 const gRez=el("g",{id:"rezones"},Z);
@@ -1118,11 +1134,12 @@ for(const id in EV){
   g.style.display="none"; EVG[id]=g;
 }
 
+/* plaka çerçevesi — haritanın gerçek kenarını çizer, içerikle birlikte hareket eder */
+el("rect",{x:0,y:0,width:W,height:H,fill:"none",stroke:"var(--sea-ink)",
+  "stroke-width":1.5,"vector-effect":"non-scaling-stroke",opacity:.55,
+  "pointer-events":"none"},Z);
 /* vinyet — haritaya derinlik verir, sabit durur */
 el("rect",{x:0,y:0,width:W,height:H,fill:"url(#vig)","pointer-events":"none"},svg);
-/* plaka çerçevesi */
-el("rect",{x:.5,y:.5,width:W-1,height:H-1,fill:"none",stroke:"var(--sea-ink)",
-  "stroke-width":1.5,opacity:.5,"pointer-events":"none"},svg);
 
 /* ================= yakınlaştırma ================= */
 function vis(){
@@ -1131,11 +1148,16 @@ function vis(){
   const vw=r.width/s, vh=r.height/s;
   return {vw,vh,vx:(W-vw)/2,vy:(H-vh)/2,s,rw:r.width,rh:r.height};
 }
+/* haritanın tamamının sığdığı en küçük ölçek — geniş ekranda İtalya kırpılmasın */
+function minK(){const v=vis();return Math.min(1,v.vw/W,v.vh/H);}
 function clamp(){
-  const v=vis();
-  state.k=Math.max(1,Math.min(16,state.k));
-  state.tx=Math.min(v.vx,Math.max(v.vx+v.vw-state.k*W,state.tx));
-  state.ty=Math.min(v.vy,Math.max(v.vy+v.vh-state.k*H,state.ty));
+  const v=vis(), mk=minK();
+  state.k=Math.max(mk,Math.min(16,state.k));
+  const cw=state.k*W, ch=state.k*H;
+  state.tx = cw<=v.vw ? v.vx+(v.vw-cw)/2
+           : Math.min(v.vx,Math.max(v.vx+v.vw-cw,state.tx));
+  state.ty = ch<=v.vh ? v.vy+(v.vh-ch)/2
+           : Math.min(v.vy,Math.max(v.vy+v.vh-ch,state.ty));
 }
 let lastK=0;
 function apply(){
@@ -1150,6 +1172,11 @@ function apply(){
         (r&&r!=="0"?` rotate(${r})`:""));
     });
     svg.style.setProperty("--lf",(4/state.k).toFixed(3));
+    const iv=1/state.k;
+    gWall.setAttribute("transform",
+      `translate(${(2.4*iv).toFixed(2)},${(9*iv).toFixed(2)})`);
+    gHi.setAttribute("transform",
+      `translate(${(-1.1*iv).toFixed(2)},${(-2.4*iv).toFixed(2)})`);
     svg.classList.toggle("z1",state.k>=1.22);
     svg.classList.toggle("z2",state.k>=2.0);
     scaleBar();
@@ -1175,9 +1202,9 @@ function scaleBar(){
   $("#scaleTxt").textContent=pick>=1000?(pick/1000)+" bin km":pick+" km";
 }
 function fitGeo(b,animate){
-  const v=vis();
+  const v=vis(); state.fitted=false;
   const x0=PX(b[0]),x1=PX(b[2]),y0=PY(b[3]),y1=PY(b[1]);
-  const k=Math.max(1,Math.min(16,Math.min(v.vw/(x1-x0),v.vh/(y1-y0))*.94));
+  const k=Math.max(minK(),Math.min(16,Math.min(v.vw/(x1-x0),v.vh/(y1-y0))*.94));
   go(k,(v.vx+v.vw/2)-k*(x0+x1)/2,(v.vy+v.vh/2)-k*(y0+y1)/2,animate);
 }
 function go(k,tx,ty,animate){
@@ -1193,14 +1220,16 @@ function go(k,tx,ty,animate){
   })(t0);
 }
 function zoomAt(f,cx,cy){
+  state.fitted=false;
   const v=vis(), r=stageEl.getBoundingClientRect();
   const px=v.vx+(cx-r.left)/v.s, py=v.vy+(cy-r.top)/v.s;
-  const k=Math.max(1,Math.min(16,state.k*f));
+  const k=Math.max(minK(),Math.min(16,state.k*f));
   state.tx=px-(px-state.tx)*(k/state.k);
   state.ty=py-(py-state.ty)*(k/state.k);
   state.k=k; apply();
 }
-function resetView(a){const v=vis();go(1,v.vx+v.vw/2-W/2,v.vy+v.vh/2-H/2,a);}
+function resetView(a){const v=vis(),k=minK(); state.fitted=true;
+  go(k,v.vx+(v.vw-k*W)/2,v.vy+(v.vh-k*H)/2,a);}
 
 /* etkileşim */
 let drag=null;
@@ -1213,6 +1242,7 @@ svg.addEventListener("pointermove",e=>{
   if(!drag) return;
   const v=vis();
   drag.moved+=Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y);
+  if(drag.moved>4) state.fitted=false;
   state.tx=drag.tx+(e.clientX-drag.x)/v.s; state.ty=drag.ty+(e.clientY-drag.y)/v.s;
   apply();
 });
@@ -1231,13 +1261,15 @@ svg.addEventListener("touchmove",e=>{
   pinch=d; drag=null;
 },{passive:false});
 svg.addEventListener("touchend",()=>{pinch=null;});
-addEventListener("resize",()=>{lastK=0;apply();});
+function relayout(){lastK=0; if(state.fitted) resetView(0); else apply();}
+addEventListener("resize",relayout);
 
 $("#zIn").onclick=()=>{const r=stageEl.getBoundingClientRect();
   zoomAt(1.55,r.left+r.width/2,r.top+r.height/2);};
 $("#zOut").onclick=()=>{const r=stageEl.getBoundingClientRect();
   zoomAt(1/1.55,r.left+r.width/2,r.top+r.height/2);};
 $("#zReset").onclick=()=>resetView(1);
+$("#zItalya").onclick=()=>fitGeo([7.0,29.8,24.5,45.6],1);
 $("#zLibya").onclick=()=>fitGeo([8.5,19.0,27.0,35.4],1);
 $("#zEge").onclick=()=>fitGeo([18.5,34.2,30.5,41.8],1);
 
@@ -1550,7 +1582,7 @@ $("#btnNotes").onclick=()=>openSheet("Ders notu",`
 $("#btnPresent").onclick=function(){
   const on=document.body.classList.toggle("present");
   this.setAttribute("aria-pressed",on?"true":"false");
-  lastK=0; setTimeout(apply,30);
+  setTimeout(relayout,30);
 };
 (function theme(){
   let t=null; try{t=localStorage.getItem("tg-theme");}catch(e){}

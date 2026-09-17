@@ -62,8 +62,12 @@ Sonra tarayıcıdan `http://localhost:4321` adresini aç.
 - 1911 Akdeniz'i: Osmanlı Devleti, Trablusgarp'ın üç sancağı (Trablus · Bingazi · Fizan)
   ve çevredeki devletler
 - Altı aşamalı kronoloji rayı: savaş öncesinden 1915 sonrasına kadar harita değişiyor
-- Tıklanabilir ülkeler: üstüne gelince ve seçince bölge gölgesiyle birlikte
-  haritadan kalkıyor (3B kaldırma efekti)
+- Kabartmalı harita: karaların yan duvarı ve üst kenar ışığı var, deniz üstünde
+  kalın bir levha gibi duruyor
+- Tıklanabilir ülkeler: üstüne gelince ve seçince bölge kalkıyor, altındaki
+  duvar görünüyor (3B kaldırma efekti)
+- Görünüm düğmeleri: Tümü · İtalya · Libya · Ege. "İtalya" düğmesi İtalya ile
+  Trablusgarp kıyısını aynı karede gösterir — çıkarmayı anlatmak için
 - Olay işaretleri, subayların gizli geçiş yolu, donanma harekâtı
 - Ülke, bölge, ada, deniz ve şehir adları haritanın üstünde yazılı;
   yakınlaştırdıkça ikinci kademe adlar (vilayetler, küçük ülkeler, şehirler) açılıyor
