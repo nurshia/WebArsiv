@@ -66,8 +66,10 @@ Sonra tarayıcıdan `http://localhost:4321` adresini aç.
   kalın bir levha gibi duruyor
 - Tıklanabilir ülkeler: üstüne gelince ve seçince bölge kalkıyor, altındaki
   duvar görünüyor (3B kaldırma efekti)
-- Görünüm düğmeleri: Tümü · İtalya · Libya · Ege. "İtalya" düğmesi İtalya ile
+- Sağ üstteki **Görünüm** kartı: Tümü · İtalya · Libya · Ege. "İtalya" İtalya ile
   Trablusgarp kıyısını aynı karede gösterir — çıkarmayı anlatmak için
+- Panelde her dönemin altında **Haritada bul** çipleri: tıklayınca haritada o yere
+  uçup kartını açar
 - Olay işaretleri, subayların gizli geçiş yolu, donanma harekâtı
 - Ülke, bölge, ada, deniz ve şehir adları haritanın üstünde yazılı;
   yakınlaştırdıkça ikinci kademe adlar (vilayetler, küçük ülkeler, şehirler) açılıyor

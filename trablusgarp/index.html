@@ -201,7 +201,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .ov-tl{top:12px;left:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .ov-bl{bottom:12px;left:12px;display:flex;flex-direction:column;gap:8px;
   align-items:flex-start;max-height:calc(100% - 24px)}
-.ov-tr{top:12px;right:12px;display:flex;flex-direction:column;gap:6px}
+.ov-tr{top:12px;right:12px;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.zpair{display:flex;flex-direction:column;gap:6px}
+.vcard{padding:8px 9px 9px;display:flex;flex-direction:column;gap:5px;min-width:78px}
+.vcard h4{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-3);font-family:Archivo,sans-serif;font-weight:700;text-align:center;
+  margin-bottom:1px}
+.vbtn{padding:5px 11px;border:1px solid var(--rule);border-radius:6px;font-size:11.5px;
+  font-weight:600;color:var(--ink-2);background:var(--panel);text-align:center;
+  transition:background .15s,color .15s,border-color .15s}
+.vbtn:hover{background:var(--sel);color:var(--panel);border-color:var(--sel)}
 .zbtn{width:32px;height:32px;display:grid;place-items:center;background:var(--panel);
   border:1px solid var(--rule);border-radius:7px;box-shadow:var(--shadow);
   font-size:15px;font-weight:600;color:var(--ink-2);line-height:1}
@@ -289,6 +298,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;
   background:var(--panel-2);color:var(--ink-2);border:1px solid var(--rule);letter-spacing:.02em}
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip.go{cursor:pointer}
+.chip.go:hover{background:var(--sel);color:var(--panel);border-color:var(--sel)}
 .chip button{display:block}
 .side-note{background:var(--sunken);border-left:2.5px solid var(--accent);border-radius:0 7px 7px 0;
   padding:11px 13px;font-size:12.5px;line-height:1.6;color:var(--ink-2);margin:14px 0 4px}
@@ -435,12 +446,17 @@ body.present .topbar .tools .hide-p{display:none}
     <div class="ov ov-tl"></div>
 
     <div class="ov ov-tr">
-      <button class="zbtn" id="zIn" aria-label="Yakınlaştır">+</button>
-      <button class="zbtn" id="zOut" aria-label="Uzaklaştır">−</button>
-      <button class="zbtn wide" id="zReset">Tümü</button>
-      <button class="zbtn wide" id="zItalya">İtalya</button>
-      <button class="zbtn wide" id="zLibya">Libya</button>
-      <button class="zbtn wide" id="zEge">Ege</button>
+      <div class="zpair">
+        <button class="zbtn" id="zIn" aria-label="Yakınlaştır">+</button>
+        <button class="zbtn" id="zOut" aria-label="Uzaklaştır">−</button>
+      </div>
+      <div class="card vcard">
+        <h4>Görünüm</h4>
+        <button class="vbtn" id="zReset">Tümü</button>
+        <button class="vbtn" id="zItalya">İtalya</button>
+        <button class="vbtn" id="zLibya">Libya</button>
+        <button class="vbtn" id="zEge">Ege</button>
+      </div>
     </div>
 
     <div class="ov ov-bl">
@@ -520,36 +536,36 @@ const BASE = {
 
 /* ---------------- birim kartları ---------------- */
 const U = {
-  lby_tr:{n:"Trablus Sancağı", sub:"Trablusgarp Vilayeti", lab:"TRABLUS", at:[14.3,30.4],
+  lby_tr:{n:"Trablus Sancağı", sh:"Trablus", sub:"Trablusgarp Vilayeti", lab:"TRABLUS", at:[14.3,30.4],
     tx:`Vilayetin merkezi ve en kalabalık bölgesi. Trablus şehri, Humus ve Mısrata gibi
         limanlar buradadır. İtalyan çıkarması önce bu kıyıya yapıldı; ancak ordu şehirlerin
         birkaç kilometre dışına çıkamadı.`},
-  lby_bn:{n:"Bingazi Sancağı", sub:"Berka / Cyrenaica", lab:"BİNGAZİ", at:[21.6,30.0],
+  lby_bn:{n:"Bingazi Sancağı", sh:"Bingazi", sub:"Berka / Cyrenaica", lab:"BİNGAZİ", at:[21.6,30.0],
     tx:`Senusi tarikatının merkezi olan bölge. Direnişin en örgütlü kanadı burada kuruldu;
         Enver Bey Bingazi, Mustafa Kemal ise Derne cephesinin komutanıydı. Cebel-i Ahdar
         yaylası gerillanın doğal sığınağıydı.`},
-  lby_fz:{n:"Fizan Sancağı", sub:"Sahra içleri", lab:"FİZAN", at:[13.8,25.6],
+  lby_fz:{n:"Fizan Sancağı", sh:"Fizan", sub:"Sahra içleri", lab:"FİZAN", at:[13.8,25.6],
     tx:`Vilayetin çöl iç kesimi. Kervan yollarının kesiştiği vahalar dışında yerleşim
         yoktur. İtalyanlar savaş boyunca buraya hiç giremedi; Fizan ancak 1930’larda
         işgal edilebildi.`},
-  tur:{n:"Anadolu", sub:"Osmanlı Devleti", lab:"ANADOLU", at:[33.6,39.0],
+  tur:{n:"Anadolu", sh:"Anadolu", sub:"Osmanlı Devleti", lab:"ANADOLU", at:[33.6,39.0],
     tx:`Devletin çekirdeği. Trablusgarp’a kara bağlantısı yoktu: asker ve silah ancak
         denizden ya da Mısır üzerinden gizlice geçebilirdi.`},
-  grc_n:{n:"Rumeli — Makedonya ve Epir", sub:"Osmanlı Devleti", lab:"RUMELİ", at:[21.6,41.0],
+  grc_n:{n:"Rumeli — Makedonya ve Epir", sh:"Rumeli", sub:"Osmanlı Devleti", lab:"RUMELİ", at:[21.6,41.0],
     tx:`1911’de hâlâ Osmanlı toprağı. Bir yıl sonra Balkan Savaşı’nda kaybedilecek ve
         bugün Yunanistan’ın kuzeyini oluşturacak. Trablusgarp’taki savaşın aceleyle
         bitirilmesinin asıl sebebi buradaki tehlikeydi.`},
   aeg:{n:"Kuzey Ege Adaları", sub:"Osmanlı — Midilli, Sakız, Limni, Sisam", at:[26.3,38.9], sm:1,
     tx:`1911’de Osmanlı’ya aitti. Balkan Savaşı sırasında Yunanistan tarafından alındı;
         1913’te Yunanistan’a bırakıldı.`},
-  dod:{n:"Oniki Ada", sub:"Rodos, İstanköy, Kerpe…", lab:"ONİKİ ADA", at:[29.3,36.0], md:1,
+  dod:{n:"Oniki Ada", sh:"Oniki Ada", sub:"Rodos, İstanköy, Kerpe…", lab:"ONİKİ ADA", at:[29.3,36.0], md:1,
     tx:`Osmanlı toprağıyken Mayıs 1912’de İtalya tarafından işgal edildi. Uşi Antlaşması
         adaların <b>geri verilmesini</b> öngörüyordu; İtalya hiç vermedi. 1947’ye kadar
         İtalyan kaldı, sonra Yunanistan’a geçti.`},
-  crt:{n:"Girit", sub:"Özerk — fiilen Yunanistan’a bağlı", lab:"GİRİT", at:[24.9,35.25], md:1,
+  crt:{n:"Girit", sh:"Girit", sub:"Özerk — fiilen Yunanistan’a bağlı", lab:"GİRİT", at:[24.9,35.25], md:1,
     tx:`1898’den beri özerk, 1908’de Yunanistan’a katılma kararı almıştı. Hukuken hâlâ
         padişaha bağlıydı; 1913’te resmen Yunanistan’ın oldu.`},
-  egy:{n:"Mısır", sub:"Hukuken Osmanlı — fiilen İngiliz işgali", lab:"MISIR", at:[30.2,26.6],
+  egy:{n:"Mısır", sh:"Mısır", sub:"Hukuken Osmanlı — fiilen İngiliz işgali", lab:"MISIR", at:[30.2,26.6],
     tx:`Savaşın kilit noktası. Mısır kâğıt üstünde padişaha bağlıydı ama 1882’den beri
         İngiltere’nin denetimindeydi. İngiltere tarafsızlığını ilan edip <b>Süveyş’i ve
         Mısır sınırını Osmanlı askerine kapattı</b>. Bu yüzden subaylar ülkeye tüccar ve
@@ -565,18 +581,18 @@ const U = {
   yem:{n:"Yemen Vilayeti", sub:"Osmanlı Devleti", lab:"YEMEN", at:[44.2,15.8], md:1,
     tx:`Osmanlı’nın en uzak vilayeti; burada da yıllardır süren bir isyan bastırılmaya
         çalışılıyordu. İtalyan donanması 1912’de Kızıldeniz kıyılarını da vurdu.`},
-  syr:{n:"Suriye ve Lübnan", sub:"Osmanlı Devleti", lab:"SURİYE", at:[38.4,34.2], sm:1,
+  syr:{n:"Suriye ve Lübnan", sh:"Beyrut", sub:"Osmanlı Devleti", lab:"SURİYE", at:[38.4,34.2], sm:1,
     tx:`Beyrut, İtalyan donanmasının Şubat 1912’de bastığı limandır. Saldırı, savaşın
         Libya dışına taşındığının ilk açık işaretiydi.`},
   irq:{n:"Irak — Bağdat, Basra, Musul", sub:"Osmanlı Devleti", lab:"IRAK",
     at:[43.8,32.2], sm:1,
     tx:`Osmanlı’nın doğu vilayetleri. Trablusgarp’taki çatışmadan uzak kaldı.`},
-  ita:{n:"İtalya Krallığı", sub:"Savaşı başlatan taraf", lab:"İTALYA", at:[12.7,43.3],
+  ita:{n:"İtalya Krallığı", sh:"İtalya", sub:"Savaşı başlatan taraf", lab:"İTALYA", at:[12.7,43.3],
     tx:`1861’de birleşmiş genç bir devlet. Sömürge yarışına geç kalmıştı: 1881’de Fransa
         Tunus’u, 1882’de İngiltere Mısır’ı almıştı. Trablusgarp, Akdeniz’de paylaşılmamış
         son büyük parçaydı. Başbakan <b>Giolitti</b> savaşı iç siyasette milliyetçi
         baskıyı yatıştırmak için de kullandı.`},
-  tun:{n:"Tunus", sub:"Fransız himayesi (1881)", lab:"TUNUS", at:[9.6,34.4],
+  tun:{n:"Tunus", sh:"Tunus", sub:"Fransız himayesi (1881)", lab:"TUNUS", at:[9.6,34.4],
     tx:`İtalya’nın gözünü diktiği ama Fransa’ya kaptırdığı ülke. Tunus’taki İtalyan
         nüfusu Fransızlardan çoktu; bu kayıp Trablusgarp hırsının başlangıcıdır.`},
   dza:{n:"Cezayir", sub:"Fransa", lab:"CEZAYİR", at:[3.0,30.6],
@@ -594,7 +610,7 @@ const U = {
         güney kapısını kapatıyordu.`},
   adn:{n:"Aden Himayesi", sub:"Britanya", lab:"ADEN", at:[47.5,14.3], sm:1,
     tx:`Kızıldeniz’in çıkışını tutan İngiliz himayesi.`},
-  grc:{n:"Yunanistan Krallığı", sub:"Bağımsız", lab:"YUNANİSTAN", at:[22.3,38.4],
+  grc:{n:"Yunanistan Krallığı", sh:"Yunanistan", sub:"Bağımsız", lab:"YUNANİSTAN", at:[22.3,38.4],
     tx:`1911’de sınırı Teselya’nın kuzeyindeydi. Balkan Birliği’ne katılıp Ekim 1912’de
         Osmanlı’ya savaş açtı ve bugünkü kuzey sınırlarına ulaştı.`},
   bgr:{n:"Bulgaristan", sub:"Bağımsız (1908)", lab:"BULGARİSTAN", at:[25.4,42.9],
@@ -602,13 +618,13 @@ const U = {
         kadar ilerledi.`},
   srb:{n:"Sırbistan", sub:"Bağımsız", lab:"SIRBİSTAN", at:[20.6,44.2],
     tx:`Balkan Birliği üyesi. 1912-13’te Kosova ve Makedonya’nın kuzeyini aldı.`},
-  mne:{n:"Karadağ", sub:"Bağımsız", lab:"KARADAĞ", at:[19.1,42.9], sm:1,
+  mne:{n:"Karadağ", sh:"Karadağ", sub:"Bağımsız", lab:"KARADAĞ", at:[19.1,42.9], sm:1,
     tx:`Balkan Savaşı’nı fiilen başlatan devlet: <b>8 Ekim 1912’de</b> Osmanlı’ya ilk
         savaş ilanını o yaptı. On gün sonra Uşi Antlaşması imzalandı.`},
   rou:{n:"Romanya", sub:"Bağımsız", lab:"ROMANYA", at:[25.0,45.7],
     tx:`Balkan Birliği’ne katılmadı; 1913’te İkinci Balkan Savaşı’nda Bulgaristan’a
         karşı savaşa girdi.`},
-  alb:{n:"Arnavutluk", sub:"1911’de Osmanlı — 1912’de bağımsız", lab:"ARNAVUTLUK",
+  alb:{n:"Arnavutluk", sh:"Arnavutluk", sub:"1911’de Osmanlı — 1912’de bağımsız", lab:"ARNAVUTLUK",
     at:[19.9,40.6], sm:1,
     tx:`1910-12 arasında büyük isyanlar yaşandı; <b>28 Kasım 1912’de</b> bağımsızlık
         ilan edildi. Osmanlı’nın Adriyatik kıyısındaki son toprağıydı.`},
@@ -669,7 +685,7 @@ const STAGES = [
          ["Nüfus","yaklaşık 1 milyon"],
          ["Osmanlı garnizonu","4.000 – 7.000 düzenli asker"],
          ["Uzaklık","İstanbul’dan deniz yoluyla ~1.700 km"]],
-  evs:[] },
+  evs:[], spots:["ita","lby_tr","lby_bn","lby_fz","egy","tun"] },
 
 { id:"s1", yr:"Ekim 1911", nm:"Çıkarma", tab:"Çıkarma",
   h:"Donanma kıyıyı alıyor",
@@ -694,7 +710,8 @@ const STAGES = [
          ["Donanma","hiçbir ciddi direnişle karşılaşmadı"],
          ["Çıkarma limanları","Trablus, Tobruk, Derne, Bingazi, Humus"],
          ["Sonuç","kıyı alındı, iç kesim alınamadı"]],
-  evs:["trablus","tobruk","derne","bingazi","humus","sarisat","preveze"] },
+  evs:["trablus","tobruk","derne","bingazi","humus","sarisat","preveze"],
+  spots:["ita","lby_tr","lby_bn","egy"] },
 
 { id:"s2", yr:"Kasım 1911 – Mart 1912", nm:"Çölde direniş", tab:"Direniş",
   h:"Gönüllü subaylar ve Senusiler",
@@ -721,7 +738,8 @@ const STAGES = [
          ["Yerel kuvvet","~20.000 gönüllü ve aşiret savaşçısı"],
          ["Cepheler","Bingazi (Enver) · Derne (Mustafa Kemal) · Trablus (Neşet)"],
          ["Dünyada ilk","savaşta uçak kullanımı — 1911"]],
-  evs:["ilhak","aynzara","tobrukbaskin","ucak","sollum","cagbub"] },
+  evs:["ilhak","aynzara","tobrukbaskin","ucak","sollum","cagbub"],
+  spots:["lby_bn","lby_fz","egy","ita"] },
 
 { id:"s3", yr:"Nisan – Temmuz 1912", nm:"Savaş Akdeniz’e yayılıyor", tab:"Yayılma",
   h:"Çanakkale, Oniki Ada, Beyrut",
@@ -748,7 +766,8 @@ const STAGES = [
          ["İşgal edilen ada","13 ada (Oniki Ada)"],
          ["Deniz baskınları","Preveze · Kunfuda · Beyrut · Çanakkale"],
          ["Amaç","Osmanlı’yı masaya oturtmak"]],
-  evs:["beyrut","kunfuda","canakkale","rodos"] },
+  evs:["beyrut","kunfuda","canakkale","rodos"],
+  spots:["dod","tur","syr","ita"] },
 
 { id:"s4", yr:"18 Ekim 1912", nm:"Uşi Antlaşması", tab:"Uşi",
   h:"Balkanlar patlarken imzalanan barış",
@@ -775,7 +794,7 @@ const STAGES = [
          ["“Geçici”","Oniki Ada — 35 yıl İtalyan kaldı"],
          ["Korunan","Padişahın halife sıfatıyla dinî yetkisi"],
          ["Aynı gün","Balkan Savaşı cephesi açılıyordu"]],
-  evs:["karadag","usi"] },
+  evs:["karadag","usi"], spots:["lby_tr","dod","mne","grc"] },
 
 { id:"s5", yr:"1913 – 1918", nm:"Savaştan sonra", tab:"Sonrası",
   h:"1915: İtalya saf değiştiriyor",
@@ -808,7 +827,8 @@ const STAGES = [
          ["Libya direnişi","1911 – 1931, yirmi yıl"],
          ["İtalya","1915’te İtilaf Devletleri’ne geçti"],
          ["Ömer Muhtar","16 Eylül 1931’de idam edildi"]],
-  evs:["balkan","gasr","londra","omer"] }
+  evs:["balkan","gasr","londra","omer"],
+  spots:["lby_bn","dod","grc_n","alb","ita"] }
 ];
 
 /* ---------------- olaylar ---------------- */
@@ -1201,11 +1221,36 @@ function scaleBar(){
   $("#scaleBar").style.width=Math.max(30,w).toFixed(0)+"px";
   $("#scaleTxt").textContent=pick>=1000?(pick/1000)+" bin km":pick+" km";
 }
-function fitGeo(b,animate){
+function fitPx(b,animate){
   const v=vis(); state.fitted=false;
-  const x0=PX(b[0]),x1=PX(b[2]),y0=PY(b[3]),y1=PY(b[1]);
-  const k=Math.max(minK(),Math.min(16,Math.min(v.vw/(x1-x0),v.vh/(y1-y0))*.94));
-  go(k,(v.vx+v.vw/2)-k*(x0+x1)/2,(v.vy+v.vh/2)-k*(y0+y1)/2,animate);
+  const w=Math.max(8,b[2]-b[0]), h=Math.max(8,b[3]-b[1]);
+  const k=Math.max(minK(),Math.min(16,Math.min(v.vw/w,v.vh/h)*.9));
+  go(k,(v.vx+v.vw/2)-k*(b[0]+b[2])/2,(v.vy+v.vh/2)-k*(b[1]+b[3])/2,animate);
+}
+function fitGeo(b,animate){
+  fitPx([PX(b[0]),PY(b[3]),PX(b[2]),PY(b[1])],animate);
+}
+/* birimin çizim verisinden sınır kutusu — panelden o yere uçmak için */
+const BOX={};
+function unitBox(id){
+  if(BOX[id]!==undefined) return BOX[id];
+  const u=GEO.units[id];
+  let r=null;
+  if(u&&u.d){
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9,m;
+    const re=/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g;
+    while((m=re.exec(u.d))){
+      const x=+m[1],y=+m[2];
+      if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y;
+    }
+    if(x1>x0) r=[x0,y0,x1,y1];
+  }
+  return (BOX[id]=r);
+}
+function flyUnit(id){
+  const b=unitBox(id);
+  if(b) fitPx([b[0]-14,b[1]-14,b[2]+14,b[3]+14],1);
+  renderUnit(id);
 }
 function go(k,tx,ty,animate){
   if(!animate||matchMedia("(prefers-reduced-motion: reduce)").matches){
@@ -1423,6 +1468,10 @@ function renderStage(){
     <h2>${esc(s.h)}</h2>
     <div class="date-line">${esc(s.date)}</div>
     <p class="lede">${s.lede}</p>
+    ${(s.spots||[]).length?`<h3>Haritada bul</h3><div class="chips">${s.spots
+      .filter(id=>U[id]).map(id=>
+        `<button class="chip go" data-fly="${id}">${esc(U[id].sh||U[id].n)}</button>`
+      ).join("")}</div>`:""}
     <h3>Ne oldu</h3><div class="body-txt">${s.tx}</div>
     ${s.facts.length?`<h3>Sayılarla</h3><dl class="facts">${s.facts.map(f=>
       `<div class="fact"><dt>${esc(f[0])}</dt><dd>${f[1]}</dd></div>`).join("")}</dl>`:""}
@@ -1473,6 +1522,8 @@ function markSel(){
 }
 panel.addEventListener("click",e=>{
   if(e.target.closest("[data-back]")){state.sel=null;markSel();renderStage();return;}
+  const f=e.target.closest("[data-fly]");
+  if(f){flyUnit(f.dataset.fly); return;}
   const g=e.target.closest("[data-go]");
   if(g){const id=g.dataset.go, p=EV[id].p;
     fitGeo([p[0]-2.6,p[1]-1.8,p[0]+2.6,p[1]+1.8],1); renderEv(id);}
