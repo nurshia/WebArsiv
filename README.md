@@ -5,6 +5,7 @@
 | Site | Demo |
 |---|---|
 | SwenzyBots | https://nurshia.github.io/WebArsiv/swenzy.com.tr/ |
+| Trablusgarp 1911 | https://nurshia.github.io/WebArsiv/trablusgarp/ |
 
 Yaptığım web sitelerinin tek repoda toplanmış hâli. Her site kendi klasöründe duruyor ve
 GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
@@ -15,6 +16,8 @@ GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
 .
 ├── index.html          # demo listesi (kök sayfa)
 ├── .nojekyll           # Jekyll işlemesini kapatır
+├── trablusgarp/        # Trablusgarp 1911 — interaktif ders haritası
+│   └── index.html      # tek dosya, bağımlılıksız
 └── swenzy.com.tr/      # SwenzyBots — Discord bot hizmetleri sitesi
     ├── index.html
     ├── features.html
@@ -49,6 +52,27 @@ python3 -m http.server 4321
 ```
 
 Sonra tarayıcıdan `http://localhost:4321` adresini aç.
+
+## Trablusgarp 1911
+
+`trablusgarp/index.html` derste kullanılmak üzere hazırlanmış interaktif bir dönem haritası.
+**Tek dosya, bağımlılığı yok** — indirip çift tıklayarak da açılır, internet gerekmez
+(yalnızca yazı tipleri çevrimdışıyken sistem yazı tiplerine düşer).
+
+- 1911 Akdeniz'i: Osmanlı Devleti, Trablusgarp'ın üç sancağı (Trablus · Bingazi · Fizan)
+  ve çevredeki devletler
+- Altı aşamalı kronoloji rayı: savaş öncesinden 1915 sonrasına kadar harita değişiyor
+- Tıklanabilir ülkeler, olay işaretleri, subayların gizli geçiş yolu, donanma harekâtı
+- Katmanlar: İtalyan denetimi, direniş bölgeleri, bugünkü ülke adları, koordinat ağı
+- Sunum modu (paneli gizler), aydınlık/karanlık tema, klavye kısayolları
+- Kişiler ve ders notu (nedenler, sonuçlar, kavramlar, tartışma soruları) örtü sayfaları
+
+Klavye: `←` `→` dönem, `1`–`6` doğrudan dönem, `+` `−` `0` yakınlaştırma,
+`S` sunum, `K` kişiler, `N` ders notu, `L` katmanlar.
+
+Coğrafi taban [Natural Earth](https://www.naturalearthdata.com/) (kamu malı) 1:50m
+verisinden üretildi; dönem sınırları modern ülke sınırlarına yaklaştırıldı, Mercator
+izdüşümü kullanıldı. Sınırlar ders anlatımı için şematiktir.
 
 ## Notlar
 
