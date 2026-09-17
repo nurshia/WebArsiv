@@ -15,15 +15,15 @@
 <style>
 /* ============ jetonlar ============ */
 :root{
-  --paper:#f3efe6; --plate:#e7e1d1; --plate-2:#ded7c4;
-  --sea:#aecdd9; --sea-ink:#7aa2b1; --grat:#99bfcd;
-  --ink:#22292e; --ink-2:#4e5a64; --ink-3:#7d8892; --rule:#d2cab6;
+  --paper:#f5f2ea; --plate:#eae4d6; --plate-2:#e0d9c8;
+  --sea:#9fc9d9; --sea-ink:#5f9aaf; --grat:#88bacc; --halo:#c6e1ea;
+  --ink:#22292e; --ink-2:#4e5a64; --ink-3:#7d8892; --rule:#d4ccb8;
   --panel:#fbf9f3; --panel-2:#f1ece0; --sunken:#e9e3d5;
-  --osm:#c0503f; --osm-w:#e2a68b; --ita:#2d6d9f; --ita-w:#8ab4d2;
-  --gbr:#d9a441; --fra:#8b7bb0; --aut:#9c8467; --bal:#7fa46a;
-  --rus:#7c8a99; --alb:#c08a3e; --oth:#c6bda8; --esp:#bba98d;
+  --osm:#c4503f; --osm-w:#e7ab93; --ita:#2a6b9b; --ita-w:#89b6d4;
+  --gbr:#d4a04a; --fra:#8a76b5; --aut:#a8818c; --bal:#77a05f;
+  --rus:#7e8fa0; --alb:#c08a3e; --oth:#ded3bd; --esp:#c5c0a0;
   --accent:#c2551f; --accent-soft:#e8ddcc;
-  --wall:#6f5e46; --hi:#fffaf0;
+  --hi:#fffdf6;
   --sel:#1d2226;
   --shadow:0 1px 2px rgba(45,38,25,.07), 0 8px 24px -12px rgba(45,38,25,.22);
   --shadow-lift:0 2px 4px rgba(45,38,25,.09), 0 18px 40px -16px rgba(45,38,25,.3);
@@ -32,14 +32,14 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --paper:#12161a; --plate:#1e242a; --plate-2:#252c33;
-    --sea:#12313e; --sea-ink:#33697e; --grat:#255060;
+    --sea:#0f2c39; --sea-ink:#3a7387; --grat:#22505f; --halo:#17404f;
     --ink:#eae5d8; --ink-2:#a9b2b8; --ink-3:#78838b; --rule:#2d353c;
     --panel:#171c21; --panel-2:#1f262c; --sunken:#11161a;
-    --osm:#cd6350; --osm-w:#96503c; --ita:#4d8ac2; --ita-w:#2d5a82;
-    --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
-    --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
+    --osm:#c55a44; --osm-w:#9a5540; --ita:#4a8cc4; --ita-w:#2e5c85;
+    --gbr:#dcae5e; --fra:#9b8ac4; --aut:#a98d9c; --bal:#88ab6d;
+    --rus:#8595a6; --alb:#c99d55; --oth:#4e5851; --esp:#6e6b52;
     --accent:#e9773f; --accent-soft:#2a2019;
-    --wall:#05080a; --hi:#5e727d;
+    --hi:#63798a;
     --sel:#f2ede0;
     --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
     --shadow-lift:0 2px 4px rgba(0,0,0,.55), 0 18px 40px -16px rgba(0,0,0,.85);
@@ -48,14 +48,14 @@
 }
 :root[data-theme="dark"]{
   --paper:#12161a; --plate:#1e242a; --plate-2:#252c33;
-  --sea:#12313e; --sea-ink:#33697e; --grat:#255060;
+  --sea:#0f2c39; --sea-ink:#3a7387; --grat:#22505f; --halo:#17404f;
   --ink:#eae5d8; --ink-2:#a9b2b8; --ink-3:#78838b; --rule:#2d353c;
   --panel:#171c21; --panel-2:#1f262c; --sunken:#11161a;
-  --osm:#cd6350; --osm-w:#96503c; --ita:#4d8ac2; --ita-w:#2d5a82;
-  --gbr:#dcaf60; --fra:#a291c0; --aut:#a8927a; --bal:#8fb07b;
-  --rus:#8595a6; --alb:#c99d55; --oth:#5a636a; --esp:#6f665a;
+  --osm:#c55a44; --osm-w:#9a5540; --ita:#4a8cc4; --ita-w:#2e5c85;
+  --gbr:#dcae5e; --fra:#9b8ac4; --aut:#a98d9c; --bal:#88ab6d;
+  --rus:#8595a6; --alb:#c99d55; --oth:#4e5851; --esp:#6e6b52;
   --accent:#e9773f; --accent-soft:#2a2019;
-  --wall:#05080a; --hi:#5e727d;
+  --hi:#63798a;
   --sel:#f2ede0;
   --shadow:0 1px 2px rgba(0,0,0,.5), 0 8px 24px -12px rgba(0,0,0,.8);
   --shadow-lift:0 2px 4px rgba(0,0,0,.55), 0 18px 40px -16px rgba(0,0,0,.85);
@@ -111,12 +111,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .stage{grid-column:1;grid-row:2;position:relative;overflow:hidden;background:var(--sea)}
 #map{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 #map.drag{cursor:grabbing}
-/* kabartma: yan duvar (aşağı kaydırılmış koyu siluet) ve üst kenar ışığı */
-#wall path{fill:var(--wall);stroke:none}
-#wall{opacity:.92;pointer-events:none}
+/* kıyı halesi — karaların çevresinde yumuşak sığ su bandı */
+#halo path{fill:none;stroke:var(--halo);stroke-width:6;stroke-linejoin:round;
+  vector-effect:non-scaling-stroke}
+#halo{opacity:.75;pointer-events:none}
+/* kabartma: yan duvar her ülkenin kendi renginin koyusu, üstte ince kenar ışığı */
+#wall{filter:brightness(.5) saturate(1.1);opacity:.95;pointer-events:none}
+#wall path{stroke:none}
 #hi path{fill:var(--hi);stroke:none}
-#hi{opacity:.34;pointer-events:none}
-#land{filter:drop-shadow(0 1.6px 1.4px rgba(40,28,14,.26))}
+#hi{opacity:.26;pointer-events:none}
+#land{filter:drop-shadow(0 1.4px 1.2px rgba(30,40,48,.22))}
 .terr{fill:var(--oth);stroke:rgba(0,0,0,.28);stroke-width:.6;vector-effect:non-scaling-stroke;
   transition:fill .45s ease, transform .2s cubic-bezier(.2,.9,.3,1.2), filter .2s ease}
 #map.boot .terr{transition:none}
@@ -1042,9 +1046,9 @@ defs.innerHTML=
     <rect width="2.1" height="9" fill="var(--ink)" opacity=".5"/></pattern>
   <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
     <feGaussianBlur stdDeviation="4"/></filter>
-  <radialGradient id="vig" cx="50%" cy="46%" r="74%">
-    <stop offset="52%" stop-color="#1a1206" stop-opacity="0"/>
-    <stop offset="100%" stop-color="#1a1206" stop-opacity=".2"/></radialGradient>
+  <radialGradient id="vig" cx="50%" cy="46%" r="76%">
+    <stop offset="56%" stop-color="#0c1c24" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#0c1c24" stop-opacity=".16"/></radialGradient>
   <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5"
           markerHeight="5.5" orient="auto-start-reverse">
     <path d="M0 1.2 L9 5 L0 8.8 z" fill="var(--ita)"/></marker>
@@ -1064,17 +1068,19 @@ for(let lat=5;lat<=55;lat+=5){const y=PY(lat);
   el("line",{x1:-400,y1:y,x2:W+400,y2:y,class:lat%10?"":"maj"},gGrat);}
 
 /* ================= kara ================= */
-/* kabartma için üç katman: yan duvar (altta) · üst kenar ışığı · karalar */
+/* dört katman: kıyı halesi · yan duvar · üst kenar ışığı · karalar */
+const gHalo=el("g",{id:"halo"},Z);
 const gWall=el("g",{id:"wall"},Z);
 const gHi=el("g",{id:"hi"},Z);
-const gLand=el("g",{id:"land"},Z), PATHS={};
+const gLand=el("g",{id:"land"},Z), PATHS={}, WALLS={};
 for(const id in GEO.units){
   const meta=U[id];
   const p=el("path",{d:GEO.units[id].d,class:"terr"+(meta?" hit":""),
     "data-u":id,tabindex:meta?"0":null,role:meta?"button":null,
     "aria-label":meta?meta.n:null},gLand);
   PATHS[id]=p;
-  el("path",{d:GEO.units[id].d},gWall);
+  el("path",{d:GEO.units[id].d},gHalo);
+  WALLS[id]=el("path",{d:GEO.units[id].d},gWall);
   el("path",{d:GEO.units[id].d},gHi);
 }
 const gClaim=el("g",{id:"claim"},Z);
@@ -1194,9 +1200,9 @@ function apply(){
     svg.style.setProperty("--lf",(4/state.k).toFixed(3));
     const iv=1/state.k;
     gWall.setAttribute("transform",
-      `translate(${(2.4*iv).toFixed(2)},${(9*iv).toFixed(2)})`);
+      `translate(${(1.8*iv).toFixed(2)},${(6.5*iv).toFixed(2)})`);
     gHi.setAttribute("transform",
-      `translate(${(-1.1*iv).toFixed(2)},${(-2.4*iv).toFixed(2)})`);
+      `translate(${(-.9*iv).toFixed(2)},${(-1.9*iv).toFixed(2)})`);
     svg.classList.toggle("z1",state.k>=1.22);
     svg.classList.toggle("z2",state.k>=2.0);
     scaleBar();
@@ -1356,6 +1362,7 @@ function applyStage(i,animate){
     const e=ENT[curOwner(id)]||ENT.oth;
     PATHS[id].setAttribute("class","terr"+(U[id]?" hit":"")+" "+e.c+
       (state.sel&&state.sel.t==="u"&&state.sel.id===id?" on":""));
+    if(WALLS[id]) WALLS[id].setAttribute("class",e.c);
   }
   gClaim.textContent="";
   if(st.claim) ["lby_tr","lby_bn","lby_fz"].forEach(id=>{
