@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Hollow Purple</title>
+<meta name="description" content="Gojo Satoru'nun Mavi, Kırmızı ve Mor tekniklerini parmaklarınla kullandığın, tablet için yapılmış dokunmatik simülatör.">
+<meta name="theme-color" content="#07060f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Hollow Purple">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hollow Purple">
+<meta property="og:description" content="Mavi çeker, Kırmızı iter, ikisi birleşince Mor her şeyi siler. Tablette dokunarak oynanır.">
+<meta property="og:locale" content="tr_TR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.32' stop-color='%23d6a8ff'/%3E%3Cstop offset='.72' stop-color='%236d24e6'/%3E%3Cstop offset='1' stop-color='%23220650'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='30' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap&text=%E3%80%8C%E3%80%8D%E3%81%A8%E3%81%AE%E4%B8%8B%E4%B9%9D%E4%BD%8D%E5%81%8F%E5%85%89%E5%87%A6%E5%8F%8D%E5%91%AA%E5%9F%9F%E5%A3%B0%E5%B1%95%E5%BC%8F%E6%85%A7%E6%98%8E%E6%98%8F%E6%99%BA%E6%9F%B1%E6%B3%A2%E7%83%8F%E7%84%A1%E7%9B%B8%E7%9E%B3%E7%A5%93%E7%A9%BA%E7%B6%B1%E7%BE%85%E8%8C%88%E8%92%BC%E8%99%9A%E8%9C%9C%E8%A1%93%E8%A1%A8%E8%A3%8F%E8%B5%AB%E8%BB%A2%E9%87%8F%E9%96%8B%E9%96%93%E9%99%90%E9%A0%86%E9%A0%98%E9%BB%84">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-mode="blue">
+
+<canvas id="stage" aria-label="Simülasyon alanı. Dokunarak teknik kullan."></canvas>
+
+<div id="hud">
+  <header class="topbar">
+    <a class="ibtn" id="btn-back" href="../" aria-label="Arşive dön" title="Arşive dön">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="stats">
+      <span class="stat" title="Şehrin yıkılan kısmı">Yıkım <b>%<span id="st-destroy">0</span></b></span>
+      <span class="stat" title="Kovulan lanet sayısı"><span class="jp" aria-hidden="true">祓</span> Lanet <b id="st-curse">0</b></span>
+    </div>
+    <div class="tools">
+      <button class="ibtn" id="btn-sound" type="button" aria-label="Sesi kapat" aria-pressed="false" title="Ses">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="spk" d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path class="on" d="M15.5 8.5a5 5 0 010 7M18 6a8.5 8.5 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="off" d="M16 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="ibtn" id="btn-help" type="button" aria-label="Nasıl oynanır" title="Nasıl oynanır">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.3 9.2a2.8 2.8 0 015.4 1c0 1.9-2.7 2.3-2.7 4.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><circle cx="12" cy="18.2" r="1.25" fill="currentColor"/></svg>
+      </button>
+      <button class="ibtn" id="btn-full" type="button" aria-label="Tam ekran" title="Tam ekran" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="chant" aria-hidden="true"><div class="words"></div><div class="tr"></div></div>
+  <div id="hint" role="status" aria-live="polite"></div>
+
+  <nav class="dock" aria-label="Teknikler">
+    <button class="tech blue on" type="button" data-mode="blue" aria-pressed="true" title="Mavi: çeker (1)"><span class="k" aria-hidden="true">蒼</span><span class="l">Mavi</span></button>
+    <button class="tech red" type="button" data-mode="red" aria-pressed="false" title="Kırmızı: iter (2)"><span class="k" aria-hidden="true">赫</span><span class="l">Kırmızı</span></button>
+    <button class="tech purple" type="button" data-mode="purple" aria-pressed="false" title="Mor: siler (3)"><span class="k" aria-hidden="true">茈</span><span class="l">Mor</span></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="tech domain" type="button" id="btn-domain" title="Alan Açılımı (D)"><span class="k" aria-hidden="true">領域</span><span class="l">Alan</span></button>
+    <button class="tech repair" type="button" id="btn-repair" title="Şehri onar (R)"><span class="k" aria-hidden="true">反転</span><span class="l">Onar</span></button>
+  </nav>
+</div>
+
+<div id="callout" aria-hidden="true"><div class="kanji"></div><div class="sub"></div></div>
+
+<section id="intro" class="overlay" aria-labelledby="intro-title">
+  <div class="card intro">
+    <p class="vchant" aria-hidden="true"><span>九</span><span>綱</span><i></i><span>偏</span><span>光</span><i></i><span>烏</span><span>と</span><span>声</span><span>明</span><i></i><span>表</span><span>裏</span><span>の</span><span>間</span></p>
+    <div class="intro-body">
+      <p class="eyebrow"><span class="jp">無下限呪術</span> · Gojo Satoru</p>
+      <h1 id="intro-title"><span class="jp">虚式「茈」</span><span class="en">Hollow Purple</span></h1>
+      <p class="lede">Mavi çeker, Kırmızı iter. İkisini birleştirince Mor, yolundaki her şeyi siler. Tabletinde parmaklarınla dene.</p>
+      <ul class="legend">
+        <li class="blue"><span class="seal" aria-hidden="true">蒼</span><span><b>Mavi</b> Basılı tut, çevresindeki her şeyi kendine çeksin.</span></li>
+        <li class="red"><span class="seal" aria-hidden="true">赫</span><span><b>Kırmızı</b> Dokun ve patlat, ya da kaydırıp fırlat.</span></li>
+        <li class="purple"><span class="seal" aria-hidden="true">茈</span><span><b>Mor</b> İki parmağını birleştir, sonra kaydırıp fırlat.</span></li>
+      </ul>
+      <div class="start-row">
+        <button id="btn-start" class="start" type="button">Başla</button>
+        <p class="note">Yatay tut, sesi aç.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="help" class="overlay" aria-labelledby="help-title" hidden>
+  <div class="card help" role="dialog" aria-modal="true">
+    <div class="help-head">
+      <h2 id="help-title">Nasıl oynanır</h2>
+      <button class="ibtn" id="btn-help-close" type="button" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <dl class="rules">
+      <div class="blue"><dt><span class="seal" aria-hidden="true">蒼</span>Mavi · Çekim</dt>
+        <dd>Parmağını bas ve tut: Mavi taşları, enkazı ve lanetleri kendine çeker. Parmağını gezdirerek şehri süpür. Kaydırıp bırakırsan fırlar. Uzun tutarsan büyü sözlerini okur ve büyür.</dd></div>
+      <div class="red"><dt><span class="seal" aria-hidden="true">赫</span>Kırmızı · İtme</dt>
+        <dd>Dokun: olduğu yerde patlar. Basılı tut: güç toplar. Kaydırıp bırak: mermi gibi fırlar, çarptığı yerde patlar.</dd></div>
+      <div class="purple"><dt><span class="seal" aria-hidden="true">茈</span>Mor · Silme</dt>
+        <dd>Tek parmakla basılı tut: Mavi ile Kırmızı dönerek birleşir. Ya da iki parmak koy: biri Mavi, biri Kırmızı olur; parmaklarını birbirine yaklaştır. Mor oluşunca kaydırıp bırak. Kaydırmadan bırakırsan havada bekler, sonra hedefe dokun.</dd></div>
+      <div class="combo"><dt><span class="seal" aria-hidden="true">✦</span>Kombo</dt>
+        <dd>Mavi açıkken içine Kırmızı fırlat: anında Mor.</dd></div>
+      <div class="domain"><dt><span class="seal" aria-hidden="true">領</span>Alan Açılımı</dt>
+        <dd>Sonsuz Boşluk açılır. İçindeki lanetler donar, alan kapanınca yok olur.</dd></div>
+      <div class="repair"><dt><span class="seal" aria-hidden="true">反</span>Onar</dt>
+        <dd>Ters Lanetli Teknik şehri eski hâline getirir.</dd></div>
+    </dl>
+    <p class="keys">Klavye: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> teknik · <kbd>D</kbd> alan · <kbd>R</kbd> onar · <kbd>M</kbd> ses</p>
+    <p class="fine">Hayran yapımı bir oyuncak. Jujutsu Kaisen, Gege Akutami'ye aittir.</p>
+  </div>
+</section>
+
+<script src="game.js"></script>
+</body>
+</html>
