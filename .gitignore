@@ -16,3 +16,9 @@ desktop.ini
 node_modules/
 dist/
 .cache/
+
+# Harita verisi üretimi (birinci-dunya-savasi/kaynak): indirilen veri ve ara çıktılar
+birinci-dunya-savasi/kaynak/ne/
+birinci-dunya-savasi/kaynak/cikti/
+birinci-dunya-savasi/kaynak/.onbellek/
+__pycache__/

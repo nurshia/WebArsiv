@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>I. Dünya Savaşı · Etkileşimli Harita</title>
+<meta name="description" content="Birinci Dünya Savaşı için akıllı tahtaya uygun etkileşimli ders haritası: 1914 sınırları, on aşamalı kronoloji, Osmanlı cepheleri, ayrıntılı Çanakkale haritası, olaylar, kişiler, ders notu ve sınıf soruları.">
+<meta property="og:title" content="I. Dünya Savaşı · Etkileşimli Harita">
+<meta property="og:description" content="Akıllı tahta için dokunmatik ders haritası: 1914–1923, Osmanlı cepheleri, Çanakkale, Mondros ve barış antlaşmaları.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#17191b">
+<link rel="preload" href="fonts/atkinson.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%2317191b'/%3E%3Cpath d='M9 23 23 9M9 9l14 14' stroke='%23e0533d' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false">
+ <defs>
+  <!-- arayüz simgeleri (24×24, çizgi) -->
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.2C10 4.8 7.2 4.3 3.5 4.5v13.6c3.7-.2 6.5.3 8.5 1.7 2-1.4 4.8-1.9 8.5-1.7V4.5C16.8 4.3 14 4.8 12 6.2Zm0 0v13.6"/></symbol>
+  <symbol id="i-front" viewBox="0 0 24 24"><path d="M4.5 4.5 15 15m-2.2 1.6 3.8-3.8M17.2 17.2l2.3 2.3M19.5 4.5 9 15m2.2 1.6-3.8-3.8M6.8 17.2l-2.3 2.3"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8.2" r="3.4"/><path d="M2.8 19.5c.6-3.6 3-5.6 6.2-5.6s5.6 2 6.2 5.6"/><path d="M15.4 5.2a3.2 3.2 0 0 1 0 6.1M17.4 14.2c2 .6 3.3 2.4 3.8 5.3"/></symbol>
+  <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3.5h9.5L19 7v13.5H6z"/><path d="M15.3 3.6V7.2H19M9 11h7M9 14.3h7M9 17.6h4.5"/></symbol>
+  <symbol id="i-quiz" viewBox="0 0 24 24"><path d="M4 5.5h16v10.4h-8.4L7 19.6v-3.7H4z"/><path d="M9.9 9.2a2.2 2.2 0 1 1 3 2.1c-.6.3-.9.8-.9 1.4v.3"/><circle cx="12" cy="14.6" r=".35" fill="currentColor"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="m14.8 5.3 3.9 3.9L8.4 19.5l-4.7.8.8-4.7z"/><path d="m12.9 7.2 3.9 3.9"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3.8 8.5 4.6-8.5 4.6-8.5-4.6z"/><path d="m3.5 12.2 8.5 4.6 8.5-4.6M3.5 16 12 20.6l8.5-4.6"/></symbol>
+  <symbol id="i-set" viewBox="0 0 24 24"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-unfull" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4.5 9.5V4.5h5M19.5 9.5V4.5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-prev" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5"/></symbol>
+  <symbol id="i-next" viewBox="0 0 24 24"><path d="M9.5 5.5 16 12l-6.5 6.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M5.5 14.5 12 8l6.5 6.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M5.5 9.5 12 16l6.5-6.5"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M10 6 4 12l6 6M4.5 12H20"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8.5 5.5 4 10l4.5 4.5"/><path d="M4.5 10H14a5.5 5.5 0 0 1 0 11h-3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 6.5h15M9.5 6.5V4h5v2.5M6.5 6.5l1 13.5h9l1-13.5M10.2 10v6.6M13.8 10v6.6"/></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M14.5 4.5v15"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 6l7 6-7 6zM13 6l7 6-7 6z"/></symbol>
+  <symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.3"/><path d="m15.2 15.2 5.3 5.3M10.5 7.6v5.8M7.6 10.5h5.8"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s6.5-6.1 6.5-11A6.5 6.5 0 0 0 5.5 10c0 4.9 6.5 11 6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+
+  <!-- olay işaretleri (16×16, dolgu) -->
+  <symbol id="m-mh" viewBox="-8 -8 16 16"><path d="M-5.2-5.6 5 4.6l.9-.9-10.2-10.2-1.8-.3zm10.4 0L-5 4.6l-.9-.9 10.2-10.2 1.8-.3zM-4.6 3.1l1.5 1.5-1.8 1.8-1.5-1.5zM4.6 3.1 3.1 4.6l1.8 1.8 1.5-1.5z"/></symbol>
+  <symbol id="m-den" viewBox="-8 -8 16 16"><path d="M-.9-4.9a1.6 1.6 0 1 1 1.8 0v1.5H3v1.5H.9v6.3c1.9-.2 3.4-1.4 4-3.1l-1.3-.3 2.3-2.2.8 3.1-1-.2C4.8 4.4 2.5 6.3 0 6.3s-4.8-1.9-5.7-4.6l-1 .2.8-3.1 2.3 2.2-1.3.3c.6 1.7 2.1 2.9 4 3.1v-6.3H-3v-1.5H-.9z"/></symbol>
+  <symbol id="m-cik" viewBox="-8 -8 16 16"><path d="M-6.5 4.8h13v1.6h-13zM0-6.2l4.6 4.6-1.2 1.2L.8-3v6.4H-.8V-3l-2.6 2.6-1.2-1.2z"/></symbol>
+  <symbol id="m-tah" viewBox="-8 -8 16 16"><path d="M-6.5-6.4h13v1.6h-13zM0 6.2l4.6-4.6-1.2-1.2L.8 3V-3.4H-.8V3l-2.6-2.6-1.2 1.2z"/></symbol>
+  <symbol id="m-kus" viewBox="-8 -8 16 16"><path d="M-6.4 6.2V-1.5h1.8v-2.7h1.9v2.7h1.8v-4.3h1.8v4.3h1.8v-2.7h1.9v2.7h1.8v7.7h-4.3V2.6h-2.6v3.6z"/></symbol>
+  <symbol id="m-ant" viewBox="-8 -8 16 16"><path d="M-5-6.5h7.2L5 -3.7V6.5H-5zm1.8 4v1.3h6.4v-1.3zm0 2.8v1.3h6.4V.3zm0 2.8v1.3H1V3.1z"/></symbol>
+  <symbol id="m-sia" viewBox="-8 -8 16 16"><path d="M-4.8-6.6h1.6v13.2h-1.6zM-2.6-6.2c2.5-1.1 4.2 1.1 7.4-.2v6.6c-3.2 1.3-4.9-.9-7.4.2z"/></symbol>
+  <symbol id="m-sui" viewBox="-8 -8 16 16"><path d="M-.8-7h1.6v3a4.2 4.2 0 0 1 3.3 3.3h2.9v1.6H4.1A4.2 4.2 0 0 1 .8 4.2v2.9H-.8V4.2A4.2 4.2 0 0 1-4.1.8H-7V-.8h2.9A4.2 4.2 0 0 1-.8-4.1zM0-2.6a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2z"/></symbol>
+  <symbol id="m-isg" viewBox="-8 -8 16 16"><path d="M-5.2-6.8h1.6V6.8h-1.6zM-2.8-6.4H5.6L3.6-3.4l2 3h-8.4z"/></symbol>
+  <symbol id="m-dy" viewBox="-8 -8 16 16"><path d="M-3.8-6.8h1.5v13.6h-1.5zM2.3-6.8h1.5v13.6H2.3zM-5.6-4.9h11.2v1.5H-5.6zm0 3.2h11.2v1.5H-5.6zm0 3.2h11.2V3H-5.6zm0 3.2h11.2v1.5H-5.6z"/></symbol>
+ </defs>
+</svg>
+
+<div id="app" class="app">
+  <!-- ============ sol araç çubuğu ============ -->
+  <nav id="rail" class="rail" aria-label="Araçlar">
+    <div class="brand" aria-hidden="true"><b>I.</b><span>Dünya<br>Savaşı</span></div>
+    <button class="rb" data-mode="anlatim" aria-pressed="true" title="Aşamaların anlatımı (A)"><svg><use href="#i-book"/></svg><span>Anlatım</span></button>
+    <button class="rb" data-mode="cephe" aria-pressed="false" title="Cepheler (C)"><svg><use href="#i-front"/></svg><span>Cepheler</span></button>
+    <button class="rb" data-sheet="kisiler" title="Kişiler (K)"><svg><use href="#i-people"/></svg><span>Kişiler</span></button>
+    <button class="rb" data-sheet="notlar" title="Ders notu (N)"><svg><use href="#i-note"/></svg><span>Ders notu</span></button>
+    <button class="rb" data-tool="sinav" aria-pressed="false" title="Sınıf soruları (S)"><svg><use href="#i-quiz"/></svg><span>Soru</span></button>
+    <button class="rb" data-tool="kalem" aria-pressed="false" title="Harita üstüne çizim (D)"><svg><use href="#i-pen"/></svg><span>Kalem</span></button>
+    <div class="rail-sp"></div>
+    <button class="rb sm" data-pop="katman" title="Katmanlar (L)"><svg><use href="#i-layers"/></svg><span>Katmanlar</span></button>
+    <button class="rb sm" data-pop="ayar" title="Görünüm ve yazı boyutu"><svg><use href="#i-set"/></svg><span>Görünüm</span></button>
+    <button class="rb sm" id="bFull" title="Tam ekran (F)"><svg><use href="#i-full"/></svg><span>Tam ekran</span></button>
+  </nav>
+
+  <!-- ============ harita ============ -->
+  <main id="stage" class="stage" aria-label="Harita">
+    <div id="cam" class="cam">
+      <svg id="svBase" class="sv" aria-hidden="true"></svg>
+      <svg id="svOver" class="sv over" role="group" aria-label="Harita işaretleri"></svg>
+      <svg id="svInk" class="sv ink" aria-hidden="true"></svg>
+    </div>
+
+    <div class="stamp" id="stamp" aria-live="polite">
+      <i id="stampK"></i><b id="stampYr"></b><span id="stampNm"></span>
+    </div>
+
+    <div class="zoom" role="group" aria-label="Yakınlaştırma">
+      <button class="zb" id="zIn" aria-label="Yakınlaştır"><svg><use href="#i-plus"/></svg></button>
+      <button class="zb" id="zOut" aria-label="Uzaklaştır"><svg><use href="#i-minus"/></svg></button>
+      <button class="zb" id="zHome" aria-label="Aşamanın görünümüne dön"><svg><use href="#i-home"/></svg></button>
+    </div>
+
+    <section class="legend" id="legend" aria-label="Lejant">
+      <button class="lg-hd" id="lgHd" aria-expanded="true"><span>Lejant</span><svg><use href="#i-down"/></svg></button>
+      <div class="lg-body" id="lgBody"></div>
+    </section>
+    <div class="scale" id="scale" aria-hidden="true"><i id="scaleBar"></i><span id="scaleTxt"></span></div>
+
+    <div class="caption" id="caption" hidden></div>
+    <div class="quiz" id="quiz" hidden></div>
+    <div class="penbar" id="penbar" hidden></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <!-- ============ yan panel ============ -->
+  <aside id="panel" class="panel" aria-label="Açıklamalar">
+    <div class="p-tabs" id="pTabs" role="tablist"></div>
+    <div class="p-body" id="pBody" tabindex="-1"></div>
+    <div class="p-foot" id="pFoot">
+      <button class="pf-next" id="pNext"></button>
+      <button class="pn" id="pUp" aria-label="Yukarı kaydır"><svg><use href="#i-up"/></svg></button>
+      <button class="pn" id="pDown" aria-label="Aşağı kaydır"><svg><use href="#i-down"/></svg></button>
+    </div>
+  </aside>
+
+  <!-- ============ zaman çizelgesi ============ -->
+  <footer id="tl" class="tl">
+    <button class="tl-back" id="tBack" hidden><svg><use href="#i-back"/></svg><span>Genel<br>harita</span></button>
+    <button class="tl-arr" id="tPrev" aria-label="Önceki aşama"><svg><use href="#i-prev"/></svg></button>
+    <ol class="tl-steps" id="tSteps" aria-label="Savaşın aşamaları"></ol>
+    <button class="tl-arr" id="tNext" aria-label="Sonraki aşama"><svg><use href="#i-next"/></svg></button>
+    <button class="tl-panel" id="bPanel" aria-pressed="false" title="Paneli gizle / göster (P)"><svg><use href="#i-panel"/></svg><span>Sunum</span></button>
+  </footer>
+</div>
+
+<!-- ============ örtü sayfa (kişiler, ders notu) ============ -->
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="shTitle">
+  <div class="sh-in">
+    <header class="sh-hd"><h2 id="shTitle"></h2><button class="x" id="shX" aria-label="Kapat"><svg><use href="#i-close"/></svg></button></header>
+    <div class="sh-body" id="shBody"></div>
+  </div>
+</div>
+<div class="pop" id="pop" hidden></div>
+
+<noscript><p class="nojs">Bu harita JavaScript gerektirir.</p></noscript>
+<script src="geo.js"></script>
+<script src="data.js"></script>
+<script src="events.js"></script>
+<script src="lines.js"></script>
+<script src="lesson.js"></script>
+<script src="canakkale.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

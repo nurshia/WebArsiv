@@ -1,0 +1,14 @@
+{
+ "mon_itilaf": ["Istanbul","Çanakkale"],
+ "mon_ing":    ["Samsun","Amasya","Kocaeli","Afyonkarahisar","Eskisehir"],
+ "mon_ingfra": ["Gaziantep","K. Maras","Sanliurfa"],
+ "mon_fra":    ["Adana","Mersin","Osmaniye","Hatay"],
+ "mon_ita":    ["Antalya","Mugla","Konya","Burdur"],
+ "mon_yun":    ["Izmir","Manisa","Aydin"],
+ "sevr_bog":   ["Istanbul","Çanakkale","Yalova","Kocaeli"],
+ "sevr_yun":   ["Edirne","Kirklareli","Tekirdag","Izmir","Manisa"],
+ "sevr_ita":   ["Antalya","Mugla","Aydin","Denizli","Burdur","Isparta","Konya","Karaman"],
+ "sevr_fra":   ["Adana","Mersin","Osmaniye","Hatay","Gaziantep","Kilis","K. Maras","Sanliurfa","Adiyaman","Malatya"],
+ "sevr_erm":   ["Trabzon","Rize","Gümüshane","Bayburt","Erzurum","Erzincan","Agri","Mus","Bitlis","Van","Kars","Ardahan","Iğdir"],
+ "sevr_kurd":  ["Diyarbakir","Batman","Siirt","Sirnak","Hakkari","Mardin","Bingöl","Tunceli","Elazig"]
+}
