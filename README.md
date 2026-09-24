@@ -32,7 +32,7 @@ GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
 │       ├── terms.html
 │       ├── kvkk.html
 │       └── distance.html
-└── hollow-purple/      # Gojo'nun Mavi/Kırmızı/Mor teknikleri — dokunmatik simülatör
+└── hollow-purple/      # Gojo'nun Mavi/Kırmızı/Mor teknikleri — dokunmatik oyun
     ├── index.html
     ├── style.css
     └── game.js
@@ -71,6 +71,13 @@ Sonra tarayıcıdan `http://localhost:4321` adresini aç.
     parmağı birbirine yaklaştır; sonra kaydırıp fırlat. Kaydırmadan bırakırsan havada
     bekler, hedefe dokununca fırlar. Maviye Kırmızı fırlatmak da Mor yapar.
   - **領域 Alan Açılımı** lanetleri dondurup yok eder, **反転 Onar** şehri geri kurar.
+  - **Savaş modu:** dört aşama, her birinde önce lanet dalgaları sonra boss:
+    漏瑚 Jogo (ateş, göktaşı), 花御 Hanami (kökler, tahta kalkan), 伏黒甚爾 Toji
+    (Kırmızı'dan kaçar; önce Mavi ile yakala) ve 両面宿儺 Sukuna (kesikler, 伏魔御廚子
+    alanı; Alan Açılımı ile karşılık ver). Gojo'nun Sonsuzluk'u can barıdır, 反転 bu
+    modda iyileştirir. Açılan aşamalar tarayıcıda (`localStorage`) saklanır.
+  - Adres sonuna `#debug` eklenirse test için `window.__hp` açılır
+    (`__hp.unlockAll()` tüm aşamaları açar).
   - Mor'un Japonca yazı tipi, Google Fonts'tan yalnızca kullanılan karakterlerle
     (`text=` alt kümesi) yüklenir; `index.html` ya da `game.js`'e yeni kanji eklenirse
     o bağlantıdaki listeye de eklenmeli.

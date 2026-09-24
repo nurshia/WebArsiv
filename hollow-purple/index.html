@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap&text=%E3%80%8C%E3%80%8D%E3%81%A8%E3%81%AE%E4%B8%8B%E4%B9%9D%E4%BD%8D%E5%81%8F%E5%85%89%E5%87%A6%E5%8F%8D%E5%91%AA%E5%9F%9F%E5%A3%B0%E5%B1%95%E5%BC%8F%E6%85%A7%E6%98%8E%E6%98%8F%E6%99%BA%E6%9F%B1%E6%B3%A2%E7%83%8F%E7%84%A1%E7%9B%B8%E7%9E%B3%E7%A5%93%E7%A9%BA%E7%B6%B1%E7%BE%85%E8%8C%88%E8%92%BC%E8%99%9A%E8%9C%9C%E8%A1%93%E8%A1%A8%E8%A3%8F%E8%B5%AB%E8%BB%A2%E9%87%8F%E9%96%8B%E9%96%93%E9%99%90%E9%A0%86%E9%A0%98%E9%BB%84">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@900&display=swap&text=%E3%80%8C%E3%80%8D%E3%81%A8%E3%81%AE%E3%83%8E%E4%B8%8A%E4%B8%8B%E4%B8%A1%E4%B9%9D%E4%BA%94%E4%BC%8F%E4%BD%8D%E5%81%8F%E5%84%BA%E5%85%89%E5%87%A6%E5%8C%97%E5%8F%82%E5%8F%8D%E5%91%AA%E5%94%AF%E5%9F%9F%E5%A3%B0%E5%A3%B1%E5%A4%A9%E5%AD%90%E5%AE%BF%E5%B0%8A%E5%B1%95%E5%BB%9A%E5%BC%8F%E5%BC%90%E5%BE%A1%E6%82%9F%E6%85%A7%E6%88%91%E6%88%A6%E6%8D%8C%E6%95%97%E6%98%8E%E6%98%8F%E6%99%BA%E6%9D%A1%E6%9F%B1%E6%A5%B5%E6%B3%A2%E6%B8%B8%E6%BC%8F%E7%83%8F%E7%84%A1%E7%88%BE%E7%8B%AC%E7%91%9A%E7%94%9A%E7%95%AA%E7%9B%B8%E7%9E%B3%E7%A5%93%E7%A9%BA%E7%B6%B1%E7%BE%85%E8%82%86%E8%8A%B1%E8%8C%88%E8%92%BC%E8%99%9A%E8%9C%9C%E8%A0%85%E8%A1%93%E8%A1%A8%E8%A3%8F%E8%A7%A3%E8%B5%AB%E8%BB%A2%E9%80%86%E9%87%8F%E9%89%BE%E9%96%8B%E9%96%93%E9%99%90%E9%99%A4%E9%9A%95%E9%9B%B2%E9%9D%A2%E9%A0%86%E9%A0%98%E9%A0%AD%E9%AD%94%E9%BB%84%E9%BB%92">
 <link rel="stylesheet" href="style.css">
 </head>
 <body data-mode="blue">
@@ -27,10 +27,17 @@
 
 <div id="hud">
   <header class="topbar">
-    <a class="ibtn" id="btn-back" href="../" aria-label="Arşive dön" title="Arşive dön">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-    <div class="stats">
+    <div class="lead">
+      <button class="ibtn" id="btn-menu" type="button" aria-label="Menü" title="Menü (Esc)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="meter" id="hpbar" hidden>
+        <span class="m-label"><span class="jp">五条悟</span> Sonsuzluk</span>
+        <span class="m-track"><i id="hp-fill"></i></span>
+      </div>
+    </div>
+    <div class="stat stagepill" id="stagepill" hidden></div>
+    <div class="stats" id="stats">
       <span class="stat" title="Şehrin yıkılan kısmı">Yıkım <b>%<span id="st-destroy">0</span></b></span>
       <span class="stat" title="Kovulan lanet sayısı"><span class="jp" aria-hidden="true">祓</span> Lanet <b id="st-curse">0</b></span>
     </div>
@@ -46,6 +53,11 @@
       </button>
     </div>
   </header>
+
+  <div id="bossbar" hidden>
+    <div class="bb-name"><span class="jp" id="bb-jp"></span><span id="bb-tr"></span></div>
+    <div class="m-track"><i id="bb-fill"></i></div>
+  </div>
 
   <div id="chant" aria-hidden="true"><div class="words"></div><div class="tr"></div></div>
   <div id="hint" role="status" aria-live="polite"></div>
@@ -68,16 +80,18 @@
     <div class="intro-body">
       <p class="eyebrow"><span class="jp">無下限呪術</span> · Gojo Satoru</p>
       <h1 id="intro-title"><span class="jp">虚式「茈」</span><span class="en">Hollow Purple</span></h1>
-      <p class="lede">Mavi çeker, Kırmızı iter. İkisini birleştirince Mor, yolundaki her şeyi siler. Tabletinde parmaklarınla dene.</p>
+      <p class="lede">Mavi çeker, Kırmızı iter. İkisini birleştirince Mor, yolundaki her şeyi siler. Savaşta lanet dalgalarını ve Jogo, Hanami, Toji, Sukuna'yı yen.</p>
       <ul class="legend">
         <li class="blue"><span class="seal" aria-hidden="true">蒼</span><span><b>Mavi</b> Basılı tut, çevresindeki her şeyi kendine çeksin.</span></li>
         <li class="red"><span class="seal" aria-hidden="true">赫</span><span><b>Kırmızı</b> Dokun ve patlat, ya da kaydırıp fırlat.</span></li>
         <li class="purple"><span class="seal" aria-hidden="true">茈</span><span><b>Mor</b> İki parmağını birleştir, sonra kaydırıp fırlat.</span></li>
       </ul>
       <div class="start-row">
-        <button id="btn-start" class="start" type="button">Başla</button>
-        <p class="note">Yatay tut, sesi aç.</p>
+        <button id="btn-battle" class="start" type="button">Savaş</button>
+        <button id="btn-free" class="start ghost" type="button">Serbest</button>
       </div>
+      <div class="stages" id="stages" role="group" aria-label="Aşamalar"></div>
+      <p class="note">Yatay tut, sesi aç. <a id="lnk-archive" href="../">Arşive dön</a></p>
     </div>
   </div>
 </section>
@@ -101,11 +115,23 @@
         <dd>Mavi açıkken içine Kırmızı fırlat: anında Mor.</dd></div>
       <div class="domain"><dt><span class="seal" aria-hidden="true">領</span>Alan Açılımı</dt>
         <dd>Sonsuz Boşluk açılır. İçindeki lanetler donar, alan kapanınca yok olur.</dd></div>
-      <div class="repair"><dt><span class="seal" aria-hidden="true">反</span>Onar</dt>
-        <dd>Ters Lanetli Teknik şehri eski hâline getirir.</dd></div>
+      <div class="repair"><dt><span class="seal" aria-hidden="true">反</span>Onar · İyileş</dt>
+        <dd>Ters Lanetli Teknik şehri eski hâline getirir. Savaşta Gojo'yu da iyileştirir.</dd></div>
+      <div class="battle-rule"><dt><span class="seal" aria-hidden="true">戦</span>Savaş modu</dt>
+        <dd>Lanetler Gojo'ya saldırır. Saldırıları Gojo'ya ulaşmadan havada yok et; Sonsuzluk çubuğu biterse kaybedersin. Her aşamanın sonunda bir boss gelir: Jogo, Hanami, Toji ve Sukuna. Boss bir saldırıya hazırlanırken çok vurursan saldırısı bozulur.</dd></div>
     </dl>
-    <p class="keys">Klavye: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> teknik · <kbd>D</kbd> alan · <kbd>R</kbd> onar · <kbd>M</kbd> ses</p>
+    <p class="keys">Klavye: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> teknik · <kbd>D</kbd> alan · <kbd>R</kbd> onar · <kbd>M</kbd> ses · <kbd>Esc</kbd> menü</p>
     <p class="fine">Hayran yapımı bir oyuncak. Jujutsu Kaisen, Gege Akutami'ye aittir.</p>
+  </div>
+</section>
+
+<section id="panel" class="overlay" aria-labelledby="pn-title" hidden>
+  <div class="card panel" role="dialog" aria-modal="true">
+    <p class="eyebrow" id="pn-eyebrow"></p>
+    <h2 id="pn-title"></h2>
+    <p class="pn-text" id="pn-text"></p>
+    <p class="pn-stats" id="pn-stats"></p>
+    <div class="pn-actions" id="pn-actions"></div>
   </div>
 </section>
 
