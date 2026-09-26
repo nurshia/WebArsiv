@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yazılım Dersleri — Tanıtım Videosu</title>
+<meta name="description" content="Instagram için HTML ile üretilmiş yazılım dersleri tanıtım videosu (Reels / Hikâye / Gönderi).">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --W:1080px; --H:1920px; --top:250px;
+  --bg:#07071a;
+  --text:#f5f6ff;
+  --grad:linear-gradient(95deg,#c4b5fd 0%,#a78bfa 22%,#818cf8 48%,#38bdf8 76%,#22d3ee 100%);
+  --warm:linear-gradient(95deg,#fdba74 0%,#fb7185 55%,#f472b6 100%);
+  --sans:'Plus Jakarta Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --glass:rgba(22,22,52,.66);
+  --line:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#020208}
+body{font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* ---------- önizleme çerçevesi ---------- */
+#frame{position:fixed;left:50%;top:calc(50% - 36px);border-radius:26px;overflow:hidden;
+  box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+#stage{position:absolute;left:0;top:0;width:var(--W);height:var(--H);overflow:hidden;background:var(--bg);transform-origin:0 0}
+body.render{background:var(--bg)}
+body.render #frame{left:0;top:0;width:var(--W);height:var(--H);margin:0!important;border-radius:0;box-shadow:none}
+body.render #controls,body.render #overlay{display:none}
+
+#controls{position:fixed;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;gap:14px;padding:0 18px;
+  background:rgba(10,10,24,.92);border-top:1px solid rgba(255,255,255,.08);font:500 14px/1 var(--sans);color:#cfd3ee}
+#controls button{width:44px;height:44px;flex:none;border:0;border-radius:50%;cursor:pointer;display:grid;place-items:center;
+  background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff}
+#controls button svg{width:18px;height:18px;fill:currentColor}
+#tm{font-family:var(--mono);font-size:13px;color:#9ea3c7;min-width:118px}
+#scrub{flex:1;min-width:60px;accent-color:#8b5cf6}
+#controls .seg{display:flex;border:1px solid rgba(255,255,255,.14);border-radius:999px;overflow:hidden}
+#controls .seg a{padding:8px 12px;color:#aab0cf;text-decoration:none;font-weight:600;font-size:13px;white-space:nowrap}
+#controls .seg a.on{background:rgba(139,92,246,.35);color:#fff}
+#controls label{display:flex;align-items:center;gap:6px;white-space:nowrap;cursor:pointer}
+#controls .dl{color:#fff;text-decoration:none;font-weight:700;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.08);white-space:nowrap}
+#overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(4,4,14,.35);cursor:pointer;z-index:5}
+#overlay span{display:flex;align-items:center;gap:12px;padding:16px 26px;border-radius:999px;font-weight:800;font-size:18px;
+  background:linear-gradient(95deg,#8b5cf6,#06b6d4);box-shadow:0 14px 40px rgba(99,102,241,.5)}
+#overlay svg{width:18px;height:18px;fill:#fff}
+@media (max-width:700px){#controls .seg,#controls label,#tm{display:none}}
+
+/* ---------- arka plan ---------- */
+#bg,#bg>*{position:absolute}
+#bg{inset:0;overflow:hidden}
+.blob{border-radius:50%}
+.b1{width:1400px;height:1400px;left:-560px;top:calc(18% - 700px);background:radial-gradient(closest-side,rgba(124,58,237,.62),rgba(124,58,237,.2) 55%,rgba(124,58,237,0))}
+.b2{width:1300px;height:1300px;left:300px;top:calc(80% - 650px);background:radial-gradient(closest-side,rgba(6,182,212,.5),rgba(6,182,212,.14) 55%,rgba(6,182,212,0))}
+.b3{width:1100px;height:1100px;left:380px;top:calc(40% - 550px);background:radial-gradient(closest-side,rgba(236,72,153,.44),rgba(236,72,153,.1) 55%,rgba(236,72,153,0))}
+.b4{width:1700px;height:1700px;left:-310px;top:calc(55% - 850px);background:radial-gradient(closest-side,rgba(37,99,235,.26),rgba(37,99,235,0))}
+#gridwrap{inset:0;overflow:hidden;-webkit-mask-image:radial-gradient(ellipse 78% 58% at 50% 46%,#000 20%,transparent 100%);mask-image:radial-gradient(ellipse 78% 58% at 50% 46%,#000 20%,transparent 100%)}
+#grid{position:absolute;left:0;right:0;top:-72px;bottom:-72px;
+  background-image:linear-gradient(rgba(255,255,255,.06) 2px,transparent 2px),linear-gradient(90deg,rgba(255,255,255,.06) 2px,transparent 2px);
+  background-size:72px 72px;background-position:-1px -1px}
+#glyphs{inset:0}
+.glyph{position:absolute;left:0;top:0;font-family:var(--mono);font-weight:700;color:#a5b4fc;white-space:nowrap}
+#pulse{inset:0;opacity:0;background:radial-gradient(ellipse 72% 48% at 50% 46%,rgba(139,92,246,.5),rgba(34,211,238,.16) 45%,transparent 75%)}
+#vignette{position:absolute;inset:0;background:radial-gradient(ellipse 92% 76% at 50% 46%,transparent 52%,rgba(0,0,0,.55) 100%)}
+#grain{position:absolute;inset:0;opacity:.085;mix-blend-mode:overlay;background-size:256px 256px}
+#flash{position:absolute;inset:0;opacity:0;background:radial-gradient(circle at 50% 45%,#fff 0%,#eefaff 38%,#c4b5fd 100%)}
+#wipeo{position:absolute;inset:-25% -15%;transform:skewY(-9deg)}
+#wipe{position:absolute;inset:0;transform:translateY(120%);
+  background:linear-gradient(180deg,#67e8f9 0%,#22d3ee 6%,#6366f1 48%,#8b5cf6 100%);box-shadow:0 -40px 90px rgba(34,211,238,.55)}
+#safe{position:absolute;inset:0;display:none;pointer-events:none}
+#safe.on{display:block}
+#safe div{position:absolute;left:0;right:0;display:grid;place-items:center;font:700 26px var(--sans);color:#fff;
+  background:repeating-linear-gradient(45deg,rgba(255,60,90,.24) 0 14px,rgba(255,60,90,.1) 14px 28px);border:3px dashed rgba(255,110,140,.9)}
+
+/* ---------- sahne düzeni ---------- */
+#world{position:absolute;left:0;top:var(--top);width:1080px;height:1250px}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;visibility:hidden}
+.mask{display:block;overflow:hidden;padding:.12em .12em .17em;margin:-.12em 0 -.17em}
+.mask>span{display:inline-block;transform:translateY(115%)}
+.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gw{background:var(--warm);-webkit-background-clip:text;background-clip:text;color:transparent}
+.shine{position:absolute;inset:0;pointer-events:none;transform:translateX(-130%);
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.32) 50%,transparent 65%)}
+
+/* marka rozeti */
+#pillwrap{position:absolute;left:0;right:0;top:34px;display:flex;justify-content:center}
+.pill{position:relative;display:flex;align-items:center;gap:18px;height:82px;padding:0 38px 0 15px;border-radius:999px;overflow:hidden;
+  background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.15);font-weight:800;font-size:28px;letter-spacing:.16em;
+  box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.pill .ico{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:19px;letter-spacing:0;
+  background:linear-gradient(135deg,#8b5cf6,#22d3ee);box-shadow:0 0 26px rgba(139,92,246,.65)}
+
+/* 1 — kanca */
+.hook{position:relative;font-family:var(--mono);font-weight:800;font-size:112px;line-height:1.18;letter-spacing:-.03em}
+.hook .ln{display:block;white-space:pre}
+.hook .ch{display:inline-block;opacity:0}
+.tcur{position:absolute;left:0;top:0;width:.56em;height:1em;border-radius:6px;background:#22d3ee;box-shadow:0 0 34px rgba(34,211,238,.9)}
+
+/* 2 — sorun */
+.big{font-weight:800;font-size:94px;line-height:1.1;letter-spacing:-.035em;text-align:center}
+.err{position:absolute;display:flex;align-items:center;gap:18px;height:86px;padding:0 30px 0 20px;border-radius:24px;white-space:nowrap;
+  background:rgba(24,18,46,.86);border:2px solid rgba(255,255,255,.12);font-family:var(--mono);font-weight:500;font-size:29px;color:#e8e9f7;
+  box-shadow:0 24px 60px rgba(0,0,0,.45);opacity:0}
+.err b{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;font-weight:800;font-size:27px}
+.err b svg{width:20px;height:20px;fill:currentColor}
+.err.red{border-color:rgba(244,63,94,.38)} .err.red b{background:rgba(244,63,94,.2);color:#fb7185}
+.err.amber{border-color:rgba(245,158,11,.38)} .err.amber b{background:rgba(245,158,11,.2);color:#fbbf24}
+.err.yellow{border-color:rgba(250,204,21,.34)} .err.yellow b{background:rgba(250,204,21,.18);color:#fde047}
+.err.gray b{background:rgba(148,163,184,.2);color:#cbd5e1}
+#orb{position:absolute;left:540px;top:625px;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;opacity:0;
+  background:radial-gradient(closest-side,#fff,rgba(186,230,253,.9) 30%,rgba(139,92,246,.5) 62%,transparent)}
+.shock{position:absolute;left:540px;top:625px;width:640px;height:640px;margin:-320px 0 0 -320px;border-radius:50%;opacity:0;
+  border:10px solid rgba(196,181,253,.95);box-shadow:0 0 70px rgba(34,211,238,.7),inset 0 0 70px rgba(34,211,238,.45)}
+
+/* 3 — açılış */
+.kicker{display:flex;align-items:center;gap:22px;margin-bottom:30px;font-weight:800;font-size:28px;letter-spacing:.34em;color:#7dd3fc;white-space:nowrap}
+.kicker i{width:60px;height:3px;border-radius:3px;background:currentColor;opacity:.55}
+.title{font-weight:800;font-size:180px;line-height:.98;letter-spacing:-.025em;text-align:center}
+.title .glow{filter:drop-shadow(0 0 44px rgba(139,92,246,.5))}
+.title .l1,.title .l2{display:block}
+.title .l2{color:#fff;text-shadow:0 0 60px rgba(255,255,255,.22)}
+.win{width:900px;margin-top:60px;border-radius:32px;overflow:hidden;background:rgba(12,12,32,.88);border:2px solid rgba(255,255,255,.1);
+  box-shadow:0 50px 120px rgba(0,0,0,.6),0 0 90px rgba(139,92,246,.28)}
+.bar{height:72px;display:flex;align-items:center;gap:13px;padding:0 28px;background:rgba(255,255,255,.04);border-bottom:2px solid rgba(255,255,255,.07)}
+.bar i{width:20px;height:20px;border-radius:50%}
+.bar i:nth-child(1){background:#ff5f57}.bar i:nth-child(2){background:#febc2e}.bar i:nth-child(3){background:#28c840}
+.bar .tab{margin-left:22px;font-family:var(--mono);font-weight:500;font-size:24px;color:#c9cbe6}
+.bar .lang{margin-left:auto;font-family:var(--mono);font-weight:500;font-size:22px;color:#6f7598}
+.code{padding:24px 0 30px;font-family:var(--mono);font-weight:500;font-size:40px;line-height:1.6}
+.row{display:flex;padding-right:30px}
+.row.cur{background:rgba(255,255,255,.05)}
+.num{width:96px;flex:none;text-align:right;padding-right:30px;color:#4d5480;opacity:0}
+.src{white-space:pre;color:#e7e9ff}
+.k{color:#c792ea}.f{color:#82aaff}.s{color:#c3e88d}.c{color:#7a83a8}.p{color:#89ddff}.v{color:#f07178}.n{color:#f78c6c}
+.ccur{display:inline-block;width:5px;height:1.15em;margin-left:2px;vertical-align:-.22em;border-radius:3px;background:#82aaff;box-shadow:0 0 14px rgba(130,170,255,.8)}
+
+/* 4 — konular */
+.label{margin-bottom:24px;font-family:var(--mono);font-weight:500;font-size:34px;white-space:pre;color:#e7e9ff}
+.h2{margin-bottom:56px;font-weight:800;font-size:108px;line-height:1.04;letter-spacing:-.04em;text-align:center}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:22px;width:920px}
+.chip{position:relative;height:126px;display:flex;align-items:center;gap:22px;padding:0 24px;border-radius:30px;overflow:hidden;
+  background:var(--glass);border:2px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.35);opacity:0}
+.badge{width:78px;height:78px;flex:none;border-radius:22px;display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:30px;color:#fff;letter-spacing:-.02em}
+.badge svg{width:48px;height:48px}
+.chip .nm{font-weight:700;font-size:38px;letter-spacing:-.015em;white-space:nowrap}
+
+/* 5 — avantajlar */
+.list{display:flex;flex-direction:column;gap:22px;width:920px}
+.rowb{height:130px;display:flex;align-items:center;gap:30px;padding:0 34px;border-radius:30px;
+  background:var(--glass);border:2px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.35);opacity:0}
+.chk{width:74px;height:74px;flex:none;border-radius:50%;display:grid;place-items:center;transform:scale(0);
+  background:linear-gradient(135deg,#10b981,#34d399);box-shadow:0 0 34px rgba(52,211,153,.5)}
+.chk svg{width:44px;height:44px}
+.chk path{fill:none;stroke:#fff;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20}
+.rowb .tx{font-weight:700;font-size:42px;letter-spacing:-.02em;white-space:nowrap}
+
+/* 6 — çağrı */
+.cta{margin-bottom:72px;font-weight:800;font-size:126px;line-height:1.04;letter-spacing:-.045em;text-align:center}
+.btnwrap{position:relative;opacity:0}
+.ring{position:absolute;inset:0;border-radius:999px;border:4px solid rgba(167,139,250,.9);opacity:0}
+.btn{position:relative;height:140px;display:flex;align-items:center;gap:26px;padding:0 70px 0 60px;border-radius:999px;overflow:hidden;
+  background:linear-gradient(95deg,#8b5cf6 0%,#6366f1 45%,#06b6d4 100%);font-weight:800;font-size:54px;letter-spacing:-.02em;color:#fff;white-space:nowrap;
+  box-shadow:0 26px 70px rgba(99,102,241,.55),inset 0 3px 0 rgba(255,255,255,.35)}
+.btn svg{width:58px;height:58px;flex:none}
+.ripple{position:absolute;left:0;top:0;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:rgba(255,255,255,.55);opacity:0}
+.sub{margin-top:42px;font-weight:600;font-size:40px;color:#c7cbe6;opacity:0}
+.handle{margin-top:14px;font-family:var(--mono);font-weight:700;font-size:44px;opacity:0}
+.ptr{position:absolute;left:0;top:0;width:96px;height:96px;opacity:0;transform-origin:14% 8%;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5))}
+.dm{margin-top:34px;display:flex;flex-direction:column;align-items:flex-end;opacity:0;transform-origin:88% 100%}
+.dm .msg{padding:24px 36px;border-radius:44px 44px 12px 44px;white-space:nowrap;font-weight:600;font-size:35px;line-height:1.25;color:#fff;
+  background:linear-gradient(135deg,#7c3aed,#4f46e5 55%,#0ea5e9);box-shadow:0 18px 50px rgba(79,70,229,.45)}
+.dm .seen{display:flex;align-items:center;gap:8px;margin:12px 14px 0 0;font-weight:600;font-size:24px;color:#8e93b8;opacity:0}
+.dm .seen svg{width:28px;height:28px}
+.spark{position:absolute;left:0;top:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 16px #a5f3fc;opacity:0}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="stage"></div>
+  <div id="overlay"><span><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg>Sesli oynat</span></div>
+</div>
+<div id="controls">
+  <button id="bPlay" title="Oynat / Duraklat (Boşluk)"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
+  <span id="tm">0:00.0 / 0:24.0</span>
+  <input id="scrub" type="range" min="0" max="24" step="0.01" value="0" aria-label="Zaman">
+  <div class="seg"><a id="fReels" href="?format=reels">9:16 Reels</a><a id="fFeed" href="?format=feed">4:5 Gönderi</a></div>
+  <label><input type="checkbox" id="cSafe"> Güvenli alan</label>
+  <a class="dl" id="dl" href="cikti/yazilim-dersleri-reels.mp4" download>MP4 indir</a>
+</div>
+
+<script>
+/* =====================================================================
+   1) METİNLER — videodaki bütün yazılar burada. Değiştir, kaydet,
+      sonra `node render.mjs` ile videoyu yeniden üret.
+   ===================================================================== */
+const CONFIG = {
+  marka: 'Yazılım Dersleri',                       // üstteki rozet
+  kanca: ['Kod yazmayı', 'öğrenmek', 'ister misin?'], // yazılarak gelen ilk soru (3 satır)
+  sorun: ['Ama nereden', 'başlayacağını', 'bilmiyor musun?'],
+  hatalar: [                                        // etrafta uçuşan "kafa karışıklığı" kartları
+    { renk: 'red',    ikon: 'x',    metin: 'SyntaxError: invalid syntax' },
+    { renk: 'amber',  ikon: '!',    metin: '404: Kaynak bulunamadı' },
+    { renk: 'yellow', ikon: '?',    metin: 'Hangi dilden başlamalıyım?' },
+    { renk: 'red',    ikon: 'x',    metin: 'TypeError: undefined' },
+    { renk: 'gray',   ikon: 'play', metin: 'tutorial_47_final(2).mp4' },
+  ],
+  ustBaslik: 'SIFIRDAN İLERİ SEVİYEYE',
+  baslik: ['YAZILIM', 'DERSLERİ'],
+  dosyaAdi: 'gelecek.py',
+  kod: 'def gelecek(sen):\n    sen.ogren("yazılım")\n    sen.proje_gelistir()\n    return "başarı"  # 🚀',
+  konularEtiket: 'from dersler import *',
+  konularBaslik: ['Neler', 'öğreneceksin?'],
+  konular: [                                        // ikon: py js ts html react db git algo java cs cpp php plus
+    { ad: 'Python', ikon: 'py' },       { ad: 'JavaScript', ikon: 'js' },
+    { ad: 'HTML & CSS', ikon: 'html' }, { ad: 'React', ikon: 'react' },
+    { ad: 'SQL', ikon: 'db' },          { ad: 'Git & GitHub', ikon: 'git' },
+    { ad: 'Algoritmalar', ikon: 'algo' }, { ad: 've dahası…', ikon: 'plus' },
+  ],
+  avantajEtiket: '>>> print(avantajlar)',
+  avantajBaslik: ['Seni neler', 'bekliyor?'],
+  avantajlar: ['Sıfırdan, adım adım anlatım', 'Gerçek projelerle pratik', 'Birebir ilgi ve destek', 'Sana uygun ders saatleri'],
+  cta: ['Geleceğini', 'kodlamaya', 'hazır mısın?'],
+  buton: 'Hemen DM at',
+  altYazi: 'İlk adımı bugün at!',
+  mesaj: 'Merhaba, derslere katılmak istiyorum! 👋',   // tıklamadan sonra çıkan DM balonu (boşsa gösterilmez)
+  kullaniciAdi: '',                                 // örn. '@kodla.benimle' — boşsa gösterilmez
+};
+
+/* ===================================================================== */
+const P = new URLSearchParams(location.search);
+const RENDER = P.has('render');
+const FORMAT = P.get('format') === 'feed' ? 'feed' : 'reels';
+const FMT = { reels: { W: 1080, H: 1920, top: 250 }, feed: { W: 1080, H: 1350, top: 50 } }[FORMAT];
+const W = FMT.W, H = FMT.H;
+const DUR = 24;
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function rng(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function el(html) { const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+
+/* ---------- yumuşatma eğrileri ---------- */
+const E = {
+  linear: p => p,
+  inQuad: p => p * p, outQuad: p => 1 - (1 - p) * (1 - p),
+  inOutQuad: p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2,
+  inCubic: p => p * p * p, outCubic: p => 1 - Math.pow(1 - p, 3),
+  inOutCubic: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  outQuart: p => 1 - Math.pow(1 - p, 4),
+  inExpo: p => p === 0 ? 0 : Math.pow(2, 10 * p - 10),
+  outExpo: p => p === 1 ? 1 : 1 - Math.pow(2, -10 * p),
+  outBack: p => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+  inBack: p => { const c1 = 1.70158, c3 = c1 + 1; return c3 * p * p * p - c1 * p * p; },
+};
+
+/* =====================================================================
+   2) ZAMAN ÇİZELGESİ MOTORU — her kare, t (saniye) verilerek sıfırdan
+      hesaplanır; bu yüzden video kare kare birebir aynı üretilir.
+   ===================================================================== */
+const TRACKS = new Map();
+const CUES = [];               // ses efektlerinin zamanları (müzik bunları okur)
+const cue = (type, t, o = {}) => CUES.push({ type, t, ...o });
+function track(e) { let tr = TRACKS.get(e); if (!tr) TRACKS.set(e, tr = { props: {}, mods: [] }); return tr; }
+function tw(e, t0, dur, props, ease = 'outCubic') {
+  if (!e) return;
+  const f = typeof ease === 'function' ? ease : E[ease];
+  const tr = track(e);
+  for (const k in props) (tr.props[k] ||= []).push({ t0, t1: t0 + dur, v0: props[k][0], v1: props[k][1], ease: f });
+}
+function mod(e, fn) { if (e) track(e).mods.push(fn); }
+function valAt(segs, t) {
+  let v = segs[0].v0;
+  for (const s of segs) {
+    if (t >= s.t1) { v = s.v1; continue; }
+    if (t >= s.t0) v = s.v0 + (s.v1 - s.v0) * s.ease((t - s.t0) / (s.t1 - s.t0));
+    break;
+  }
+  return v;
+}
+function applyAll(t) {
+  for (const [e, tr] of TRACKS) {
+    const v = {};
+    for (const k in tr.props) v[k] = valAt(tr.props[k], t);
+    for (const m of tr.mods) {
+      const d = m(t);
+      if (d) for (const k in d) v[k] = (k === 's' || k === 'o') ? (v[k] ?? 1) * d[k] : (v[k] ?? 0) + d[k];
+    }
+    const st = e.style;
+    if ('o' in v) st.opacity = clamp(v.o, 0, 1).toFixed(4);
+    let tf = '';
+    if ('xp' in v || 'yp' in v) tf += `translate(${(v.xp || 0).toFixed(3)}%,${(v.yp || 0).toFixed(3)}%) `;
+    if ('x' in v || 'y' in v) tf += `translate3d(${(v.x || 0).toFixed(2)}px,${(v.y || 0).toFixed(2)}px,0) `;
+    if ('r' in v) tf += `rotate(${v.r.toFixed(3)}deg) `;
+    if ('skx' in v) tf += `skewX(${v.skx.toFixed(3)}deg) `;
+    if ('s' in v) tf += `scale(${Math.max(0, v.s).toFixed(4)}) `;
+    if (tf) st.transform = tf;
+    if ('blur' in v) st.filter = v.blur > .05 ? `blur(${v.blur.toFixed(2)}px)` : 'none';
+    if ('ls' in v) st.letterSpacing = v.ls.toFixed(4) + 'em';
+    if ('dash' in v) st.strokeDashoffset = v.dash.toFixed(3);
+  }
+}
+
+/* =====================================================================
+   3) SAHNELER (DOM)
+   ===================================================================== */
+const SC = {};
+const WIN = [];   // sahnelerin görünür olduğu zaman aralıkları
+
+const GRAD_STOPS = ['#c4b5fd', '#a78bfa', '#818cf8', '#38bdf8', '#22d3ee'];
+function gradAt(p) {
+  const x = clamp(p, 0, 1) * (GRAD_STOPS.length - 1), i = Math.min(GRAD_STOPS.length - 2, Math.floor(x)), f = x - i;
+  const a = GRAD_STOPS[i].match(/\w\w/g).map(h => parseInt(h, 16)), b = GRAD_STOPS[i + 1].match(/\w\w/g).map(h => parseInt(h, 16));
+  return `rgb(${a.map((c, k) => Math.round(c + (b[k] - c) * f)).join(',')})`;
+}
+const maskLines = (lines, gradLine = -1, cls = 'gt') =>
+  lines.map((l, i) => `<span class="mask"><span class="${i === gradLine ? cls : ''}">${esc(l)}</span></span>`).join('');
+
+/* basit Python renklendirici */
+const PY_KW = new Set('def return if elif else for while in not and or import from as class with try except finally pass break continue lambda yield True False None print'.split(' '));
+function tokenize(src) {
+  return src.split('\n').map(line => {
+    const out = [], re = /(#.*$)|("(?:[^"\\]|\\.)*"?|'(?:[^'\\]|\\.)*'?)|([A-Za-z_À-ɏ][\wÀ-ɏ]*)|(\d+(?:\.\d+)?)|(\s+)|([^\s\w])/gu;
+    let m;
+    while ((m = re.exec(line))) {
+      let cls = 'p';
+      if (m[1]) cls = 'c';
+      else if (m[2]) cls = 's';
+      else if (m[3]) cls = PY_KW.has(m[3]) ? 'k' : line.slice(re.lastIndex).trimStart()[0] === '(' ? 'f' : 'v';
+      else if (m[4]) cls = 'n';
+      else if (m[5]) cls = '';
+      for (const ch of m[0]) out.push({ ch, cls });
+    }
+    return out;
+  });
+}
+function tokHTML(toks, k = toks.length) {
+  let html = '', cur = null, buf = '';
+  const flush = () => { if (buf) html += cur ? `<span class="${cur}">${esc(buf)}</span>` : esc(buf); buf = ''; };
+  for (let i = 0; i < k; i++) { if (toks[i].cls !== cur) { flush(); cur = toks[i].cls; } buf += toks[i].ch; }
+  flush();
+  return html;
+}
+
+const SVG = {
+  play: '<svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg>',
+  react: '<svg viewBox="-12 -12 24 24"><circle r="2.3" fill="#61dafb"/><g fill="none" stroke="#61dafb" stroke-width="1.3"><ellipse rx="10.5" ry="4.2"/><ellipse rx="10.5" ry="4.2" transform="rotate(60)"/><ellipse rx="10.5" ry="4.2" transform="rotate(120)"/></g></svg>',
+  db: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5.5" rx="7.5" ry="3"/><path d="M4.5 5.5v6.2c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V5.5"/><path d="M4.5 11.7v6.3c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-6.3"/></svg>',
+  git: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="7" cy="5" r="2.4"/><circle cx="7" cy="19" r="2.4"/><circle cx="17.5" cy="8.5" r="2.4"/><path d="M7 7.4v9.2M17.5 10.9c0 3.6-4 4.2-9 6.6"/></svg>',
+  send: '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2.5 10.5 13.5"/><path d="M21.5 2.5 14.5 21.5l-4-8-8-4z"/></svg>',
+  ptr: '<svg viewBox="0 0 24 24"><path d="M5 2.8 19.2 12l-6.5 1.3 3.9 7.6-2.9 1.5-3.9-7.6L5 19.4z" fill="#fff" stroke="#0b0b1e" stroke-width="1.3" stroke-linejoin="round"/></svg>',
+  check: '<svg viewBox="0 0 24 24"><path d="M5.5 12.5l4.2 4.2 8.8-9.4"/></svg>',
+  seen: '<svg viewBox="0 0 24 24" fill="none" stroke="#67e8f9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5l4 4 8-9M10.5 16.5l1 1 8.5-10"/></svg>',
+};
+const BADGE = {
+  py:    { bg: 'linear-gradient(135deg,#4b8bd0 0%,#3776ab 50%,#ffd43b 135%)', html: 'Py' },
+  js:    { bg: '#f7df1e', html: '<span style="color:#161616">JS</span>' },
+  ts:    { bg: '#3178c6', html: 'TS' },
+  html:  { bg: 'linear-gradient(135deg,#f16529 0%,#e44d26 45%,#2965f1 125%)', html: '&lt;/&gt;', fs: 26 },
+  react: { bg: '#11152a', bd: 'rgba(97,218,251,.45)', html: SVG.react },
+  db:    { bg: 'linear-gradient(135deg,#0ea5e9,#6366f1)', html: SVG.db },
+  git:   { bg: 'linear-gradient(135deg,#f46b4f,#e0371c)', html: SVG.git },
+  algo:  { bg: 'linear-gradient(135deg,#8b5cf6,#ec4899)', html: '{ }' },
+  java:  { bg: 'linear-gradient(135deg,#f89820,#e76f00)', html: 'Jv' },
+  cs:    { bg: 'linear-gradient(135deg,#9b4f96,#68217a)', html: 'C#' },
+  cpp:   { bg: 'linear-gradient(135deg,#00599c,#004482)', html: 'C++', fs: 26 },
+  php:   { bg: '#777bb4', html: 'php', fs: 26 },
+  plus:  { bg: 'transparent', bd: 'rgba(255,255,255,.4)', dashed: true, html: '+', fs: 46 },
+};
+function badgeHTML(key, name) {
+  const b = BADGE[key] || { bg: 'linear-gradient(135deg,#6366f1,#22d3ee)', html: esc(name.slice(0, 2)) };
+  const st = `background:${b.bg};${b.bd ? `border:2px ${b.dashed ? 'dashed' : 'solid'} ${b.bd};` : ''}${b.fs ? `font-size:${b.fs}px;` : ''}`;
+  return `<span class="badge" style="${st}">${b.html}</span>`;
+}
+
+function buildDOM() {
+  const stage = $('#stage');
+  const r = rng(7);
+
+  /* arka plan */
+  const bg = el(`<div id="bg"><div class="blob b4"></div><div class="blob b1"></div><div class="blob b3"></div><div class="blob b2"></div>
+    <div id="gridwrap"><div id="grid"></div></div><div id="glyphs"></div><div id="pulse"></div></div>`);
+  stage.append(bg);
+  SC.bg = bg; SC.blobs = $$('.blob', bg); SC.grid = $('#grid', bg); SC.pulse = $('#pulse', bg);
+  const GL = ['{ }', '</>', '( )', '=>', ';', '[ ]', '#', '&&', '01', 'if', 'def', '++', '!=', '::', '$_', 'λ', '//', '0x1F', 'fn()', '<div>', 'print()', '==', '%', '*', 'let', 'for'];
+  SC.glyphs = GL.map((g, i) => {
+    const e = el(`<span class="glyph">${esc(g)}</span>`);
+    const size = 26 + r() * 48;
+    e.style.fontSize = size + 'px';
+    e.style.opacity = (0.04 + r() * 0.065).toFixed(3);
+    $('#glyphs', bg).append(e);
+    return { e, x0: r() * (W - 120), y0: r() * (H + 200), sp: 12 + r() * 28, rot: (r() - .5) * 30, ph: r() * 6 };
+  });
+
+  /* sahneler */
+  const world = el('<div id="world"></div>');
+  stage.append(world);
+  SC.world = world;
+
+  // marka rozeti
+  const pw = el(`<div id="pillwrap"><div class="pill"><span class="ico">&lt;/&gt;</span><span>${esc(CONFIG.marka.toLocaleUpperCase('tr'))}</span><span class="shine"></span></div></div>`);
+  world.append(pw);
+  SC.pill = $('.pill', pw); SC.pillShine = $('.shine', pw);
+
+  // 1 — kanca
+  {
+    const s = el('<section class="scene" id="s-hook"><div class="hook"></div></section>');
+    const hook = $('.hook', s), chars = [], lines = [];
+    CONFIG.kanca.forEach((line, li) => {
+      const ln = el('<span class="ln"></span>');
+      const arr = Array.from(line);
+      arr.forEach((c, ci) => {
+        const sp = document.createElement('span');
+        sp.className = 'ch'; sp.textContent = c;
+        if (li === CONFIG.kanca.length - 1) sp.style.color = gradAt(ci / Math.max(1, arr.length - 1));
+        ln.append(sp); chars.push({ e: sp, li, c });
+      });
+      hook.append(ln); lines.push(ln);
+    });
+    const cur = el('<i class="tcur"></i>');
+    hook.append(cur);
+    world.append(s);
+    SC.hook = { s, hook, chars, lines, cur };
+  }
+
+  // 2 — sorun
+  {
+    const s = el(`<section class="scene" id="s-problem"><div class="big">${maskLines(CONFIG.sorun, CONFIG.sorun.length - 1, 'gw')}</div></section>`);
+    const cards = CONFIG.hatalar.map((h, i) => {
+      const ico = h.ikon === 'play' ? SVG.play : h.ikon === 'x' ? '×' : esc(h.ikon);
+      const c = el(`<div class="err ${h.renk}"><b>${ico}</b><span>${esc(h.metin)}</span></div>`);
+      s.append(c);
+      return c;
+    });
+    world.append(s);
+    SC.problem = { s, big: $('.big', s), masks: $$('.mask>span', s), cards };
+  }
+
+  // 3 — açılış (başlık + kod penceresi)
+  {
+    const s = el(`<section class="scene" id="s-reveal">
+      <div class="kicker"><i></i><span>${esc(CONFIG.ustBaslik)}</span><i></i></div>
+      <div class="title"><div class="glow"><span class="l1 gt">${esc(CONFIG.baslik[0])}</span></div><span class="l2">${esc(CONFIG.baslik[1] || '')}</span></div>
+      <div class="win"><div class="bar"><i></i><i></i><i></i><span class="tab">${esc(CONFIG.dosyaAdi)}</span><span class="lang">Python 3</span></div><div class="code"></div></div>
+    </section>`);
+    const code = $('.code', s);
+    const lines = tokenize(CONFIG.kod).map((toks, i) => {
+      const row = el(`<div class="row"><span class="num">${i + 1}</span><span class="src"></span></div>`);
+      code.append(row);
+      return { row, num: $('.num', row), src: $('.src', row), toks, times: [], start: 0, key: '' };
+    });
+    world.append(s);
+    SC.reveal = { s, kicker: $('.kicker', s), l1: $('.l1', s), l2: $('.l2', s), win: $('.win', s), lines };
+  }
+
+  // 4 — konular
+  {
+    const s = el(`<section class="scene" id="s-topics">
+      <div class="head" style="display:flex;flex-direction:column;align-items:center">
+        <div class="label">${tokHTML(tokenize(CONFIG.konularEtiket)[0])}</div>
+        <div class="h2">${maskLines(CONFIG.konularBaslik, CONFIG.konularBaslik.length - 1)}</div>
+      </div>
+      <div class="chips">${CONFIG.konular.map(k => `<div class="chip">${badgeHTML(k.ikon, k.ad)}<span class="nm">${esc(k.ad)}</span><span class="shine"></span></div>`).join('')}</div>
+    </section>`);
+    world.append(s);
+    SC.topics = { s, head: $('.head', s), label: $('.label', s), masks: $$('.mask>span', s), chips: $$('.chip', s) };
+  }
+
+  // 5 — avantajlar
+  {
+    const s = el(`<section class="scene" id="s-benefits">
+      <div class="label">${tokHTML(tokenize(CONFIG.avantajEtiket)[0])}</div>
+      <div class="h2">${maskLines(CONFIG.avantajBaslik, CONFIG.avantajBaslik.length - 1)}</div>
+      <div class="list">${CONFIG.avantajlar.map(a => `<div class="rowb"><span class="chk">${SVG.check}</span><span class="tx">${esc(a)}</span></div>`).join('')}</div>
+    </section>`);
+    world.append(s);
+    SC.benefits = { s, label: $('.label', s), masks: $$('.mask>span', s), rows: $$('.rowb', s) };
+  }
+
+  // 6 — çağrı
+  {
+    const s = el(`<section class="scene" id="s-cta">
+      <div class="cta">${maskLines(CONFIG.cta, 1)}</div>
+      <div class="btnwrap"><span class="ring"></span><span class="ring"></span>
+        <div class="btn">${SVG.send}<span>${esc(CONFIG.buton)}</span><span class="ripple"></span><span class="shine"></span></div>
+        <div class="ptr">${SVG.ptr}</div>
+      </div>
+      <div class="sub">${esc(CONFIG.altYazi)}</div>
+      ${CONFIG.kullaniciAdi ? `<div class="handle gt">${esc(CONFIG.kullaniciAdi)}</div>` : ''}
+      ${CONFIG.mesaj ? `<div class="dm"><div class="msg">${esc(CONFIG.mesaj)}</div><div class="seen">${SVG.seen}Gönderildi</div></div>` : ''}
+    </section>`);
+    const bw = $('.btnwrap', s);
+    const sparks = Array.from({ length: 12 }, () => { const e = el('<span class="spark"></span>'); bw.append(e); return e; });
+    world.append(s);
+    SC.cta = { s, masks: $$('.mask>span', s), bw, btn: $('.btn', s), rings: $$('.ring', s), ripple: $('.ripple', s), shine: $('.btn .shine', s),
+      ptr: $('.ptr', s), sparks, sub: $('.sub', s), handle: $('.handle', s), dm: $('.dm', s), seen: $('.dm .seen', s) };
+  }
+
+  // efekt katmanları
+  const orb = el('<div id="orb"></div>'); world.append(orb);
+  const shocks = [el('<div class="shock"></div>'), el('<div class="shock"></div>')];
+  shocks.forEach(x => world.append(x));
+  const wipeo = el('<div id="wipeo"><div id="wipe"></div></div>'); stage.append(wipeo);
+  stage.append(el('<div id="vignette"></div>'));
+  const grain = el('<div id="grain"></div>'); stage.append(grain);
+  grain.style.backgroundImage = `url(${grainURL()})`;
+  const flash = el('<div id="flash"></div>'); stage.append(flash);
+  const safe = el(`<div id="safe"><div style="top:0;height:${FORMAT === 'reels' ? 230 : 0}px">Instagram arayüzü</div><div style="bottom:0;height:${FORMAT === 'reels' ? 400 : 0}px">Açıklama / kullanıcı adı alanı</div></div>`);
+  stage.append(safe);
+  Object.assign(SC, { orb, shocks, wipe: $('#wipe', wipeo), flash, safe });
+}
+
+function grainURL() {
+  const c = document.createElement('canvas'); c.width = c.height = 256;
+  const g = c.getContext('2d'), d = g.createImageData(256, 256), r = rng(99);
+  for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255 | 0; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; }
+  g.putImageData(d, 0, 0);
+  return c.toDataURL();
+}
+
+/* =====================================================================
+   4) ANİMASYON ZAMANLAMASI (120 BPM → 1 vuruş = 0.5 sn)
+      0–3 kanca · 3–6 sorun · 6 DROP · 6–10 açılış · 10–14.5 konular
+      14.5–19 avantajlar · 19–24 çağrı
+   ===================================================================== */
+function buildTimeline() {
+  const r = rng(11);
+  WIN.push({ e: SC.hook.s, a: 0, b: 3.15 }, { e: SC.problem.s, a: 2.95, b: 6.02 }, { e: SC.reveal.s, a: 5.98, b: 10.2 },
+    { e: SC.topics.s, a: 9.95, b: 14.6 }, { e: SC.benefits.s, a: 14.45, b: 18.97 }, { e: SC.cta.s, a: 18.95, b: 99 });
+
+  /* --- arka plan: sürekli hareket --- */
+  const drift = [[.35, .27, 70, 55], [.3, .33, 80, 60], [.42, .22, 60, 70], [.2, .25, 50, 40]];
+  SC.blobs.forEach((b, i) => { const [fx, fy, ax, ay] = drift[i]; mod(b, t => ({ x: Math.sin(t * fx + i) * ax, y: Math.cos(t * fy + i * 2) * ay })); });
+  const warm = SC.blobs[2];
+  tw(warm, 3.0, 1.2, { o: [0.55, 1] }, 'inOutQuad');
+  tw(warm, 6.0, 1.2, { o: [1, 0.6] }, 'outQuad');
+  mod(SC.grid, t => ({ y: (t * 18) % 72 }));
+  SC.glyphs.forEach((g, i) => mod(g.e, t => ({
+    x: g.x0 + Math.sin(t * .4 + g.ph) * 22,
+    y: ((g.y0 - t * g.sp) % (H + 200) + (H + 200)) % (H + 200) - 120,
+    r: g.rot + Math.sin(t * .3 + i) * 8,
+  })));
+  tw(SC.bg, 6.0, 1.1, { s: [1.14, 1] }, 'outCubic');
+  mod(SC.pulse, t => {
+    if (t < 6 || t >= 23 || (t >= 18.5 && t < 19)) return { o: 0 };
+    return { o: 0.2 * Math.exp(-((t - 6) % 0.5) * 7) };
+  });
+
+  /* --- marka rozeti --- */
+  tw(SC.pill, 0, 0.6, { s: [0.9, 1] }, 'outBack');
+  tw(SC.pillShine, 0.4, 0.9, { xp: [-130, 130] }, 'inOutQuad');
+  tw(SC.pill, 5.3, 0.35, { o: [1, 0], y: [0, -30] }, 'inCubic');
+
+  /* --- 1: kanca (daktilo) --- */
+  const hk = SC.hook;
+  let tt = 0.15;
+  hk.times = hk.chars.map((c, i) => {
+    if (i > 0 && c.li !== hk.chars[i - 1].li) tt += 0.13;
+    const at = tt;
+    tw(c.e, at, 0.1, { o: [0, 1], y: [16, 0], s: [1.3, 1] }, 'outQuad');
+    cue('key', at, { v: c.c === ' ' ? .45 : 1 });
+    tt += 0.042 * (0.6 + r() * 0.8);
+    return at;
+  });
+  tw(hk.hook, 0, 2.8, { s: [0.97, 1.02] }, 'linear');
+  mod(hk.hook, t => (t > 2.5 && t < 2.78) ? { x: Math.sin(t * 211) * 9, skx: Math.sin(t * 97) * 5 } : null);
+  hk.lines.forEach((ln, i) => tw(ln, 2.76 + i * 0.05, 0.3, { y: [0, -110], o: [1, 0], blur: [0, 14] }, 'inCubic'));
+  cue('glitch', 2.5);
+  cue('whoosh', 2.72, { d: 0.45 });
+
+  /* --- 2: sorun --- */
+  const pb = SC.problem;
+  pb.masks.forEach((m, i) => tw(m, 3.0 + i * 0.09, 0.75, { yp: [115, 0] }, 'outExpo'));
+  tw(pb.big, 3.0, 2.5, { s: [1, 1.04] }, 'linear');
+  tw(pb.big, 5.5, 0.45, { s: [1.04, 0.7], blur: [0, 14], o: [1, 0] }, 'inExpo');
+  // kartların yeri: metnin üstünde 2, altında 3 kart
+  const slots = [[70, 178, null, -5], [null, 305, 60, 4], [null, 842, 70, 5], [80, 972, null, -4], [null, 1102, 120, 3]];
+  pb.cards.forEach((c, i) => {
+    const [L, T, R, rot] = slots[i % slots.length];
+    if (L != null) c.style.left = L + 'px'; else c.style.right = R + 'px';
+    c.style.top = T + 'px';
+    const cx = (L != null ? L + c.offsetWidth / 2 : 1080 - R - c.offsetWidth / 2), cy = T + c.offsetHeight / 2;
+    const t0 = 3.4 + i * 0.22, dir = i % 2 ? 1 : -1;
+    tw(c, t0, 0.5, { s: [0.3, 1] }, 'outBack');
+    tw(c, t0, 0.14, { o: [0, 1] }, 'linear');
+    tw(c, t0, 0.55, { r: [rot + dir * 14, rot] }, 'outBack');
+    cue('err', t0, { i });
+    mod(c, t => {
+      if (t < t0) return null;
+      const a = 1.2 + clamp((t - 4.4) / 1.0, 0, 1) * 5;
+      return { x: Math.sin(t * 31 + i * 1.7) * a, y: Math.cos(t * 27 + i * 2.1) * a, r: Math.sin(t * 19 + i) * a * .35 };
+    });
+    const ts = 5.2 + i * 0.05;
+    tw(c, ts, 0.5, { x: [0, 540 - cx], y: [0, 625 - cy], s: [1, 0.12] }, 'inBack');
+    tw(c, ts, 0.5, { r: [rot, rot + dir * 160] }, 'inQuad');
+    tw(c, ts + 0.3, 0.2, { o: [1, 0] }, 'linear');
+  });
+  tw(SC.orb, 5.3, 0.7, { s: [0, 1.25], o: [0, 1] }, 'inQuad');
+  tw(SC.orb, 6.0, 0.35, { s: [1.25, 2.3], o: [1, 0] }, 'outQuad');
+  cue('riser', 4.4, { d: 1.58 });
+
+  /* --- DROP (6.0) --- */
+  tw(SC.flash, 5.9, 0.1, { o: [0, 0.95] }, 'inQuad');
+  tw(SC.flash, 6.0, 0.6, { o: [0.95, 0] }, 'outCubic');
+  SC.shocks.forEach(x => tw(x, 0, 0, { o: [0, 0] }, 'linear'));
+  tw(SC.shocks[0], 6.0, 0.9, { s: [0.15, 3.2], o: [1, 0] }, 'outCubic');
+  tw(SC.shocks[1], 6.08, 1.0, { s: [0.1, 2.4], o: [0.8, 0] }, 'outCubic');
+  const shake = (at, amp, len) => t => { const d = t - at; if (d < 0 || d > len) return null; const a = amp * Math.pow(1 - d / len, 2); return { x: Math.sin(d * 90) * a, y: Math.cos(d * 113) * a }; };
+  mod(SC.world, shake(6.0, 20, 0.5));
+  cue('impact', 6.0);
+
+  /* --- 3: açılış --- */
+  const rv = SC.reveal;
+  tw(rv.l1, 6.0, 0.8, { s: [1.9, 1], blur: [26, 0] }, 'outExpo'); tw(rv.l1, 6.0, 0.25, { o: [0, 1] }, 'linear');
+  tw(rv.l2, 6.08, 0.8, { s: [1.9, 1], blur: [26, 0] }, 'outExpo'); tw(rv.l2, 6.08, 0.25, { o: [0, 1] }, 'linear');
+  tw(rv.kicker, 6.35, 0.9, { o: [0, 1], y: [26, 0], ls: [0.62, 0.34] }, 'outExpo');
+  tw(rv.win, 6.6, 0.9, { o: [0, 1], y: [110, 0], s: [0.92, 1] }, 'outExpo');
+  tw(rv.s, 6.0, 3.8, { s: [1, 1.035] }, 'linear');
+  tw(rv.s, 9.8, 0.36, { s: [1.035, 1.18], blur: [0, 18], o: [1, 0] }, 'inCubic');
+  // kod yazımı
+  let ct = 6.9;
+  rv.codeStart = 6.6;
+  rv.lines.forEach((L, li) => {
+    if (li > 0) ct += 0.1;
+    L.start = li === 0 ? rv.codeStart : ct;
+    let lead = true;
+    L.times = L.toks.map(tk => {
+      if (lead && tk.ch === ' ') return L.start;         // otomatik girinti
+      lead = false;
+      const at = ct;
+      cue('key', at, { v: .5 });
+      ct += 0.025 * (0.55 + r() * 0.9);
+      return at;
+    });
+  });
+  rv.codeEnd = ct;
+  cue('whoosh', 9.75, { d: 0.5 });
+
+  /* --- 4: konular --- */
+  const tp = SC.topics;
+  tw(tp.s, 9.98, 0.45, { s: [1.12, 1], blur: [16, 0] }, 'outCubic');
+  tw(tp.s, 9.98, 0.2, { o: [0, 1] }, 'linear');
+  tw(tp.label, 10.05, 0.6, { o: [0, 1], y: [20, 0] }, 'outCubic');
+  tp.masks.forEach((m, i) => tw(m, 10.1 + i * 0.09, 0.8, { yp: [115, 0] }, 'outExpo'));
+  tp.chips.forEach((c, i) => {
+    const t0 = 10.55 + i * 0.13;
+    tw(c, t0, 0.6, { s: [0.55, 1] }, 'outBack');
+    tw(c, t0, 0.18, { o: [0, 1] }, 'linear');
+    tw(c, t0, 0.6, { y: [50, 0] }, 'outCubic');
+    cue('pop', t0, { i });
+    tw($('.shine', c), 11.95 + i * 0.07, 0.7, { xp: [-130, 130] }, 'inOutQuad');
+    const te = 14.18 + i * 0.025;
+    tw(c, te, 0.32, { y: [0, -60], o: [1, 0], s: [1, 0.9] }, 'inCubic');
+    mod(c, t => ({ y: Math.sin(t * 1.7 + i * 0.9) * 4 }));
+  });
+  tw(tp.head, 14.2, 0.32, { y: [0, -60], o: [1, 0] }, 'inCubic');
+  cue('whoosh', 14.18, { d: 0.45 });
+
+  /* --- 5: avantajlar --- */
+  const bn = SC.benefits;
+  tw(bn.label, 14.5, 0.6, { o: [0, 1], y: [20, 0] }, 'outCubic');
+  bn.masks.forEach((m, i) => tw(m, 14.52 + i * 0.09, 0.8, { yp: [115, 0] }, 'outExpo'));
+  bn.rows.forEach((row, i) => {
+    const t0 = 15.0 + i * 0.5;
+    tw(row, t0, 0.7, { x: [180, 0], blur: [10, 0] }, 'outExpo');
+    tw(row, t0, 0.2, { o: [0, 1] }, 'linear');
+    tw($('.chk', row), t0 + 0.1, 0.5, { s: [0, 1] }, 'outBack');
+    tw($('.chk path', row), t0 + 0.22, 0.32, { dash: [20, 0] }, 'outCubic');
+    cue('ding', t0 + 0.2, { i });
+  });
+  tw(bn.s, 14.5, 4.4, { s: [1, 1.03] }, 'linear');
+
+  /* --- geçiş perdesi --- */
+  tw(SC.wipe, 18.6, 0.36, { yp: [120, 0] }, 'inCubic');
+  tw(SC.wipe, 19.0, 0.42, { yp: [0, -120] }, 'outCubic');
+  cue('swell', 18.45, { d: 0.55 });
+
+  /* --- 6: çağrı --- */
+  const c6 = SC.cta;
+  c6.masks.forEach((m, i) => tw(m, 19.12 + i * 0.1, 0.85, { yp: [115, 0] }, 'outExpo'));
+  tw(c6.bw, 19.72, 0.7, { s: [0.3, 1] }, 'outBack'); tw(c6.bw, 19.72, 0.18, { o: [0, 1] }, 'linear');
+  cue('bloop', 19.72);
+  tw(c6.sub, 20.05, 0.7, { o: [0, 1], y: [24, 0] }, 'outCubic');
+  if (c6.handle) tw(c6.handle, 20.2, 0.7, { o: [0, 1], y: [24, 0] }, 'outCubic');
+  c6.rings.forEach((ring, k) => mod(ring, t => {
+    if (t < 20.3) return { o: 0 };
+    const p = ((t - 20.3 + k * 0.5) % 1.0);
+    return { s: 1 + p * 0.28, o: (1 - p) * 0.85 };
+  }));
+  // imleç butona gelip tıklıyor
+  const bw = c6.bw.offsetWidth, bh = c6.bw.offsetHeight, px = bw * 0.7, py = bh * 0.62;
+  c6.ptr.style.left = px + 'px'; c6.ptr.style.top = py + 'px';
+  c6.ripple.style.left = (px - (bw - c6.btn.offsetWidth) / 2) + 'px'; c6.ripple.style.top = py + 'px';
+  tw(c6.ptr, 20.55, 0.75, { x: [300, 0], y: [380, 0] }, 'outCubic');
+  tw(c6.ptr, 20.55, 0.2, { o: [0, 1] }, 'linear');
+  tw(c6.ptr, 21.32, 0.08, { s: [1, 0.82] }, 'outQuad');
+  tw(c6.ptr, 21.4, 0.2, { s: [0.82, 1] }, 'outBack');
+  tw(c6.ptr, 22.45, 0.4, { o: [1, 0], x: [0, 40], y: [0, 60] }, 'inCubic');
+  tw(c6.btn, 21.33, 0.08, { s: [1, 0.95] }, 'outQuad');
+  tw(c6.btn, 21.41, 0.4, { s: [0.95, 1] }, 'outBack');
+  tw(c6.ripple, 0, 0, { o: [0, 0] }, 'linear');
+  tw(c6.ripple, 21.38, 0.7, { s: [0.2, 7], o: [0.6, 0] }, 'outCubic');
+  const rs = rng(5);
+  c6.sparks.forEach((sp, k) => {
+    sp.style.left = px + 'px'; sp.style.top = py + 'px';
+    const a = (k / c6.sparks.length) * Math.PI * 2 + rs() * 0.4, d = 110 + rs() * 90;
+    tw(sp, 21.4, 0.7, { x: [0, Math.cos(a) * d], y: [0, Math.sin(a) * d], s: [1.2, 0.2] }, 'outCubic');
+    tw(sp, 0, 0, { o: [0, 0] }, 'linear');
+    tw(sp, 21.4, 0.7, { o: [1, 0] }, 'inQuad');
+  });
+  tw(c6.shine, 22.1, 0.8, { xp: [-130, 130] }, 'inOutQuad');
+  tw(c6.shine, 23.1, 0.8, { xp: [-130, 130] }, 'inOutQuad');
+  cue('click', 21.34);
+  if (c6.dm) {
+    tw(c6.dm, 21.66, 0.55, { s: [0.5, 1], y: [30, 0] }, 'outBack');
+    tw(c6.dm, 21.66, 0.15, { o: [0, 1] }, 'linear');
+    tw(c6.seen, 22.25, 0.4, { o: [0, 1] }, 'outQuad');
+    cue('sent', 21.66);
+  }
+  tw(SC.world, 19.0, 5.0, { s: [1, 1.025] }, 'linear');
+  mod(SC.world, shake(21.36, 5, 0.25));
+
+  // segmentleri zamana göre sırala
+  for (const tr of TRACKS.values()) for (const k in tr.props) tr.props[k].sort((a, b) => a.t0 - b.t0);
+  CUES.sort((a, b) => a.t - b.t);
+}
+
+/* ---------- daktilo imleçleri ---------- */
+function updHook(t) {
+  const hk = SC.hook, cur = hk.cur;
+  hk.hook.style.textShadow = (t > 2.5 && t < 2.78)
+    ? `${(Math.sin(t * 173) * 10).toFixed(1)}px 0 rgba(255,40,110,.8),${(-Math.sin(t * 173) * 10).toFixed(1)}px 0 rgba(40,220,255,.8)` : 'none';
+  if (t >= 2.76 || t >= 3.15) { cur.style.opacity = 0; return; }
+  const i = hk.times.findIndex(x => x > t);
+  const c = hk.chars[i === -1 ? hk.chars.length - 1 : i], ln = hk.lines[c.li];
+  // .ln dönüşüm aldığında offsetParent olur; bu yüzden satırın kendi konumunu ekliyoruz
+  const x = ln.offsetLeft + c.e.offsetLeft + (i === -1 ? c.e.offsetWidth : 0);
+  const y = ln.offsetTop + c.e.offsetTop + (c.e.offsetHeight - cur.offsetHeight) / 2;
+  const last = i === 0 ? -9 : hk.times[(i === -1 ? hk.times.length : i) - 1];
+  const on = (i !== 0 && t - last < 0.35) || (t % 1) < 0.5;
+  cur.style.opacity = on ? 1 : 0;
+  cur.style.transform = `translate(${x}px,${y}px)`;
+}
+function updCode(t) {
+  const rv = SC.reveal;
+  let curLine = 0;
+  rv.lines.forEach((L, li) => { if (t >= L.start) curLine = li; });
+  const lastTyped = Math.max(-9, ...rv.lines.flatMap(L => L.times.filter(x => x <= t)));
+  const blinkOn = (t - lastTyped < 0.35) || (t % 1) < 0.5;
+  rv.lines.forEach((L, li) => {
+    let k = 0; while (k < L.times.length && L.times[k] <= t) k++;
+    const started = t >= L.start, isCur = li === curLine && t >= rv.codeStart;
+    const key = `${k}|${started}|${isCur}|${isCur && blinkOn}`;
+    if (key === L.key) return;
+    L.key = key;
+    L.num.style.opacity = started ? 1 : 0;
+    L.row.classList.toggle('cur', isCur);
+    L.src.innerHTML = tokHTML(L.toks, k) + (isCur ? `<i class="ccur" style="opacity:${blinkOn ? 1 : 0}"></i>` : '');
+  });
+}
+
+/* ---------- tek kare çiz ---------- */
+function renderFrame(t) {
+  t = clamp(t, 0, DUR);
+  for (const w of WIN) w.e.style.visibility = (t >= w.a && t < w.b) ? 'visible' : 'hidden';
+  applyAll(t);
+  updHook(t);
+  updCode(t);
+}
+
+/* =====================================================================
+   5) MÜZİK + SES EFEKTLERİ — tamamen kodla sentezlenir (telifsiz).
+      Am7 – F – C – G, 120 BPM. Sahne geçişlerine senkron.
+   ===================================================================== */
+async function buildAudio(sr = 48000) {
+  const ctx = new OfflineAudioContext({ numberOfChannels: 2, length: Math.ceil(DUR * sr), sampleRate: sr });
+  const R = rng(2024);
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+  // beyaz gürültü
+  const NB = ctx.createBuffer(1, sr * 2, sr);
+  { const d = NB.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = R() * 2 - 1; }
+  const noise = (t, dur) => { const s = ctx.createBufferSource(); s.buffer = NB; s.start(t, R() * 1.4, dur + 0.05); return s; };
+  const gainNode = (v = 1) => { const g = ctx.createGain(); g.gain.value = v; return g; };
+  const filt = (type, f, q = 0.707) => { const b = ctx.createBiquadFilter(); b.type = type; b.frequency.value = f; b.Q.value = q; return b; };
+  const env = (g, t, peak, a, d) => { g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(0.0001, t + a + d); };
+
+  // ana hat
+  const out = gainNode(1);
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = -16; comp.knee.value = 10; comp.ratio.value = 3.5; comp.attack.value = 0.003; comp.release.value = 0.15;
+  out.connect(comp).connect(ctx.destination);
+  // reverb
+  const verb = ctx.createConvolver();
+  { const n = Math.floor(sr * 2.6), b = ctx.createBuffer(2, n, sr); for (let c = 0; c < 2; c++) { const d = b.getChannelData(c); for (let i = 0; i < n; i++) d[i] = (R() * 2 - 1) * Math.pow(1 - i / n, 3.2); } verb.buffer = b; }
+  const verbIn = filt('highpass', 250); verbIn.connect(verb);
+  const verbLp = filt('lowpass', 5200); verb.connect(verbLp); verbLp.connect(gainNode(0.5)).connect(out);
+  // gecikme (noktalı 8'lik)
+  const dly = ctx.createDelay(1.5); dly.delayTime.value = 0.375;
+  const dlyIn = gainNode(1), dlyLp = filt('lowpass', 3000), dlyFb = gainNode(0.34);
+  dlyIn.connect(dly); dly.connect(dlyLp); dlyLp.connect(dlyFb).connect(dly); dlyLp.connect(gainNode(0.4)).connect(out);
+  // gruplar
+  const drums = gainNode(0.95); drums.connect(out);
+  const duck = gainNode(1); duck.connect(out);     // pad + bas: kick'e göre "pompalanır"
+  const sfx = gainNode(0.9); sfx.connect(out);
+  const send = (node, amt, bus) => { const g = gainNode(amt); node.connect(g).connect(bus); };
+
+  // şarkı haritası
+  const BARS = ['Am7', 'F', 'E7', 'Am7', 'F', 'C', 'G', 'Am7', 'F', 'C', 'G', 'Am7'];
+  const CH = { Am7: [57, 60, 64, 67], F: [53, 57, 60, 64], C: [55, 60, 64, 67], G: [55, 59, 62, 67], E7: [52, 56, 59, 62] };
+  const ROOT = { Am7: 45, F: 41, C: 48, G: 43, E7: 40 };
+  const ARP = { Am7: [69, 72, 76, 79], F: [65, 69, 72, 76], C: [67, 72, 76, 79], G: [67, 71, 74, 79], E7: [68, 71, 74, 76] };
+  const chordAt = t => BARS[clamp(Math.floor(t / 2), 0, BARS.length - 1)];
+  const inBreak = t => t >= 18.5 && t < 19;
+  const full = t => (t >= 6 && t < 23 && !inBreak(t));
+
+  // sidechain eğrisi
+  {
+    const N = Math.ceil(DUR * 500), curve = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      const t = i / 500;
+      let g = 1;
+      if (full(t)) { const ph = (t - 6) % 0.5; g = 1 - 0.62 * (ph < 0.012 ? ph / 0.012 : Math.exp(-(ph - 0.012) / 0.1)); }
+      curve[i] = g;
+    }
+    duck.gain.setValueCurveAtTime(curve, 0, DUR);
+  }
+
+  /* --- enstrümanlar --- */
+  function kick(t, v = 1) {
+    const o = ctx.createOscillator(); o.type = 'sine';
+    o.frequency.setValueAtTime(165, t); o.frequency.exponentialRampToValueAtTime(55, t + 0.08); o.frequency.exponentialRampToValueAtTime(42, t + 0.4);
+    const g = gainNode(0); g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.95 * v, t + 0.003);
+    g.gain.exponentialRampToValueAtTime(0.35 * v, t + 0.14); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.45);
+    o.connect(g).connect(drums); o.start(t); o.stop(t + 0.5);
+    const n = noise(t, 0.02), ng = gainNode(0); env(ng, t, 0.22 * v, 0.001, 0.012);
+    n.connect(filt('highpass', 2500)).connect(ng).connect(drums);
+  }
+  function clap(t, v = 1) {
+    const n = noise(t, 0.3), bp = filt('bandpass', 1500, 0.9), g = gainNode(0);
+    g.gain.setValueAtTime(0.0001, t);
+    [0, 0.011, 0.022].forEach(o => { g.gain.setValueAtTime(0.5 * v, t + o); g.gain.exponentialRampToValueAtTime(0.06 * v, t + o + 0.009); });
+    g.gain.setValueAtTime(0.55 * v, t + 0.033); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+    n.connect(bp).connect(g); g.connect(drums); send(g, 0.35, verbIn);
+  }
+  function hat(t, v = 1, len = 0.045) {
+    const n = noise(t, len + 0.02), g = gainNode(0); env(g, t, 0.16 * v, 0.001, len);
+    const p = ctx.createStereoPanner(); p.pan.value = (R() - 0.5) * 0.8;
+    n.connect(filt('highpass', 7800)).connect(g).connect(p).connect(drums);
+  }
+  function crash(t, v = 1, len = 1.8) {
+    const n = noise(t, len), g = gainNode(0); env(g, t, 0.2 * v, 0.002, len);
+    n.connect(filt('highpass', 5200)).connect(g); g.connect(drums); send(g, 0.4, verbIn);
+  }
+  function bass(t, m, len, v = 1) {
+    const f = mtof(m), o = ctx.createOscillator(), sub = ctx.createOscillator();
+    o.type = 'sawtooth'; o.frequency.value = f; sub.type = 'sine'; sub.frequency.value = f / 2;
+    const lp = filt('lowpass', 1400, 3.5);
+    lp.frequency.setValueAtTime(1500, t); lp.frequency.exponentialRampToValueAtTime(320, t + 0.16);
+    const g = gainNode(0);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.2 * v, t + 0.005);
+    g.gain.setValueAtTime(0.2 * v, t + len - 0.03); g.gain.linearRampToValueAtTime(0.0001, t + len);
+    const sg = gainNode(0.9);
+    o.connect(lp).connect(g); sub.connect(sg).connect(g); g.connect(duck);
+    o.start(t); sub.start(t); o.stop(t + len + 0.02); sub.stop(t + len + 0.02);
+  }
+  // pad: tüm akorlar tek bir filtreden geçer; filtre sahnelere göre açılıp kapanır
+  const padLp = filt('lowpass', 420, 0.9), padOut = gainNode(0.9);
+  padLp.connect(padOut); padOut.connect(duck); send(padOut, 0.3, verbIn);
+  [[0, 420], [3, 700], [4.2, 950], [5.95, 3400], [6.0, 2300], [18.4, 2400], [18.6, 900], [18.98, 2800], [19.1, 2500], [23, 2600], [24, 500]]
+    .forEach(([t, f], i) => i === 0 ? padLp.frequency.setValueAtTime(f, t) : padLp.frequency.exponentialRampToValueAtTime(f, t));
+  function padChord(t, len, notes, v) {
+    notes.forEach((m, ni) => [-9, 9].forEach((det, k) => {
+      const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = det + (R() - .5) * 4;
+      const g = gainNode(0), p = ctx.createStereoPanner(); p.pan.value = (k ? 0.8 : -0.8) * (ni % 2 ? 1 : 0.75);
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.03 * v, t + 0.12);
+      g.gain.setValueAtTime(0.03 * v, t + len); g.gain.linearRampToValueAtTime(0.0001, t + len + 0.25);
+      o.connect(g).connect(p).connect(padLp); o.start(t); o.stop(t + len + 0.3);
+    }));
+  }
+  const pluckBus = gainNode(1); pluckBus.connect(out); send(pluckBus, 0.35, dlyIn); send(pluckBus, 0.25, verbIn);
+  function pluck(t, m, v = 1) {
+    const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = mtof(m);
+    const lp = filt('lowpass', 4000, 2); lp.frequency.setValueAtTime(5200, t); lp.frequency.exponentialRampToValueAtTime(700, t + 0.2);
+    const g = gainNode(0); env(g, t, 0.055 * v, 0.003, 0.3);
+    const p = ctx.createStereoPanner(); p.pan.value = Math.sin(t * 3.1) * 0.6;
+    o.connect(lp).connect(g).connect(p).connect(pluckBus); o.start(t); o.stop(t + 0.36);
+  }
+  function tone(t, f, v, len, type = 'sine', bus = sfx, f2 = null) {
+    const o = ctx.createOscillator(); o.type = type; o.frequency.setValueAtTime(f, t);
+    if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + Math.min(len, 0.12));
+    const g = gainNode(0); env(g, t, v, 0.004, len);
+    o.connect(g).connect(bus); o.start(t); o.stop(t + len + 0.05);
+    return g;
+  }
+  function whoosh(t, d, v = 1, f0 = 350, f1 = 3200) {
+    const n = noise(t, d), bp = filt('bandpass', f0, 0.9), g = gainNode(0), p = ctx.createStereoPanner();
+    bp.frequency.setValueAtTime(f0, t); bp.frequency.exponentialRampToValueAtTime(f1, t + d);
+    g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.3 * v, t + d * 0.6); g.gain.linearRampToValueAtTime(0.0001, t + d);
+    p.pan.setValueAtTime(-0.6, t); p.pan.linearRampToValueAtTime(0.6, t + d);
+    n.connect(bp).connect(g).connect(p).connect(sfx); send(g, 0.25, verbIn);
+  }
+
+  /* --- müzik düzeni --- */
+  BARS.forEach((c, i) => padChord(i * 2, 2, CH[c], i < 3 ? 1.9 : 1));
+  // giriş (3–5.5): yarım tempo kick, 8'lik hi-hat, çeyrek bas
+  for (let t = 3; t < 5.5; t += 0.5) {
+    if ((t - 3) % 1 === 0) kick(t, 0.75);
+    hat(t + 0.25, 0.55);
+    bass(t, ROOT[chordAt(t)], 0.2, 0.6);
+  }
+  // trampet rulosu (5–5.94)
+  for (let t = 5, i = 0; t < 5.94; i++) {
+    const step = t < 5.5 ? 0.125 : t < 5.75 ? 0.0625 : 0.03125;
+    const n = noise(t, 0.12), bp = filt('bandpass', 1300 + (t - 5) * 1600, 1), g = gainNode(0);
+    env(g, t, 0.12 + (t - 5) * 0.4, 0.001, 0.09);
+    n.connect(bp).connect(g); g.connect(drums); send(g, 0.2, verbIn);
+    t += step;
+  }
+  // ana bölüm
+  for (let t = 6; t < 23; t += 0.5) {
+    if (inBreak(t)) continue;
+    const beat = Math.round((t - 6) / 0.5);
+    kick(t);
+    if (beat % 2 === 1) clap(t);
+    hat(t + 0.25, 1, 0.06);
+    if (t >= 10) { hat(t + 0.125, 0.35, 0.03); hat(t + 0.375, 0.35, 0.03); }
+    if (!inBreak(t + 0.25)) bass(t + 0.25, ROOT[chordAt(t)], 0.2);
+  }
+  [9.625, 9.75, 9.875].forEach((t, i) => clap(t, 0.45 + i * 0.2));    // küçük dolgu
+  [6, 10, 19].forEach(t => crash(t));
+  // arpej (10–23)
+  for (let t = 10, s = 0; t < 23; t += 0.125, s++) {
+    if (inBreak(t)) continue;
+    const a = ARP[chordAt(t)], idx = [0, 2, 1, 3, 0, 2, 3, 1][s % 8];
+    pluck(t, a[idx] + (s % 16 >= 12 ? 12 : 0), s % 4 === 0 ? 1 : 0.7);
+  }
+  // son vuruş
+  kick(23, 1.1); crash(23, 1.2, 2.2);
+  padChord(23, 0.6, CH.Am7.map(m => m + 12), 1.2);
+  tone(23, 110, 0.5, 1.6, 'sine', drums, 40);
+
+  /* --- efektler (animasyondaki CUES listesinden) --- */
+  for (const c of CUES) {
+    const t = c.t;
+    switch (c.type) {
+      case 'key': {
+        const n = noise(t, 0.03), g = gainNode(0);
+        env(g, t, 0.13 * c.v, 0.0008, 0.016);
+        n.connect(filt('bandpass', 2600 + R() * 1800, 1.3)).connect(g).connect(sfx);
+        tone(t, 150 + R() * 40, 0.07 * c.v, 0.03);
+        break;
+      }
+      case 'glitch':
+        for (let i = 0; i < 12; i++) tone(t + i * 0.022, 250 + R() * 2200, 0.05, 0.018, 'square');
+        whoosh(t, 0.25, 0.5, 2000, 600);
+        break;
+      case 'whoosh': whoosh(t, c.d, 1); break;
+      case 'err': {
+        const k = [1, 1.06, 0.94, 1.12, 0.89][c.i % 5];
+        const g1 = tone(t, 660 * k, 0.055, 0.07, 'square'); tone(t + 0.075, 523 * k, 0.055, 0.1, 'square');
+        send(g1, 0.3, verbIn);
+        break;
+      }
+      case 'riser': {
+        const d = c.d, n = noise(t, d), bp = filt('bandpass', 350, 1.4), g = gainNode(0);
+        bp.frequency.setValueAtTime(350, t); bp.frequency.exponentialRampToValueAtTime(7000, t + d);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.3, t + d); g.gain.linearRampToValueAtTime(0.0001, t + d + 0.02);
+        n.connect(bp).connect(g).connect(sfx); send(g, 0.3, verbIn);
+        const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.setValueAtTime(90, t); o.frequency.exponentialRampToValueAtTime(720, t + d);
+        const og = gainNode(0); og.gain.setValueAtTime(0.0001, t); og.gain.exponentialRampToValueAtTime(0.045, t + d); og.gain.linearRampToValueAtTime(0.0001, t + d + 0.02);
+        o.connect(filt('lowpass', 1800)).connect(og).connect(sfx); o.start(t); o.stop(t + d + 0.05);
+        break;
+      }
+      case 'impact': {
+        tone(t, 120, 0.8, 1.5, 'sine', drums, 30);
+        const n = noise(t, 2.2), g = gainNode(0); env(g, t, 0.3, 0.002, 2.1);
+        n.connect(filt('highpass', 3500)).connect(g).connect(sfx); send(g, 0.5, verbIn);
+        break;
+      }
+      case 'pop': {
+        const f = [440, 523.25, 587.33, 659.25, 783.99, 880, 1046.5, 1174.66][c.i % 8];
+        const g = tone(t, f * 0.7, 0.16, 0.14, 'sine', sfx, f); tone(t, f * 2, 0.035, 0.1, 'triangle');
+        send(g, 0.25, verbIn);
+        break;
+      }
+      case 'ding': {
+        const f = [659.25, 783.99, 880, 1046.5][c.i % 4];
+        const g = tone(t, f, 0.12, 0.9); tone(t, f * 2, 0.04, 0.6); tone(t, f * 3.01, 0.015, 0.4);
+        send(g, 0.35, verbIn); send(g, 0.2, dlyIn);
+        break;
+      }
+      case 'swell': {
+        const n = noise(t, c.d), g = gainNode(0);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.28, t + c.d - 0.01); g.gain.linearRampToValueAtTime(0.0001, t + c.d);
+        n.connect(filt('highpass', 4200)).connect(g).connect(sfx);
+        whoosh(t + 0.1, 0.5, 0.9, 500, 4000);
+        break;
+      }
+      case 'bloop': { const g = tone(t, 260, 0.22, 0.35, 'sine', sfx, 700); send(g, 0.3, verbIn); break; }
+      case 'click': {
+        [0, 0.07].forEach((o, i) => { const n = noise(t + o, 0.02), g = gainNode(0); env(g, t + o, i ? 0.14 : 0.24, 0.0006, 0.01); n.connect(filt('highpass', 2500)).connect(g).connect(sfx); });
+        for (let i = 0; i < 6; i++) tone(t + 0.06 + i * 0.03, 2600 + R() * 2600, 0.025, 0.12);
+        break;
+      }
+      case 'sent': {                                   // DM "gönderildi" sesi
+        const g0 = tone(t, 520, 0.12, 0.16, 'sine', sfx, 1250); send(g0, 0.25, verbIn);
+        const g1 = tone(t + 0.1, 880, 0.085, 0.5); tone(t + 0.18, 1318.5, 0.085, 0.7);
+        send(g1, 0.3, verbIn); send(g1, 0.25, dlyIn);
+        break;
+      }
+    }
+  }
+
+  const buf = await ctx.startRendering();
+  // mastering: seviye ayarı + yumuşak limitleme + giriş/çıkış
+  const L = buf.getChannelData(0), Rt = buf.getChannelData(1), n = buf.length;
+  let sum = 0; for (let i = 0; i < n; i++) sum += L[i] * L[i] + Rt[i] * Rt[i];
+  const rms = Math.sqrt(sum / (2 * n)) || 1, g = Math.min(10, 0.19 / rms), knee = 0.88;
+  const lim = x => { const a = Math.abs(x); return a <= knee ? x : Math.sign(x) * (knee + (1 - knee) * Math.tanh((a - knee) / (1 - knee))); };
+  const fadeIn = Math.floor(0.01 * sr), fadeOut = Math.floor(0.45 * sr);
+  for (let i = 0; i < n; i++) {
+    let f = 1; if (i < fadeIn) f = i / fadeIn; if (i > n - fadeOut) f = (n - i) / fadeOut;
+    L[i] = lim(L[i] * g) * 0.97 * f; Rt[i] = lim(Rt[i] * g) * 0.97 * f;
+  }
+  return buf;
+}
+function wavBytes(buf) {
+  const ch = buf.numberOfChannels, n = buf.length, sr = buf.sampleRate, ab = new ArrayBuffer(44 + n * ch * 2), dv = new DataView(ab);
+  const ws = (o, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(o + i, s.charCodeAt(i)); };
+  ws(0, 'RIFF'); dv.setUint32(4, 36 + n * ch * 2, true); ws(8, 'WAVE'); ws(12, 'fmt '); dv.setUint32(16, 16, true);
+  dv.setUint16(20, 1, true); dv.setUint16(22, ch, true); dv.setUint32(24, sr, true); dv.setUint32(28, sr * ch * 2, true);
+  dv.setUint16(32, ch * 2, true); dv.setUint16(34, 16, true); ws(36, 'data'); dv.setUint32(40, n * ch * 2, true);
+  const chans = Array.from({ length: ch }, (_, c) => buf.getChannelData(c));
+  let o = 44;
+  for (let i = 0; i < n; i++) for (let c = 0; c < ch; c++) { dv.setInt16(o, Math.round(clamp(chans[c][i], -1, 1) * 32767), true); o += 2; }
+  return new Uint8Array(ab);
+}
+function toBase64(u8) { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+
+/* =====================================================================
+   6) ÖNİZLEME OYNATICI
+   ===================================================================== */
+function setupPreview() {
+  const frame = $('#frame'), stage = $('#stage'), scrub = $('#scrub'), tm = $('#tm'), bPlay = $('#bPlay'), overlay = $('#overlay');
+  const ICON_PLAY = '<svg viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z"/></svg>', ICON_PAUSE = '<svg viewBox="0 0 24 24"><path d="M6 4.5h4.2v15H6zM13.8 4.5H18v15h-4.2z"/></svg>';
+  $(FORMAT === 'feed' ? '#fFeed' : '#fReels').classList.add('on');
+  if (FORMAT === 'feed') $('#dl').href = 'cikti/yazilim-dersleri-4x5.mp4';
+  scrub.max = DUR;
+  function fit() {
+    const s = Math.min((innerWidth - 24) / W, (innerHeight - 72 - 24) / H);
+    frame.style.width = W * s + 'px'; frame.style.height = H * s + 'px';
+    frame.style.marginLeft = -(W * s) / 2 + 'px'; frame.style.marginTop = -(H * s) / 2 + 'px';
+    stage.style.transform = `scale(${s})`;
+  }
+  addEventListener('resize', fit); fit();
+
+  let actx = null, abuf = null, src = null, playing = false, t0 = 0, pos = 0, raf = 0, building = null;
+  const fmt = x => `${Math.floor(x / 60)}:${(x % 60).toFixed(1).padStart(4, '0')}`;
+  const ui = t => { scrub.value = t; tm.textContent = `${fmt(t)} / ${fmt(DUR)}`; bPlay.innerHTML = playing ? ICON_PAUSE : ICON_PLAY; };
+  const stopSrc = () => { if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; } };
+  const now = () => playing ? (actx ? actx.currentTime - t0 : (performance.now() / 1000) - t0) : pos;
+  async function play(from = pos) {
+    overlay.style.display = 'none';
+    if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { actx = null; } }
+    if (actx && !abuf) {
+      if (!building) { overlay.style.display = ''; overlay.querySelector('span').lastChild.textContent = 'Müzik hazırlanıyor…'; building = buildAudio().catch(e => (console.warn(e), null)); }
+      abuf = await building; overlay.style.display = 'none';
+    }
+    if (actx) await actx.resume();
+    stopSrc();
+    if (from >= DUR - 0.01) from = 0;
+    if (actx && abuf) { src = actx.createBufferSource(); src.buffer = abuf; src.connect(actx.destination); src.start(0, from); t0 = actx.currentTime - from; }
+    else t0 = performance.now() / 1000 - from;
+    playing = true; cancelAnimationFrame(raf); tick();
+  }
+  function pause() { pos = now(); playing = false; stopSrc(); cancelAnimationFrame(raf); ui(pos); }
+  function tick() {
+    if (!playing) return;
+    const t = now();
+    if (t >= DUR) { pos = 0; play(0); return; }
+    pos = t; renderFrame(t); ui(t);
+    raf = requestAnimationFrame(tick);
+  }
+  bPlay.onclick = () => playing ? pause() : play();
+  overlay.onclick = () => play(0);
+  scrub.oninput = () => { pos = +scrub.value; if (playing) play(pos); else { renderFrame(pos); ui(pos); } };
+  addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playing ? pause() : play(); } });
+  $('#cSafe').onchange = e => SC.safe.classList.toggle('on', e.target.checked);
+  pos = 8.2; renderFrame(pos); ui(pos);       // kapak karesi
+}
+
+/* =====================================================================
+   7) BAŞLAT
+   ===================================================================== */
+(async function boot() {
+  const root = document.documentElement.style;
+  root.setProperty('--W', W + 'px'); root.setProperty('--H', H + 'px'); root.setProperty('--top', FMT.top + 'px');
+  if (RENDER) document.body.classList.add('render');
+  buildDOM();
+  const sample = 'AaİığĞşŞçÇöÖüÜ<>{}';
+  await Promise.all(['500', '600', '700', '800'].map(w => document.fonts.load(`${w} 40px "Plus Jakarta Sans"`, sample))
+    .concat(['400', '500', '700', '800'].map(w => document.fonts.load(`${w} 40px "JetBrains Mono"`, sample))));
+  await document.fonts.ready;
+  buildTimeline();
+  window.DURATION = DUR;
+  window.FORMAT = FORMAT;
+  window.renderFrame = renderFrame;
+  window.exportAudioWav = async () => toBase64(wavBytes(await buildAudio()));
+  if (RENDER) { renderFrame(0); window.__ready = true; }
+  else setupPreview();
+})();
+</script>
+</body>
+</html>

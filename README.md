@@ -5,6 +5,7 @@
 | Site | Demo |
 |---|---|
 | SwenzyBots | https://nurshia.github.io/WebArsiv/swenzy.com.tr/ |
+| Yazılım Dersleri — Instagram tanıtım videosu | https://nurshia.github.io/WebArsiv/yazilim-dersleri-tanitim/ |
 
 Yaptığım web sitelerinin tek repoda toplanmış hâli. Her site kendi klasöründe duruyor ve
 GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
@@ -15,22 +16,27 @@ GitHub Pages üzerinden kendi alt yolundan canlı olarak yayınlanıyor.
 .
 ├── index.html          # demo listesi (kök sayfa)
 ├── .nojekyll           # Jekyll işlemesini kapatır
-└── swenzy.com.tr/      # SwenzyBots — Discord bot hizmetleri sitesi
-    ├── index.html
-    ├── features.html
-    ├── pricing.html
-    ├── contact.html
-    ├── status.html
-    ├── style.css
-    ├── script.js
-    ├── navbar.js
-    ├── protect.js
-    └── legal/
-        ├── legal.css
-        ├── privacy.html
-        ├── terms.html
-        ├── kvkk.html
-        └── distance.html
+├── swenzy.com.tr/      # SwenzyBots — Discord bot hizmetleri sitesi
+│   ├── index.html
+│   ├── features.html
+│   ├── pricing.html
+│   ├── contact.html
+│   ├── status.html
+│   ├── style.css
+│   ├── script.js
+│   ├── navbar.js
+│   ├── protect.js
+│   └── legal/
+│       ├── legal.css
+│       ├── privacy.html
+│       ├── terms.html
+│       ├── kvkk.html
+│       └── distance.html
+└── yazilim-dersleri-tanitim/   # Instagram tanıtım videosu (HTML → MP4)
+    ├── index.html      # animasyon + müzik + önizleme oynatıcısı
+    ├── render.mjs      # kare kare MP4 üretimi (Playwright + ffmpeg)
+    ├── fonts/
+    └── cikti/          # hazır videolar ve kapak görselleri
 ```
 
 ## Yeni site ekleme

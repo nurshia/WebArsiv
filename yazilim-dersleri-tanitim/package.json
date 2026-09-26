@@ -1,0 +1,17 @@
+{
+  "name": "yazilim-dersleri-tanitim",
+  "private": true,
+  "type": "module",
+  "description": "HTML ile üretilen Instagram tanıtım videosu",
+  "scripts": {
+    "render": "node render.mjs",
+    "reels": "node render.mjs --format reels",
+    "gonderi": "node render.mjs --format feed"
+  },
+  "dependencies": {
+    "playwright": "1.56.1"
+  },
+  "optionalDependencies": {
+    "ffmpeg-static": "^5.2.0"
+  }
+}
